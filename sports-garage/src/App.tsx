@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Phone, Menu, X, MapPin, ShieldCheck, Star, Gauge, Cpu, Settings2, Cog, ChevronDown, ChevronUp, Calendar, CheckCircle2, Award, Zap, MessageCircle, Mail, ArrowRight } from 'lucide-react';
+import { Phone, Menu, X, MapPin, ShieldCheck, Star, Gauge, Cpu, Settings2, Cog, ChevronDown, ChevronUp, Calendar, CheckCircle2, Award, Zap, MessageCircle, Mail } from 'lucide-react';
 
 const GARAGE_CONFIG = {
   businessName: 'Velocity Performance Garage',
@@ -21,11 +21,116 @@ const GARAGE_CONFIG = {
   serviceAreas: ['Brisbane', 'Moorooka', 'Yeerongpilly', 'Salisbury', 'Annerley', 'Greenslopes', 'Cannon Hill', 'Morningside', 'Hawthorne', 'New Farm', 'Teneriffe', 'Newstead'],
 };
 
-const TRUST_MATRIX = [
-  { icon: Award, title: 'Factory-Trained', subtitle: 'Certified Specialist Technicians' },
-  { icon: Cpu, title: 'Dealer-Level', subtitle: 'Advanced Diagnostic Equipment' },
-  { icon: ShieldCheck, title: 'Genuine Parts', subtitle: '100% OEM & Track-Grade Only' },
-  { icon: Settings2, title: 'Comprehensive', subtitle: 'Workshop Warranty Included' },
+const PERFORMANCE_TRUST = [
+  {
+    index: '01',
+    category: 'TECH',
+    title: 'FACTORY-TRAINED TECHNICIANS',
+    description: 'Our elite mechanics are factory-certified to handle high-performance Euro and JDM platforms with absolute precision. Every technician holds manufacturer-specific certifications from Porsche, BMW M, Mercedes-AMG, and Nissan GT-R programs.',
+    icon: Award,
+  },
+  {
+    index: '02',
+    category: 'DIAG',
+    title: 'DEALER-LEVEL DIAGNOSTICS',
+    description: 'We invest over $200k in factory-grade diagnostic tooling—including BMW ISTA, Porsche PIWIS, and Mercedes STAR. Our state-of-the-art workshop catches issues before they become expensive problems.',
+    icon: Cpu,
+  },
+  {
+    index: '03',
+    category: 'PARTS',
+    title: 'GENUINE OEM PARTS ONLY',
+    description: 'We refuse to compromise. Every component—whether rubber bushings or full engine rebuilds—uses 100% genuine OEM or track-grade equivalents. No counterfeit parts, no shortcuts, just uncompromising quality.',
+    icon: ShieldCheck,
+  },
+  {
+    index: '04',
+    category: 'WARRANTY',
+    title: '24-MONTH WORKSHOP WARRANTY',
+    description: 'Every service comes with our ironclad 24-month/40,000km parts and labour warranty. We stand behind our work completely, giving you total peace of mind with your prized machinery.',
+    icon: Settings2,
+  },
+];
+
+const TRANSFORMATION_TABS = [
+  {
+    id: 'track',
+    label: 'Track Upgrade',
+    issue: {
+      title: 'THE LIMITATION',
+      description: 'Factory suspension components are designed for comfort, not performance. OEM springs sag over time, bushings wear, and alignment specs are generic—not optimised for aggressive cornering or track use.',
+      image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop',
+      bullets: [
+        'Sagged OEM springs reduce cornering grip',
+        'Worn bushings introduce compliance',
+        'Generic factory alignment specs',
+        'No adjustment for driver preference',
+      ],
+    },
+    solution: {
+      title: 'THE ELITE SOLUTION',
+      description: 'We install precision-engineered coilover systems from Bilstein, KW, and Ohlins—each tuned to your specific vehicle and driving style. Our in-house corner balancing ensures perfect weight distribution.',
+      image: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&h=500&fit=crop',
+      badges: [
+        '+40% Cornering Grip',
+        'Adjustable Damping (22-click)',
+        'Corner-Weighted Balance',
+        'Track-Day Ready Geometry',
+      ],
+    },
+  },
+  {
+    id: 'tuning',
+    label: 'Performance Tuning',
+    issue: {
+      title: 'THE RESTRICTION',
+      description: 'Factory ECU programming is deliberately conservative—designed to meet emissions standards, maximise fuel economy, and appeal to the broadest customer base. Your engine is making far less power than it safely could.',
+      image: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&h=500&fit=crop',
+      bullets: [
+        'Conservative factory power output',
+        'Restricted torque curves',
+        'Suboptimal fuel mapping',
+        'No ability to adjust for modifications',
+      ],
+    },
+    solution: {
+      title: 'THE ELITE SOLUTION',
+      description: 'Our ECU remapping unlocks your engine\'s true potential usingdyno-proven software from Quantum, VF Engineering, and Shok Industries. We develop custom maps for your specific build—no generic tunes.',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop',
+      badges: [
+        '+45kW Peak Power Gain',
+        'Optimised Torque Curve',
+        'Custom Fuel Strategy',
+        'Warranty-Safe Remap',
+      ],
+    },
+  },
+  {
+    id: 'braking',
+    label: 'Precision Braking',
+    issue: {
+      title: 'THE VULNERABILITY',
+      description: 'Standard brake rotors are engineered for everyday driving—not repeated hard laps or mountain drives. Factory pads fade quickly, rotors warp under heat stress, and brake fluid degrades, compromising pedal feel.',
+      image: 'https://images.unsplash.com/photo-1597681393878-940f7d3ac2d7?w=800&h=500&fit=crop',
+      bullets: [
+        'Glazed rotors cause brake fade',
+        'Generic pads lack heat tolerance',
+        'Contaminated brake fluid',
+        'No improvement for track use',
+      ],
+    },
+    solution: {
+      title: 'THE ELITE SOLUTION',
+      description: 'We install premium big brake kits from Brembo, Alcon, and Endless—complete with floating two-piece rotors, race-grade pads, braided steel lines, and fresh DOT 5.1 fluid. Every system is bedded in and tested.',
+      image: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&h=500&fit=crop',
+      badges: [
+        '+35% Braking Efficiency',
+        'Heat Dissipation Optimised',
+        'Consistent Pedal Feel',
+        'Track-Durable Components',
+      ],
+    },
+  },
 ];
 
 const SERVICES = [
@@ -56,30 +161,6 @@ const SERVICES = [
     description: 'From routine maintenance to full engine rebuilds. Our certified technicians handle everything from timing chains to forced induction conversions.',
     image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&h=400&fit=crop',
     includes: ['Full Engine Teardown', 'Machine Shop Network', 'Performance Builds', 'Restoration Projects'],
-  },
-];
-
-const TRANSFORMATIONS = [
-  {
-    category: 'Brakes',
-    before: 'Worn standard rotors, faded calipers, expired fluid',
-    after: 'Brembo GT kit, braided lines, fresh DOT 5.1 fluid',
-    imageBefore: 'https://images.unsplash.com/photo-1597681393878-940f7d3ac2d7?w=500&h=300&fit=crop',
-    imageAfter: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=500&h=300&fit=crop',
-  },
-  {
-    category: 'Suspension',
-    before: 'Sagged springs, tired bushings, incorrect alignment',
-    after: 'Bilstein Damptronic, polyurethane bushes, laser alignment',
-    imageBefore: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&h=300&fit=crop',
-    imageAfter: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=500&h=300&fit=crop',
-  },
-  {
-    category: 'Engine',
-    before: 'Sluggish response, excessive oil consumption, timing chain noise',
-    after: 'Full service, chain replacement, ECU remap, +45kw peak power',
-    imageBefore: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500&h=300&fit=crop',
-    imageAfter: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop',
   },
 ];
 
@@ -332,19 +413,46 @@ export default function App() {
           </div>
         </section>
 
-        {/* Trust Matrix */}
+        {/* Performance Trust Matrix */}
         <section className="py-20 bg-carbon-light border-y border-slate-border">
           <div className="section-padding">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-              {TRUST_MATRIX.map((trust, i) => {
+            <div className="text-center mb-16">
+              <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">Why Choose Velocity</span>
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">The Performance Trust Matrix</h2>
+              <p className="text-metallic text-lg max-w-2xl mx-auto">
+                Four pillars of excellence that define how we service your high-performance machinery.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+              {PERFORMANCE_TRUST.map((trust, i) => {
                 const Icon = trust.icon;
                 return (
-                  <div key={i} className="relative p-6 rounded-xl bg-carbon-mid border border-slate-border animate-slide-in card-hover" style={{ animationDelay: `${i * 0.1}s` }}>
-                    <div className="w-14 h-14 bg-neon-green/10 rounded-lg flex items-center justify-center mb-4">
-                      <Icon className="w-7 h-7 text-neon-green" />
+                  <div 
+                    key={i} 
+                    className="group relative bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 hover:-translate-y-2 hover:border-neon-green/50 hover:shadow-[0_0_30px_rgba(200,255,0,0.15)] transition-all duration-400 ease-out"
+                    style={{ animationDelay: `${i * 0.15}s` }}
+                  >
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <span className="text-neon-green/60 font-mono text-xs tracking-wider">{trust.index}</span>
+                      <span className="w-8 h-px bg-slate-700" />
+                      <span className="text-neon-green/60 font-mono text-xs tracking-wider">{trust.category}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-1">{trust.title}</h3>
-                    <p className="text-sm text-metallic">{trust.subtitle}</p>
+                    
+                    <div className="pt-10 mb-4">
+                      <div className="w-14 h-14 bg-neon-green/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-neon-green/20 group-hover:scale-110 transition-all duration-300">
+                        <Icon className="w-7 h-7 text-neon-green group-hover:rotate-12 transition-transform duration-300" />
+                      </div>
+                      <h3 className="font-display text-lg font-bold text-white leading-tight uppercase tracking-wide">
+                        {trust.title}
+                      </h3>
+                    </div>
+                    
+                    <p className="text-metallic text-sm leading-relaxed">
+                      {trust.description}
+                    </p>
+
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-neon-green/0 to-transparent group-hover:via-neon-green/50 transition-all duration-500 rounded-b-2xl" />
                   </div>
                 );
               })}
@@ -407,89 +515,298 @@ export default function App() {
           </div>
         </section>
 
-        {/* Transformation Showcase */}
-        <section id="transformations" className="py-20 bg-carbon-light">
+        {/* Under The Hood Showcase */}
+        <section id="transformations" className="py-20 bg-carbon">
           <div className="section-padding">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">The Difference</span>
+                <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">Real Results</span>
                 <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">Under The Hood</h2>
                 <p className="text-metallic text-lg max-w-2xl mx-auto">
-                  Real transformations we've delivered for our clients. See what's possible when quality meets expertise.
+                  Visualise the dramatic mechanical transformations we perform daily on Brisbane's most prized machinery.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4 justify-center mb-10">
-                {TRANSFORMATIONS.map((t, i) => (
+              {/* Dashboard-Style Tab Selector */}
+              <div className="flex flex-wrap justify-center gap-2 mb-12">
+                {TRANSFORMATION_TABS.map((tab, i) => (
                   <button
-                    key={i}
+                    key={tab.id}
                     onClick={() => setActiveTransform(i)}
-                    className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                    className={`relative px-8 py-4 font-semibold text-sm tracking-wider uppercase transition-all duration-300 ease-out rounded-lg overflow-hidden ${
                       activeTransform === i 
-                        ? 'bg-neon-green text-carbon' 
-                        : 'bg-carbon-mid text-metallic hover:text-white border border-slate-border'
+                        ? 'text-carbon' 
+                        : 'text-metallic hover:text-white'
                     }`}
                   >
-                    {t.category}
+                    <span className={`absolute inset-0 transition-all duration-300 ${
+                      activeTransform === i 
+                        ? 'bg-neon-green opacity-100' 
+                        : 'bg-carbon-mid opacity-0'
+                    }`} />
+                    <span className="absolute inset-0 border border-slate-border rounded-lg" />
+                    <span className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                      activeTransform === i ? 'w-full bg-neon-green' : 'w-0'
+                    }`} />
+                    <span className="relative z-10 flex items-center gap-2">
+                      {tab.label}
+                      {activeTransform === i && (
+                        <span className="w-2 h-2 bg-carbon rounded-full animate-pulse" />
+                      )}
+                    </span>
                   </button>
                 ))}
               </div>
 
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div className="space-y-6">
-                  <div className="relative rounded-2xl overflow-hidden border-2 border-red-500/30">
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-red-500/20 text-red-400 text-sm font-bold rounded">
-                      Before
+              {/* Split-Screen Transformation Display */}
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* LEFT: The Issue */}
+                <div 
+                  className={`transition-all duration-500 ease-in-out ${
+                    activeTransform === 0 
+                      ? 'opacity-100 translate-x-0 scale-100' 
+                      : 'opacity-0 translate-x-[-20px] scale-95 pointer-events-none absolute'
+                  }`}
+                  style={{ position: activeTransform === 0 ? 'relative' : 'absolute' }}
+                >
+                  <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl overflow-hidden">
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={TRANSFORMATION_TABS[0].issue.image} 
+                        alt="Factory limitation" 
+                        className="w-full h-full object-cover opacity-40"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
+                      <div className="absolute top-4 left-4 px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg">
+                        <span className="text-red-400 text-xs font-bold tracking-wider uppercase">
+                          {TRANSFORMATION_TABS[0].issue.title}
+                        </span>
+                      </div>
                     </div>
-                    <img src={TRANSFORMATIONS[activeTransform].imageBefore} alt="Before" className="w-full h-64 object-cover" />
-                    <div className="p-6 bg-carbon-mid">
-                      <p className="text-metallic text-sm mb-2">Current State</p>
-                      <p className="text-white font-medium">{TRANSFORMATIONS[activeTransform].before}</p>
-                    </div>
-                  </div>
-
-                  <div className="relative rounded-2xl overflow-hidden border-2 border-neon-green/30">
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-neon-green/20 text-neon-green text-sm font-bold rounded">
-                      After
-                    </div>
-                    <img src={TRANSFORMATIONS[activeTransform].imageAfter} alt="After" className="w-full h-64 object-cover" />
-                    <div className="p-6 bg-carbon-mid">
-                      <p className="text-neon-green text-sm mb-2">Our Solution</p>
-                      <p className="text-white font-medium">{TRANSFORMATIONS[activeTransform].after}</p>
+                    <div className="p-6">
+                      <p className="text-metallic leading-relaxed mb-6">
+                        {TRANSFORMATION_TABS[0].issue.description}
+                      </p>
+                      <div className="space-y-3">
+                        {TRANSFORMATION_TABS[0].issue.bullets.map((bullet, j) => (
+                          <div key={j} className="flex items-start gap-3">
+                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0" />
+                            <span className="text-white/80 text-sm">{bullet}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-carbon-mid rounded-2xl p-8 border border-slate-border">
-                  <div className="w-14 h-14 bg-neon-green/10 rounded-xl flex items-center justify-center mb-6">
-                    <ArrowRight className="w-7 h-7 text-neon-green" />
+                {/* RIGHT: The Solution */}
+                <div 
+                  className={`transition-all duration-500 ease-in-out ${
+                    activeTransform === 0 
+                      ? 'opacity-100 translate-x-0 scale-100' 
+                      : 'opacity-0 translate-x-[20px] scale-95 pointer-events-none absolute'
+                  }`}
+                  style={{ position: activeTransform === 0 ? 'relative' : 'absolute' }}
+                >
+                  <div className="bg-carbon-mid border-2 border-neon-green/30 rounded-2xl overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-neon-green/5 to-transparent" />
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={TRANSFORMATION_TABS[0].solution.image} 
+                        alt="Elite solution" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-carbon-mid via-carbon-mid/50 to-transparent" />
+                      <div className="absolute top-4 left-4 px-4 py-2 bg-neon-green/20 border border-neon-green/30 rounded-lg">
+                        <span className="text-neon-green text-xs font-bold tracking-wider uppercase">
+                          {TRANSFORMATION_TABS[0].solution.title}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6 relative z-10">
+                      <p className="text-metallic leading-relaxed mb-6">
+                        {TRANSFORMATION_TABS[0].solution.description}
+                      </p>
+                      <div className="grid grid-cols-2 gap-3">
+                        {TRANSFORMATION_TABS[0].solution.badges.map((badge, j) => (
+                          <div key={j} className="flex items-center gap-2 px-3 py-2 bg-neon-green/10 rounded-lg border border-neon-green/20">
+                            <Zap className="w-4 h-4 text-neon-green flex-shrink-0" />
+                            <span className="text-neon-green text-xs font-semibold">{badge}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="absolute -bottom-px -left-px w-16 h-16 bg-neon-green/20 rounded-tr-2xl" />
+                    <div className="absolute -top-px -right-px w-16 h-16 bg-neon-green/20 rounded-bl-2xl" />
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-white mb-4">
-                    {TRANSFORMATIONS[activeTransform].category} Upgrade
-                  </h3>
-                  <p className="text-metallic mb-8">
-                    Don't settle for worn components. We use only premium track-grade parts and proven installation techniques 
-                    to transform your driving experience.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-neon-green" />
-                      <span className="text-white">Professional installation by certified technicians</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-neon-green" />
-                      <span className="text-white">Premium quality parts with full warranty</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-neon-green" />
-                      <span className="text-white">Detailed before/after documentation</span>
-                    </div>
-                  </div>
-                  <button onClick={handleCall} className="btn-call w-full mt-8 justify-center">
-                    <Phone className="w-5 h-5" />
-                    Get Your Quote
-                  </button>
                 </div>
+
+                {/* Tab 1: Performance Tuning */}
+                <div 
+                  className={`transition-all duration-500 ease-in-out ${
+                    activeTransform === 1 
+                      ? 'opacity-100 translate-x-0 scale-100' 
+                      : 'opacity-0 translate-x-[-20px] scale-95 pointer-events-none absolute'
+                  }`}
+                  style={{ position: activeTransform === 1 ? 'relative' : 'absolute' }}
+                >
+                  <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl overflow-hidden">
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={TRANSFORMATION_TABS[1].issue.image} 
+                        alt="Factory limitation" 
+                        className="w-full h-full object-cover opacity-40"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
+                      <div className="absolute top-4 left-4 px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg">
+                        <span className="text-red-400 text-xs font-bold tracking-wider uppercase">
+                          {TRANSFORMATION_TABS[1].issue.title}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <p className="text-metallic leading-relaxed mb-6">
+                        {TRANSFORMATION_TABS[1].issue.description}
+                      </p>
+                      <div className="space-y-3">
+                        {TRANSFORMATION_TABS[1].issue.bullets.map((bullet, j) => (
+                          <div key={j} className="flex items-start gap-3">
+                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0" />
+                            <span className="text-white/80 text-sm">{bullet}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div 
+                  className={`transition-all duration-500 ease-in-out ${
+                    activeTransform === 1 
+                      ? 'opacity-100 translate-x-0 scale-100' 
+                      : 'opacity-0 translate-x-[20px] scale-95 pointer-events-none absolute'
+                  }`}
+                  style={{ position: activeTransform === 1 ? 'relative' : 'absolute' }}
+                >
+                  <div className="bg-carbon-mid border-2 border-neon-green/30 rounded-2xl overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-neon-green/5 to-transparent" />
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={TRANSFORMATION_TABS[1].solution.image} 
+                        alt="Elite solution" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-carbon-mid via-carbon-mid/50 to-transparent" />
+                      <div className="absolute top-4 left-4 px-4 py-2 bg-neon-green/20 border border-neon-green/30 rounded-lg">
+                        <span className="text-neon-green text-xs font-bold tracking-wider uppercase">
+                          {TRANSFORMATION_TABS[1].solution.title}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6 relative z-10">
+                      <p className="text-metallic leading-relaxed mb-6">
+                        {TRANSFORMATION_TABS[1].solution.description}
+                      </p>
+                      <div className="grid grid-cols-2 gap-3">
+                        {TRANSFORMATION_TABS[1].solution.badges.map((badge, j) => (
+                          <div key={j} className="flex items-center gap-2 px-3 py-2 bg-neon-green/10 rounded-lg border border-neon-green/20">
+                            <Zap className="w-4 h-4 text-neon-green flex-shrink-0" />
+                            <span className="text-neon-green text-xs font-semibold">{badge}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="absolute -bottom-px -left-px w-16 h-16 bg-neon-green/20 rounded-tr-2xl" />
+                    <div className="absolute -top-px -right-px w-16 h-16 bg-neon-green/20 rounded-bl-2xl" />
+                  </div>
+                </div>
+
+                {/* Tab 2: Precision Braking */}
+                <div 
+                  className={`transition-all duration-500 ease-in-out ${
+                    activeTransform === 2 
+                      ? 'opacity-100 translate-x-0 scale-100' 
+                      : 'opacity-0 translate-x-[-20px] scale-95 pointer-events-none absolute'
+                  }`}
+                  style={{ position: activeTransform === 2 ? 'relative' : 'absolute' }}
+                >
+                  <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl overflow-hidden">
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={TRANSFORMATION_TABS[2].issue.image} 
+                        alt="Factory limitation" 
+                        className="w-full h-full object-cover opacity-40"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
+                      <div className="absolute top-4 left-4 px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg">
+                        <span className="text-red-400 text-xs font-bold tracking-wider uppercase">
+                          {TRANSFORMATION_TABS[2].issue.title}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <p className="text-metallic leading-relaxed mb-6">
+                        {TRANSFORMATION_TABS[2].issue.description}
+                      </p>
+                      <div className="space-y-3">
+                        {TRANSFORMATION_TABS[2].issue.bullets.map((bullet, j) => (
+                          <div key={j} className="flex items-start gap-3">
+                            <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0" />
+                            <span className="text-white/80 text-sm">{bullet}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div 
+                  className={`transition-all duration-500 ease-in-out ${
+                    activeTransform === 2 
+                      ? 'opacity-100 translate-x-0 scale-100' 
+                      : 'opacity-0 translate-x-[20px] scale-95 pointer-events-none absolute'
+                  }`}
+                  style={{ position: activeTransform === 2 ? 'relative' : 'absolute' }}
+                >
+                  <div className="bg-carbon-mid border-2 border-neon-green/30 rounded-2xl overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-neon-green/5 to-transparent" />
+                    <div className="relative h-56 overflow-hidden">
+                      <img 
+                        src={TRANSFORMATION_TABS[2].solution.image} 
+                        alt="Elite solution" 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-carbon-mid via-carbon-mid/50 to-transparent" />
+                      <div className="absolute top-4 left-4 px-4 py-2 bg-neon-green/20 border border-neon-green/30 rounded-lg">
+                        <span className="text-neon-green text-xs font-bold tracking-wider uppercase">
+                          {TRANSFORMATION_TABS[2].solution.title}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6 relative z-10">
+                      <p className="text-metallic leading-relaxed mb-6">
+                        {TRANSFORMATION_TABS[2].solution.description}
+                      </p>
+                      <div className="grid grid-cols-2 gap-3">
+                        {TRANSFORMATION_TABS[2].solution.badges.map((badge, j) => (
+                          <div key={j} className="flex items-center gap-2 px-3 py-2 bg-neon-green/10 rounded-lg border border-neon-green/20">
+                            <Zap className="w-4 h-4 text-neon-green flex-shrink-0" />
+                            <span className="text-neon-green text-xs font-semibold">{badge}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="absolute -bottom-px -left-px w-16 h-16 bg-neon-green/20 rounded-tr-2xl" />
+                    <div className="absolute -top-px -right-px w-16 h-16 bg-neon-green/20 rounded-bl-2xl" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center mt-12">
+                <button onClick={handleCall} className="btn-call inline-flex">
+                  <Phone className="w-5 h-5" />
+                  Get Your Custom Quote
+                </button>
               </div>
             </div>
           </div>
