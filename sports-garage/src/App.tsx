@@ -190,29 +190,86 @@ export default function App() {
                 </a>
               </div>
 
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden p-2 text-white">
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+                className="lg:hidden p-2 text-white hover:text-neon-green transition-colors"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </nav>
 
-          {mobileMenuOpen && (
-            <div className="lg:hidden bg-carbon-mid border-t border-slate-border py-4">
-              <div className="flex flex-col gap-4 px-4">
-                <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Services</a>
-                <a href="#transformations" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Transformations</a>
-                <a href="#booking" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Bookings</a>
-                <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Reviews</a>
-                <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">FAQ</a>
-                <div className="border-t border-slate-border pt-4 flex flex-col gap-3">
-                  <a href={`tel:${GARAGE_CONFIG.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 text-neon-green font-bold">
-                    <Phone className="w-5 h-5" /> {GARAGE_CONFIG.phone}
+          {/* Mobile Navigation Drawer */}
+          <div 
+            className={`lg:hidden fixed inset-0 z-50 transition-all duration-300 ease-out ${
+              mobileMenuOpen 
+                ? 'opacity-100 translate-x-0' 
+                : 'opacity-0 translate-x-full pointer-events-none'
+            }`}
+          >
+            <div 
+              className="absolute inset-0 bg-slate-950/90 backdrop-blur-md transition-opacity"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <div className="absolute right-0 top-0 bottom-0 w-72 bg-carbon-mid border-l border-slate-border shadow-2xl transform transition-transform duration-300 ease-out">
+              <div className="pt-24 px-6 pb-6">
+                <div className="flex flex-col gap-2">
+                  <a 
+                    href="#services" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-white font-medium py-3 px-4 rounded-lg hover:bg-carbon hover:text-neon-green transition-all duration-200"
+                  >
+                    Services
                   </a>
-                  <a href="#booking" onClick={() => setMobileMenuOpen(false)} className="btn-primary text-center">Book Diagnostics</a>
+                  <a 
+                    href="#transformations" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-white font-medium py-3 px-4 rounded-lg hover:bg-carbon hover:text-neon-green transition-all duration-200"
+                  >
+                    Transformations
+                  </a>
+                  <a 
+                    href="#booking" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-white font-medium py-3 px-4 rounded-lg hover:bg-carbon hover:text-neon-green transition-all duration-200"
+                  >
+                    Bookings
+                  </a>
+                  <a 
+                    href="#reviews" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-white font-medium py-3 px-4 rounded-lg hover:bg-carbon hover:text-neon-green transition-all duration-200"
+                  >
+                    Reviews
+                  </a>
+                  <a 
+                    href="#faq" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-white font-medium py-3 px-4 rounded-lg hover:bg-carbon hover:text-neon-green transition-all duration-200"
+                  >
+                    FAQ
+                  </a>
+                </div>
+                <div className="border-t border-slate-border mt-6 pt-6 flex flex-col gap-4">
+                  <a 
+                    href={`tel:${GARAGE_CONFIG.phone.replace(/\s/g, '')}`} 
+                    className="flex items-center gap-3 text-neon-green font-bold hover:scale-105 transition-transform"
+                  >
+                    <Phone className="w-5 h-5" /> 
+                    {GARAGE_CONFIG.phone}
+                  </a>
+                  <a 
+                    href="#booking" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="btn-primary text-center"
+                  >
+                    Book Diagnostics
+                  </a>
                 </div>
               </div>
             </div>
-          )}
+          </div>
         </header>
 
         {/* Hero Section */}
@@ -310,25 +367,35 @@ export default function App() {
               {SERVICES.map((service, i) => {
                 const Icon = service.icon;
                 return (
-                  <div key={i} className="group relative overflow-hidden rounded-2xl bg-carbon-mid border border-slate-border hover:border-neon-green/50 transition-all duration-300 animate-fade-up card-hover" style={{ animationDelay: `${i * 0.1}s` }}>
-                    <div className="absolute inset-0">
-                      <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity" />
+                  <div 
+                    key={i} 
+                    className="group relative overflow-hidden rounded-2xl bg-carbon-mid border border-slate-border hover:border-neon-green hover:-translate-y-1.5 transition-all duration-300 ease-out animate-fade-up shadow-lg hover:shadow-neon-green/20"
+                    style={{ animationDelay: `${i * 0.1}s` }}
+                  >
+                    <div className="absolute inset-0 overflow-hidden">
+                      <img 
+                        src={service.image} 
+                        alt={service.title} 
+                        className="w-full h-full object-cover opacity-30 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500 ease-out"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-carbon-mid via-carbon-mid/80 to-transparent" />
                     </div>
                     
                     <div className="relative p-8">
-                      <div className="w-16 h-16 bg-neon-green/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon-green/20 transition-colors">
+                      <div className="w-16 h-16 bg-neon-green/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon-green/20 group-hover:scale-110 transition-all duration-300">
                         <Icon className="w-8 h-8 text-neon-green" />
                       </div>
                       
-                      <h3 className="font-display text-2xl font-bold text-white mb-3">{service.title}</h3>
+                      <h3 className="font-display text-2xl font-bold text-white mb-3 group-hover:text-neon-green transition-colors duration-300">
+                        {service.title}
+                      </h3>
                       <p className="text-metallic mb-6">{service.description}</p>
                       
                       <div className="grid grid-cols-2 gap-3">
                         {service.includes.map((item, j) => (
                           <div key={j} className="flex items-center gap-2 text-sm">
                             <CheckCircle2 className="w-4 h-4 text-neon-green flex-shrink-0" />
-                            <span className="text-white/80">{item}</span>
+                            <span className="text-white/80 group-hover:text-white transition-colors duration-200">{item}</span>
                           </div>
                         ))}
                       </div>
@@ -444,56 +511,71 @@ export default function App() {
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-semibold text-white mb-2">Your Name</label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    placeholder="Full name"
-                    required
-                    className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green transition-colors"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      placeholder="Full name"
+                      required
+                      className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green focus:ring-2 focus:ring-neon-green/50 transition-all duration-200"
+                    />
+                    <div className="absolute inset-0 rounded-lg pointer-events-none transition-all duration-200 opacity-0 focus:opacity-100 focus:ring-2 focus:ring-neon-green/30 -m-0.5" />
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-white mb-2">Phone Number</label>
-                  <input
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    placeholder="04XX XXX XXX"
-                    required
-                    className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green transition-colors"
-                  />
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      placeholder="04XX XXX XXX"
+                      required
+                      className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green focus:ring-2 focus:ring-neon-green/50 transition-all duration-200"
+                    />
+                    <div className="absolute inset-0 rounded-lg pointer-events-none transition-all duration-200 opacity-0 focus:opacity-100 focus:ring-2 focus:ring-neon-green/30 -m-0.5" />
+                  </div>
                 </div>
               </div>
 
               <div className="mb-6">
                 <label className="block text-sm font-semibold text-white mb-2">Vehicle Make & Model</label>
-                <input
-                  type="text"
-                  value={formData.vehicle}
-                  onChange={(e) => setFormData({...formData, vehicle: e.target.value})}
-                  placeholder="e.g. Porsche 911 GT3, BMW M4 Competition"
-                  required
-                  className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green transition-colors"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={formData.vehicle}
+                    onChange={(e) => setFormData({...formData, vehicle: e.target.value})}
+                    placeholder="e.g. Porsche 911 GT3, BMW M4 Competition"
+                    required
+                    className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green focus:ring-2 focus:ring-neon-green/50 transition-all duration-200"
+                  />
+                  <div className="absolute inset-0 rounded-lg pointer-events-none transition-all duration-200 opacity-0 focus:opacity-100 focus:ring-2 focus:ring-neon-green/30 -m-0.5" />
+                </div>
               </div>
 
               <div className="mb-8">
                 <label className="block text-sm font-semibold text-white mb-2">Desired Service</label>
-                <select
-                  value={formData.service}
-                  onChange={(e) => setFormData({...formData, service: e.target.value})}
-                  required
-                  className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-green transition-colors"
-                >
-                  <option value="">Select a service</option>
-                  <option value="logbook">Logbook Servicing & Diagnostics</option>
-                  <option value="tuning">Performance Tuning & ECU Remap</option>
-                  <option value="suspension">Suspension & Brake Setup</option>
-                  <option value="mechanical">Mechanical & Engine Rebuild</option>
-                  <option value="inspection">Pre-Purchase Inspection</option>
-                  <option value="other">Other / Not Sure</option>
-                </select>
+                <div className="relative">
+                  <select
+                    value={formData.service}
+                    onChange={(e) => setFormData({...formData, service: e.target.value})}
+                    required
+                    className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-green focus:ring-2 focus:ring-neon-green/50 transition-all duration-200 appearance-none cursor-pointer"
+                  >
+                    <option value="">Select a service</option>
+                    <option value="logbook">Logbook Servicing & Diagnostics</option>
+                    <option value="tuning">Performance Tuning & ECU Remap</option>
+                    <option value="suspension">Suspension & Brake Setup</option>
+                    <option value="mechanical">Mechanical & Engine Rebuild</option>
+                    <option value="inspection">Pre-Purchase Inspection</option>
+                    <option value="other">Other / Not Sure</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-metallic">
+                    <ChevronDown className="w-5 h-5" />
+                  </div>
+                  <div className="absolute inset-0 rounded-lg pointer-events-none transition-all duration-200 opacity-0 focus:opacity-100 focus:ring-2 focus:ring-neon-green/30 -m-0.5" />
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -589,23 +671,37 @@ export default function App() {
 
             <div className="space-y-4">
               {FAQS.map((faq, i) => (
-                <div key={i} className="bg-carbon-mid rounded-xl border border-slate-border overflow-hidden animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div 
+                  key={i} 
+                  className="group bg-carbon-mid rounded-xl border border-slate-border overflow-hidden animate-fade-up hover:border-neon-green/30 transition-colors duration-300"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-carbon-light transition-colors"
+                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-carbon-light transition-all duration-200"
                   >
                     <span className="font-semibold text-white pr-4">{faq.q}</span>
-                    {openFaq === i ? (
-                      <ChevronUp className="w-5 h-5 text-neon-green flex-shrink-0" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-metallic flex-shrink-0" />
-                    )}
+                    <span 
+                      className={`flex-shrink-0 transition-transform duration-300 ease-in-out ${
+                        openFaq === i ? 'rotate-180' : 'rotate-0'
+                      }`}
+                    >
+                      {openFaq === i ? (
+                        <ChevronUp className="w-5 h-5 text-neon-green" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-metallic group-hover:text-neon-green transition-colors duration-200" />
+                      )}
+                    </span>
                   </button>
-                  {openFaq === i && (
+                  <div 
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
                     <div className="px-6 pb-5">
                       <p className="text-metallic leading-relaxed">{faq.a}</p>
                     </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -725,11 +821,18 @@ export default function App() {
 
         {/* Sticky Mobile CTA */}
         <div className="sticky-mobile-bar lg:hidden">
-          <button onClick={handleCall} className="btn-call flex-1 justify-center text-base py-4">
-            <Phone className="w-5 h-5" />
-            Call Workshop
+          <button 
+            onClick={handleCall} 
+            className="btn-call flex-1 justify-center text-base py-4 relative"
+          >
+            <span className="absolute inset-0 rounded animate-pulse bg-neon-green/20" />
+            <Phone className="w-5 h-5 relative z-10" />
+            <span className="relative z-10">Call Workshop</span>
           </button>
-          <a href="#booking" className="bg-carbon-mid hover:bg-carbon text-white font-bold px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors border border-slate-border">
+          <a 
+            href="#booking" 
+            className="bg-carbon-mid hover:bg-carbon text-white font-bold px-6 py-4 rounded flex items-center justify-center gap-2 transition-all duration-200 border border-slate-border hover:border-neon-green hover:shadow-[0_0_20px_rgba(200,255,0,0.3)]"
+          >
             <Calendar className="w-5 h-5" />
             Book
           </a>
