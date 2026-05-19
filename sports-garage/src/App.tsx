@@ -1,0 +1,740 @@
+import { useState, useEffect } from 'react';
+import { Phone, Menu, X, MapPin, ShieldCheck, Star, Gauge, Cpu, Settings2, Cog, ChevronDown, ChevronUp, Calendar, CheckCircle2, Award, Zap, MessageCircle, Mail, ArrowRight } from 'lucide-react';
+
+const GARAGE_CONFIG = {
+  businessName: 'Velocity Performance Garage',
+  tagline: 'Elite Sports Car Specialists',
+  phone: '0400 987 654',
+  email: 'booking@velocitygarage.com.au',
+  address: '42 Industrial Ave, Moorooka QLD 4105',
+  abn: '12 345 678 901',
+  accentColor: 'neon-green',
+  accentClass: 'text-neon-green border-neon-green bg-neon-green/10',
+  glowClass: 'glow-green',
+  specialities: ['European Performance', 'Japanese Tuning', 'Exotic Maintenance', 'Track Preparation'],
+  warranty: '24 Months / 40,000km Parts & Labour',
+  operatingHours: {
+    monFri: '7:00 AM - 6:00 PM',
+    sat: '8:00 AM - 2:00 PM',
+    sun: 'Closed',
+  },
+  serviceAreas: ['Brisbane', 'Moorooka', 'Yeerongpilly', 'Salisbury', 'Annerley', 'Greenslopes', 'Cannon Hill', 'Morningside', 'Hawthorne', 'New Farm', 'Teneriffe', 'Newstead'],
+};
+
+const TRUST_MATRIX = [
+  { icon: Award, title: 'Factory-Trained', subtitle: 'Certified Specialist Technicians' },
+  { icon: Cpu, title: 'Dealer-Level', subtitle: 'Advanced Diagnostic Equipment' },
+  { icon: ShieldCheck, title: 'Genuine Parts', subtitle: '100% OEM & Track-Grade Only' },
+  { icon: Settings2, title: 'Comprehensive', subtitle: 'Workshop Warranty Included' },
+];
+
+const SERVICES = [
+  {
+    icon: Gauge,
+    title: 'Logbook Servicing & Diagnostics',
+    description: 'Complete manufacturer-spec servicing for Euro and JDM vehicles. Full diagnostic scan, fluid replacement, and component inspection using factory-level tooling.',
+    image: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=400&fit=crop',
+    includes: ['Full Vehicle Health Check', 'Factory-Level Scan Tool', 'Genuine OEM Parts', 'Service Logbook Stamp'],
+  },
+  {
+    icon: Zap,
+    title: 'Performance Tuning & ECU Remapping',
+    description: 'Unleash your vehicle\'s true potential with precision ECU tuning. Increased power, improved torque, and optimised fuel economy without compromising reliability.',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+    includes: ['Dyno-Proven Results', 'Custom Map Development', 'Before/After Testing', 'Warranty-Safe Tuning'],
+  },
+  {
+    icon: Settings2,
+    title: 'Suspension, Brake & Track Setup',
+    description: 'Transform your handling with professional suspension geometry, big-brake kit installation, and track-day preparation. We set it up like the pros.',
+    image: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop',
+    includes: ['Corner Balancing', 'Brembo/Bilstein Specialists', 'Track Alignment', 'Data Logging Analysis'],
+  },
+  {
+    icon: Cog,
+    title: 'Elite Mechanical & Engine Rebuilds',
+    description: 'From routine maintenance to full engine rebuilds. Our certified technicians handle everything from timing chains to forced induction conversions.',
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&h=400&fit=crop',
+    includes: ['Full Engine Teardown', 'Machine Shop Network', 'Performance Builds', 'Restoration Projects'],
+  },
+];
+
+const TRANSFORMATIONS = [
+  {
+    category: 'Brakes',
+    before: 'Worn standard rotors, faded calipers, expired fluid',
+    after: 'Brembo GT kit, braided lines, fresh DOT 5.1 fluid',
+    imageBefore: 'https://images.unsplash.com/photo-1597681393878-940f7d3ac2d7?w=500&h=300&fit=crop',
+    imageAfter: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=500&h=300&fit=crop',
+  },
+  {
+    category: 'Suspension',
+    before: 'Sagged springs, tired bushings, incorrect alignment',
+    after: 'Bilstein Damptronic, polyurethane bushes, laser alignment',
+    imageBefore: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&h=300&fit=crop',
+    imageAfter: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=500&h=300&fit=crop',
+  },
+  {
+    category: 'Engine',
+    before: 'Sluggish response, excessive oil consumption, timing chain noise',
+    after: 'Full service, chain replacement, ECU remap, +45kw peak power',
+    imageBefore: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500&h=300&fit=crop',
+    imageAfter: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop',
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    name: 'Max Williams',
+    vehicle: 'Porsche Cayman GT4',
+    rating: 5,
+    text: 'These guys know their stuff. Dropped the car for a full suspension overhaul and track prep. The transformation was unreal. Best investment I\'ve made in the car.',
+  },
+  {
+    name: 'Sarah Chen',
+    vehicle: 'VW Golf R (Mk8)',
+    rating: 5,
+    text: 'Had my Golf R mapped here after months of research. The difference is night and day. Fast, professional, and they actually care about doing the job right.',
+  },
+  {
+    name: 'James Thompson',
+    vehicle: 'Nissan GT-R R35',
+    rating: 5,
+    text: 'Finally found a workshop that understands high-performance Japanese machinery. Complex work handled with expertise. Highly recommend to any serious enthusiast.',
+  },
+  {
+    name: 'Michelle Parker',
+    vehicle: 'BMW M4 Competition',
+    rating: 5,
+    text: 'Took my M4 for its first major service with them. Dealer-level diagnostics, genuine parts, and transparent pricing. The car has never driven better.',
+  },
+];
+
+const FAQS = [
+  {
+    q: 'Will this void my factory manufacturer warranty?',
+    a: 'Not at all. We\'re an approved independent specialist, and under Australian Consumer Law, having your vehicle serviced with us doesn\'t void your warranty. We use genuine OEM parts and follow manufacturer specifications precisely. All work is logged and documented.',
+  },
+  {
+    q: 'Do you source genuine European parts?',
+    a: 'Absolutely. We maintain strong relationships with official European distributors and only use genuine OEM or OEM-equivalent parts. No counterfeit or low-quality alternatives. Every component comes with full traceability and warranty.',
+  },
+  {
+    q: 'Do you provide detailed vehicle health reports?',
+    a: 'Yes, every service includes a comprehensive digital report. We include full diagnostic scans, photos of inspected components, fluid condition analysis, and recommendations for future maintenance. You\'ll know exactly what\'s happening with your vehicle.',
+  },
+  {
+    q: 'Can you handle exotic and limited-run vehicles?',
+    a: 'Yes. Our team has extensive experience with rare and exotic machinery including limited-run European supercars and JDM icons. We invest in manufacturer-specific tooling and continuous training to stay current.',
+  },
+  {
+    q: 'Do you offer track-day support?',
+    a: 'We offer pre-event inspection and setup, as well as post-event debrief and maintenance. We can also arrange on-call track support for serious competitors. Ask us about our track prep packages.',
+  },
+];
+
+export default function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeTransform, setActiveTransform] = useState(0);
+  const [formData, setFormData] = useState({ name: '', phone: '', vehicle: '', service: '' });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleCall = () => window.location.href = `tel:${GARAGE_CONFIG.phone.replace(/\s/g, '')}`;
+  const handleEmail = () => window.location.href = `mailto:${GARAGE_CONFIG.email}`;
+  const handleWhatsApp = () => window.location.href = 'https://wa.me/61400987654';
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormSubmitted(true);
+    setTimeout(() => setFormSubmitted(false), 3000);
+    setFormData({ name: '', phone: '', vehicle: '', service: '' });
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-carbon">
+      <main>
+        {/* Navigation */}
+        <header className="fixed top-0 left-0 right-0 z-40 bg-carbon/80 backdrop-blur-md border-b border-slate-border">
+          <nav className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
+            <div className="flex items-center justify-between h-20">
+              <a href="#" className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-neon-green to-neon-green/60 rounded-lg flex items-center justify-center rotate-3">
+                  <Gauge className="w-7 h-7 text-carbon" />
+                </div>
+                <div>
+                  <span className="font-display font-bold text-xl text-white tracking-tight">Velocity</span>
+                  <span className="block text-xs text-neon-green font-medium -mt-1">Performance Garage</span>
+                </div>
+              </a>
+
+              <div className="hidden lg:flex items-center gap-8">
+                <a href="#services" className="text-metallic hover:text-white font-medium transition-colors">Services</a>
+                <a href="#transformations" className="text-metallic hover:text-white font-medium transition-colors">Transformations</a>
+                <a href="#booking" className="text-metallic hover:text-white font-medium transition-colors">Bookings</a>
+                <a href="#reviews" className="text-metallic hover:text-white font-medium transition-colors">Reviews</a>
+                <a href="#faq" className="text-metallic hover:text-white font-medium transition-colors">FAQ</a>
+              </div>
+
+              <div className="hidden lg:flex items-center gap-4">
+                <a href={`tel:${GARAGE_CONFIG.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-metallic hover:text-neon-green font-medium transition-colors">
+                  <Phone className="w-5 h-5" />
+                  {GARAGE_CONFIG.phone}
+                </a>
+                <a href="#booking" className="btn-primary text-sm">
+                  Book Diagnostics
+                </a>
+              </div>
+
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden p-2 text-white">
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </nav>
+
+          {mobileMenuOpen && (
+            <div className="lg:hidden bg-carbon-mid border-t border-slate-border py-4">
+              <div className="flex flex-col gap-4 px-4">
+                <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Services</a>
+                <a href="#transformations" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Transformations</a>
+                <a href="#booking" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Bookings</a>
+                <a href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">Reviews</a>
+                <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="text-white font-medium py-2">FAQ</a>
+                <div className="border-t border-slate-border pt-4 flex flex-col gap-3">
+                  <a href={`tel:${GARAGE_CONFIG.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 text-neon-green font-bold">
+                    <Phone className="w-5 h-5" /> {GARAGE_CONFIG.phone}
+                  </a>
+                  <a href="#booking" onClick={() => setMobileMenuOpen(false)} className="btn-primary text-center">Book Diagnostics</a>
+                </div>
+              </div>
+            </div>
+          )}
+        </header>
+
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+            <img 
+              src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&h=1080&fit=crop" 
+              alt="High performance sports car in workshop" 
+              className="w-full h-full object-cover opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-carbon/60 via-carbon/40 to-carbon" />
+            <div className="absolute inset-0 carbon-grid opacity-50" />
+          </div>
+
+          <div className="relative section-padding text-center max-w-5xl mx-auto pt-32">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-neon-green/10 border border-neon-green/30 mb-8 animate-fade-up">
+              <span className="w-3 h-3 bg-neon-green rounded-full pulse-dot" />
+              <span className="text-neon-green text-sm font-semibold">Diagnostic Bays Open Today</span>
+            </div>
+
+            <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6 animate-fade-up stagger-1">
+              Precision Engineering.<br />
+              <span className="text-gradient-neon">Elite Performance.</span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-metallic max-w-3xl mx-auto mb-10 animate-fade-up stagger-2">
+              Your dedicated sports & Euro specialist. Factory-trained technicians, dealer-level diagnostics, 
+              and uncompromising quality for discerning enthusiasts.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-12 animate-fade-up stagger-3">
+              <button onClick={handleCall} className="btn-call text-lg w-full sm:w-auto">
+                <Phone className="w-5 h-5" />
+                Call Workshop
+              </button>
+              <a href="#booking" className="btn-secondary text-lg w-full sm:w-auto">
+                Secure Booking Slot
+              </a>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-6 animate-fade-up stagger-4">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-carbon-mid/50 border border-slate-border">
+                <Star className="w-5 h-5 text-neon-green fill-neon-green" />
+                <span className="text-white font-semibold">5.0</span>
+                <span className="text-metallic text-sm">Track Record</span>
+              </div>
+              <div className="flex items-center gap-2 text-metallic">
+                <MapPin className="w-4 h-4 text-neon-green" />
+                <span className="text-sm">Brisbane, QLD</span>
+              </div>
+              <div className="flex items-center gap-2 text-metallic">
+                <ShieldCheck className="w-4 h-4 text-neon-green" />
+                <span className="text-sm">{GARAGE_CONFIG.warranty}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <ChevronDown className="w-8 h-8 text-neon-green/50" />
+          </div>
+        </section>
+
+        {/* Trust Matrix */}
+        <section className="py-20 bg-carbon-light border-y border-slate-border">
+          <div className="section-padding">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {TRUST_MATRIX.map((trust, i) => {
+                const Icon = trust.icon;
+                return (
+                  <div key={i} className="relative p-6 rounded-xl bg-carbon-mid border border-slate-border animate-slide-in card-hover" style={{ animationDelay: `${i * 0.1}s` }}>
+                    <div className="w-14 h-14 bg-neon-green/10 rounded-lg flex items-center justify-center mb-4">
+                      <Icon className="w-7 h-7 text-neon-green" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">{trust.title}</h3>
+                    <p className="text-sm text-metallic">{trust.subtitle}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Services Bento Grid */}
+        <section id="services" className="section-padding">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">Our Expertise</span>
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">Service Bays</h2>
+              <p className="text-metallic text-lg max-w-2xl mx-auto">
+                Precision-tuned solutions for your prized machinery. From routine servicing to full performance builds.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {SERVICES.map((service, i) => {
+                const Icon = service.icon;
+                return (
+                  <div key={i} className="group relative overflow-hidden rounded-2xl bg-carbon-mid border border-slate-border hover:border-neon-green/50 transition-all duration-300 animate-fade-up card-hover" style={{ animationDelay: `${i * 0.1}s` }}>
+                    <div className="absolute inset-0">
+                      <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-carbon-mid via-carbon-mid/80 to-transparent" />
+                    </div>
+                    
+                    <div className="relative p-8">
+                      <div className="w-16 h-16 bg-neon-green/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neon-green/20 transition-colors">
+                        <Icon className="w-8 h-8 text-neon-green" />
+                      </div>
+                      
+                      <h3 className="font-display text-2xl font-bold text-white mb-3">{service.title}</h3>
+                      <p className="text-metallic mb-6">{service.description}</p>
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        {service.includes.map((item, j) => (
+                          <div key={j} className="flex items-center gap-2 text-sm">
+                            <CheckCircle2 className="w-4 h-4 text-neon-green flex-shrink-0" />
+                            <span className="text-white/80">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Transformation Showcase */}
+        <section id="transformations" className="py-20 bg-carbon-light">
+          <div className="section-padding">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-12">
+                <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">The Difference</span>
+                <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">Under The Hood</h2>
+                <p className="text-metallic text-lg max-w-2xl mx-auto">
+                  Real transformations we've delivered for our clients. See what's possible when quality meets expertise.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-4 justify-center mb-10">
+                {TRANSFORMATIONS.map((t, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveTransform(i)}
+                    className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                      activeTransform === i 
+                        ? 'bg-neon-green text-carbon' 
+                        : 'bg-carbon-mid text-metallic hover:text-white border border-slate-border'
+                    }`}
+                  >
+                    {t.category}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid lg:grid-cols-2 gap-8 items-center">
+                <div className="space-y-6">
+                  <div className="relative rounded-2xl overflow-hidden border-2 border-red-500/30">
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-red-500/20 text-red-400 text-sm font-bold rounded">
+                      Before
+                    </div>
+                    <img src={TRANSFORMATIONS[activeTransform].imageBefore} alt="Before" className="w-full h-64 object-cover" />
+                    <div className="p-6 bg-carbon-mid">
+                      <p className="text-metallic text-sm mb-2">Current State</p>
+                      <p className="text-white font-medium">{TRANSFORMATIONS[activeTransform].before}</p>
+                    </div>
+                  </div>
+
+                  <div className="relative rounded-2xl overflow-hidden border-2 border-neon-green/30">
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-neon-green/20 text-neon-green text-sm font-bold rounded">
+                      After
+                    </div>
+                    <img src={TRANSFORMATIONS[activeTransform].imageAfter} alt="After" className="w-full h-64 object-cover" />
+                    <div className="p-6 bg-carbon-mid">
+                      <p className="text-neon-green text-sm mb-2">Our Solution</p>
+                      <p className="text-white font-medium">{TRANSFORMATIONS[activeTransform].after}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-carbon-mid rounded-2xl p-8 border border-slate-border">
+                  <div className="w-14 h-14 bg-neon-green/10 rounded-xl flex items-center justify-center mb-6">
+                    <ArrowRight className="w-7 h-7 text-neon-green" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold text-white mb-4">
+                    {TRANSFORMATIONS[activeTransform].category} Upgrade
+                  </h3>
+                  <p className="text-metallic mb-8">
+                    Don't settle for worn components. We use only premium track-grade parts and proven installation techniques 
+                    to transform your driving experience.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-neon-green" />
+                      <span className="text-white">Professional installation by certified technicians</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-neon-green" />
+                      <span className="text-white">Premium quality parts with full warranty</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-neon-green" />
+                      <span className="text-white">Detailed before/after documentation</span>
+                    </div>
+                  </div>
+                  <button onClick={handleCall} className="btn-call w-full mt-8 justify-center">
+                    <Phone className="w-5 h-5" />
+                    Get Your Quote
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Booking Form */}
+        <section id="booking" className="section-padding relative overflow-hidden">
+          <div className="absolute inset-0 carbon-grid opacity-30" />
+          <div className="relative max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">Diagnostic Engine</span>
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">Secure Your Booking</h2>
+              <p className="text-metallic text-lg">
+                Tell us about your vehicle. We'll confirm availability and get you scheduled.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="bg-carbon-mid rounded-2xl p-8 md:p-12 border border-slate-border glow-green/20">
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label className="block text-sm font-semibold text-white mb-2">Your Name</label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    placeholder="Full name"
+                    required
+                    className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-white mb-2">Phone Number</label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    placeholder="04XX XXX XXX"
+                    required
+                    className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-white mb-2">Vehicle Make & Model</label>
+                <input
+                  type="text"
+                  value={formData.vehicle}
+                  onChange={(e) => setFormData({...formData, vehicle: e.target.value})}
+                  placeholder="e.g. Porsche 911 GT3, BMW M4 Competition"
+                  required
+                  className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white placeholder:text-metallic focus:outline-none focus:border-neon-green transition-colors"
+                />
+              </div>
+
+              <div className="mb-8">
+                <label className="block text-sm font-semibold text-white mb-2">Desired Service</label>
+                <select
+                  value={formData.service}
+                  onChange={(e) => setFormData({...formData, service: e.target.value})}
+                  required
+                  className="w-full bg-carbon border border-slate-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-green transition-colors"
+                >
+                  <option value="">Select a service</option>
+                  <option value="logbook">Logbook Servicing & Diagnostics</option>
+                  <option value="tuning">Performance Tuning & ECU Remap</option>
+                  <option value="suspension">Suspension & Brake Setup</option>
+                  <option value="mechanical">Mechanical & Engine Rebuild</option>
+                  <option value="inspection">Pre-Purchase Inspection</option>
+                  <option value="other">Other / Not Sure</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button type="submit" className="btn-call flex-1 justify-center text-lg">
+                  <Calendar className="w-5 h-5" />
+                  {formSubmitted ? 'Booking Received!' : 'Request Booking'}
+                </button>
+                <button type="button" onClick={handleCall} className="btn-secondary flex items-center justify-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  Call Direct
+                </button>
+              </div>
+            </form>
+
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm">
+              <div className="flex items-center gap-2 text-metallic">
+                <CheckCircle2 className="w-4 h-4 text-neon-green" />
+                Free quote, no obligation
+              </div>
+              <div className="flex items-center gap-2 text-metallic">
+                <CheckCircle2 className="w-4 h-4 text-neon-green" />
+                Same-day response
+              </div>
+              <div className="flex items-center gap-2 text-metallic">
+                <CheckCircle2 className="w-4 h-4 text-neon-green" />
+                No pressure, honest advice
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Reviews & Suburbs */}
+        <section id="reviews" className="py-20 bg-carbon-light border-y border-slate-border">
+          <div className="section-padding">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">Client Feedback</span>
+                <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">The Track Record</h2>
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-neon-green fill-neon-green" />
+                    ))}
+                  </div>
+                  <span className="text-white font-medium">5.0 from 89 verified reviews</span>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-16">
+                {TESTIMONIALS.map((t, i) => (
+                  <div key={i} className="bg-carbon-mid rounded-2xl p-8 border border-slate-border animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
+                    <div className="flex items-center gap-1 mb-4">
+                      {[...Array(t.rating)].map((_, j) => (
+                        <Star key={j} className="w-4 h-4 text-neon-green fill-neon-green" />
+                      ))}
+                    </div>
+                    <p className="text-white/90 mb-6 leading-relaxed">"{t.text}"</p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-neon-green to-neon-green/40 rounded-lg flex items-center justify-center text-carbon font-bold text-lg">
+                        {t.name.charAt(0)}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-white">{t.name}</div>
+                        <div className="text-sm text-neon-green">{t.vehicle}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <h3 className="font-display text-xl font-bold text-white text-center mb-6">Service Areas</h3>
+                <div className="flex flex-wrap justify-center gap-3">
+                  {GARAGE_CONFIG.serviceAreas.map((area, i) => (
+                    <span key={i} className="px-4 py-2 rounded-full bg-carbon border border-slate-border text-metallic text-sm hover:border-neon-green/50 hover:text-white transition-colors cursor-default">
+                      {area}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="section-padding">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-neon-green text-sm font-semibold tracking-wider uppercase mb-4 block">Knowledge Base</span>
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">Common Questions</h2>
+              <p className="text-metallic">Answers to help you make informed decisions about your vehicle.</p>
+            </div>
+
+            <div className="space-y-4">
+              {FAQS.map((faq, i) => (
+                <div key={i} className="bg-carbon-mid rounded-xl border border-slate-border overflow-hidden animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-carbon-light transition-colors"
+                  >
+                    <span className="font-semibold text-white pr-4">{faq.q}</span>
+                    {openFaq === i ? (
+                      <ChevronUp className="w-5 h-5 text-neon-green flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-metallic flex-shrink-0" />
+                    )}
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-6 pb-5">
+                      <p className="text-metallic leading-relaxed">{faq.a}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-neon-green/10 to-carbon" />
+          <div className="absolute inset-0 carbon-grid opacity-20" />
+          
+          <div className="relative section-padding text-center">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-6">
+                Ready to Transform<br />
+                <span className="text-gradient-neon">Your Machine?</span>
+              </h2>
+              <p className="text-lg text-metallic mb-10 max-w-2xl mx-auto">
+                Book your consultation today. Our specialists are standing by to help you unlock your vehicle's full potential.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <button onClick={handleCall} className="btn-call text-lg w-full sm:w-auto">
+                  <Phone className="w-6 h-6" />
+                  Call Now
+                </button>
+                <button onClick={handleWhatsApp} className="bg-carbon-mid hover:bg-carbon-light text-white font-bold py-4 px-10 rounded transition-colors border border-slate-border w-full sm:w-auto flex items-center justify-center gap-3">
+                  <MessageCircle className="w-6 h-6" />
+                  WhatsApp
+                </button>
+                <button onClick={handleEmail} className="bg-carbon hover:bg-carbon-light text-white font-bold py-4 px-10 rounded transition-colors border border-slate-border w-full sm:w-auto flex items-center justify-center gap-3">
+                  <Mail className="w-6 h-6" />
+                  Email
+                </button>
+              </div>
+
+              <div className="mt-8 text-metallic text-sm">
+                Direct line: <a href={`tel:${GARAGE_CONFIG.phone.replace(/\s/g, '')}`} className="text-neon-green font-semibold">{GARAGE_CONFIG.phone}</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="bg-carbon-mid py-16 border-t border-slate-border">
+          <div className="section-padding">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid md:grid-cols-4 gap-12 mb-12">
+                <div className="md:col-span-2">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-neon-green to-neon-green/60 rounded-lg flex items-center justify-center">
+                      <Gauge className="w-7 h-7 text-carbon" />
+                    </div>
+                    <div>
+                      <span className="font-display font-bold text-xl text-white">Velocity</span>
+                      <span className="block text-xs text-neon-green">Performance Garage</span>
+                    </div>
+                  </div>
+                  <p className="text-metallic mb-6 max-w-md">
+                    Elite automotive specialists serving Brisbane's discerning enthusiasts. 
+                    Factory-trained, dealer-level diagnostics, and uncompromising quality.
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <a href="#" className="w-10 h-10 bg-carbon rounded-lg flex items-center justify-center text-metallic hover:text-neon-green transition-colors">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" className="w-10 h-10 bg-carbon rounded-lg flex items-center justify-center text-metallic hover:text-neon-green transition-colors">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-white mb-4">Services</h4>
+                  <ul className="space-y-2 text-sm text-metallic">
+                    <li><a href="#services" className="hover:text-white transition-colors">Logbook Servicing</a></li>
+                    <li><a href="#services" className="hover:text-white transition-colors">Performance Tuning</a></li>
+                    <li><a href="#services" className="hover:text-white transition-colors">Brake & Suspension</a></li>
+                    <li><a href="#services" className="hover:text-white transition-colors">Engine Rebuilds</a></li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-white mb-4">Contact</h4>
+                  <ul className="space-y-3 text-sm text-metallic">
+                    <li className="flex items-start gap-2">
+                      <MapPin className="w-4 h-4 text-neon-green mt-0.5" />
+                      <span>{GARAGE_CONFIG.address}</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-neon-green" />
+                      <a href={`tel:${GARAGE_CONFIG.phone.replace(/\s/g, '')}`} className="hover:text-white">{GARAGE_CONFIG.phone}</a>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-neon-green" />
+                      <button onClick={handleEmail} className="hover:text-white">{GARAGE_CONFIG.email}</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="border-t border-slate-border pt-8">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="text-sm text-metallic">
+                    <p>© 2024 {GARAGE_CONFIG.businessName}. ABN {GARAGE_CONFIG.abn}</p>
+                    <p className="mt-2 text-xs">Operating Hours: Mon-Fri {GARAGE_CONFIG.operatingHours.monFri} | Sat {GARAGE_CONFIG.operatingHours.sat} | {GARAGE_CONFIG.operatingHours.sun}</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-metallic">
+                    <ShieldCheck className="w-4 h-4 text-neon-green" />
+                    {GARAGE_CONFIG.warranty}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+        {/* Sticky Mobile CTA */}
+        <div className="sticky-mobile-bar lg:hidden">
+          <button onClick={handleCall} className="btn-call flex-1 justify-center text-base py-4">
+            <Phone className="w-5 h-5" />
+            Call Workshop
+          </button>
+          <a href="#booking" className="bg-carbon-mid hover:bg-carbon text-white font-bold px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors border border-slate-border">
+            <Calendar className="w-5 h-5" />
+            Book
+          </a>
+        </div>
+      </main>
+    </div>
+  );
+}
