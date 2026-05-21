@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import ProgressiveImage from './ProgressiveImage';
 
 export default function TransformationSection({ beforeAfterRef, handleSliderMove, sliderPosition }) {
   return (
@@ -45,13 +45,12 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
           >
             {/* ─ BEFORE: neglected pool ─ */}
             <div className="absolute inset-0">
-              <img
+              <ProgressiveImage
                 src="/beforeImage-md.webp"
                 srcSet="/beforeImage-sm.webp 600w, /beforeImage-md.webp 1000w, /beforeImage.webp 1600w"
                 alt="Before — Neglected green pool"
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
+                className="w-full h-full"
+                placeholder="#1a3a2a"
               />
               {/* Green tint overlay to sell the "neglected" state */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/60 via-transparent to-black/60" />
@@ -71,13 +70,12 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
               className="absolute inset-0 transition-[clip-path] duration-75"
               style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
             >
-              <img
+              <ProgressiveImage
                 src="/afterImage-md.webp"
                 srcSet="/afterImage-sm.webp 600w, /afterImage-md.webp 1000w, /afterImage.webp 1600w"
                 alt="After — Crystal clear Aura pool"
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
+                className="w-full h-full"
+                placeholder="#0a3d6b"
               />
               {/* Aqua shine overlay */}
               <div

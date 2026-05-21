@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
+import ProgressiveImage from "./ProgressiveImage";
 
 /* ── Ripple ring component ────────────────────────────────────────────────── */
 function RippleRing({ size, delay, className = "" }) {
@@ -40,8 +41,6 @@ export default function HeroSection({ backgroundY }) {
 
   // Parallax: image moves slower than scroll (cinematic depth)
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.18]);
-  const overlayO = useTransform(scrollYProgress, [0, 0.6], [0.55, 0.82]);
 
   return (
     <section
@@ -53,15 +52,15 @@ export default function HeroSection({ backgroundY }) {
           ════════════════════════════════════════════════════════════ */}
       <motion.div
         className="absolute inset-0 z-0"
-        style={{ y: imgY, scale: imgScale }}
+        style={{ y: imgY }}
       >
-        <img
+        <ProgressiveImage
           src="/hero2-md.webp"
           srcSet="/hero2-sm.webp 600w, /hero2-md.webp 1000w, /hero2.webp 1600w"
           alt="Crystal clear luxury pool aerial view — Aura Aquatics"
           className="w-full h-full object-cover object-center opacity-25"
-          loading="eager"
-          decoding="async"
+          placeholder="#0a2e4c"
+          eager
         />
       </motion.div>
       <motion.div
@@ -73,21 +72,13 @@ export default function HeroSection({ backgroundY }) {
           LAYER 2 — DARK GRADIENT OVERLAYS (cinematic colour control)
           ════════════════════════════════════════════════════════════ */}
       {/* Primary darkening — bottom-heavy so water texture still shows at top */}
-      <motion.div
+      <div
         className="absolute inset-0 z-10"
-        style={{ opacity: overlayO }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(2,11,20,0.25) 0%, rgba(2,11,20,0.55) 50%, rgba(2,11,20,0.92) 100%)",
-          }}
-        />
-      </motion.div>
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(2,11,20,0.25) 0%, rgba(2,11,20,0.55) 50%, rgba(2,11,20,0.92) 100%)",
+        }}
+      />
 
       {/* Warm stone vignette left — mirrors the poolside tile in the image */}
       <div
@@ -109,7 +100,7 @@ export default function HeroSection({ backgroundY }) {
 
       {/* Subtle noise grain for cinematic texture */}
       <div
-        className="absolute inset-0 z-10 pointer-events-none opacity-30"
+        className="absolute inset-0 z-10 pointer-events-none opacity-15"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
           mixBlendMode: "overlay",
@@ -170,44 +161,18 @@ export default function HeroSection({ backgroundY }) {
               >
                 Crystal Clear.
               </span>
-              {/* Sparkle */}
-              <motion.span
-                initial={{ scale: 0, rotate: 0 }}
-                animate={{
-                  scale: [0, 0, 1.3, 0, 0],
-                  rotate: [0, 0, 90, 180, 180],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  times: [0, 0.4, 0.45, 0.5, 1],
-                }}
-                className="absolute -right-7 -top-3 text-[#00d4f0]"
-              >
+              {/* Sparkle (CSS animation — GPU composited) */}
+              <span className="absolute -right-7 -top-3 text-[#00d4f0] sparkle-aqua">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" />
                 </svg>
-              </motion.span>
-              {/* Stone sparkle */}
-              <motion.span
-                initial={{ scale: 0, rotate: 0 }}
-                animate={{
-                  scale: [0, 0, 1, 0, 0],
-                  rotate: [0, 0, -45, 90, 90],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  times: [0, 0.45, 0.5, 0.55, 1],
-                }}
-                className="absolute -left-6 bottom-1 text-[#c8a96e]"
-              >
+              </span>
+              {/* Stone sparkle (CSS animation — GPU composited) */}
+              <span className="absolute -left-6 bottom-1 text-[#c8a96e] sparkle-stone">
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" />
                 </svg>
-              </motion.span>
+              </span>
             </span>{" "}
             <br />
             Resort Ready.
@@ -299,7 +264,6 @@ export default function HeroSection({ backgroundY }) {
             animate={{ opacity: 1, y: 0, rotate: 0 }}
             transition={{ duration: 1.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-[360px]"
-            style={{ animation: "floatSlow 9s ease-in-out infinite" }}
           >
             {/* Glow halo */}
             <div className="absolute -inset-6 rounded-[36px] bg-[#00d4f0]/8 filter blur-[40px]" />
@@ -309,7 +273,7 @@ export default function HeroSection({ backgroundY }) {
               className="relative rounded-[28px] overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.05)]"
               style={{
                 background: "rgba(4, 15, 28, 0.82)",
-                backdropFilter: "blur(28px)",
+                backdropFilter: "blur(16px)",
               }}
             >
               {/* Scan line */}
@@ -317,18 +281,18 @@ export default function HeroSection({ backgroundY }) {
 
               {/* Card header — pool preview thumbnail using the hero image itself */}
               <div className="relative h-40 overflow-hidden">
-                <img
+                <ProgressiveImage
                   src="/afterImage2-md.webp"
                   srcSet="/afterImage2-sm.webp 600w, /afterImage2-md.webp 1000w, /afterImage2.webp 1600w"
                   alt="Live pool status"
-                  className="w-full h-full object-cover object-top scale-110"
-                  loading="lazy"
-                  decoding="async"
+                  className="w-full h-full scale-110"
+                  imgClassName="object-top"
+                  placeholder="#0a3d6b"
                 />
                 {/* Dark glass overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#040f1c]/30 to-[#040f1c]" />
                 {/* Status chip */}
-                <div className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 border border-[#34d399]/30 backdrop-blur-md">
+                <div className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 border border-[#34d399]/30 backdrop-blur-sm">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse" />
                   <span className="text-[9px] font-mono tracking-[0.25em] text-[#34d399] uppercase">
                     Live Monitoring

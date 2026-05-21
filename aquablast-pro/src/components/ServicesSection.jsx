@@ -71,7 +71,7 @@ const containerVariants = {
 
 const cardVariants = {
   hidden:   { opacity: 0, y: 40 },
-  visible:  { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 65, damping: 15 } },
+  visible:  { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function ServicesSection() {
@@ -138,6 +138,8 @@ export default function ServicesSection() {
                 style={{
                   background: 'rgba(255,255,255,0.02)',
                   border: '1px solid rgba(255,255,255,0.06)',
+                  '--icon-hover-bg': accentBg,
+                  '--icon-hover-color': accentColor,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.border = `1px solid ${accentColor}30`;
@@ -157,25 +159,9 @@ export default function ServicesSection() {
                 />
 
                 <div className="space-y-4">
-                  {/* Icon */}
+                  {/* Icon (CSS group-hover driven — no JS event listeners) */}
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300"
-                    style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      color: '#64748b',
-                    }}
-                    ref={(el) => {
-                      if (el) {
-                        el.closest('.group')?.addEventListener('mouseenter', () => {
-                          el.style.background = accentBg;
-                          el.style.color = accentColor;
-                        });
-                        el.closest('.group')?.addEventListener('mouseleave', () => {
-                          el.style.background = 'rgba(255,255,255,0.04)';
-                          el.style.color = '#64748b';
-                        });
-                      }
-                    }}
+                    className="service-card-icon w-10 h-10 rounded-xl flex items-center justify-center"
                   >
                     {ICONS[srv.id]}
                   </div>

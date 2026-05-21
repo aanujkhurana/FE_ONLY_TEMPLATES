@@ -176,13 +176,17 @@ export default function MembershipPlans() {
                   <div className="relative z-10 pt-8">
                     <a
                       href="#contact"
-                      className="group relative overflow-hidden block w-full text-center py-3.5 rounded-xl text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-300"
+                      className={`group relative overflow-hidden block w-full text-center py-3.5 rounded-xl text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-300 ${
+                        isPremium
+                          ? 'hover:shadow-[0_0_30px_rgba(0,212,240,0.3)] hover:-translate-y-0.5'
+                          : 'hover:bg-white/[0.07]'
+                      }`}
                       style={
                         isPremium
                           ? {
                               background: 'linear-gradient(135deg, #0ba3d4 0%, #a8efff 50%, #a8efff 100%)',
                               color: '#020b14',
-                              boxShadow: '0 0 0 rgba(0,212,240,0)',
+                              border: 'none',
                             }
                           : {
                               background: 'rgba(255,255,255,0.04)',
@@ -190,22 +194,6 @@ export default function MembershipPlans() {
                               color: 'white',
                             }
                       }
-                      onMouseEnter={(e) => {
-                        if (isPremium) {
-                          e.currentTarget.style.boxShadow = '0 0 30px rgba(0,212,240,0.3)';
-                          e.currentTarget.style.transform = 'translateY(-1px)';
-                        } else {
-                          e.currentTarget.style.background = 'rgba(255,255,255,0.07)';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (isPremium) {
-                          e.currentTarget.style.boxShadow = 'none';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                        } else {
-                          e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                        }
-                      }}
                     >
                       {/* Shimmer sweep on premium */}
                       {isPremium && (

@@ -49,7 +49,7 @@ export default function ServiceAreas() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.06, duration: 0.5 }}
               whileHover={{ scale: 1.05 }}
-              className="px-4 py-2 rounded-xl text-xs font-medium tracking-wider text-slate-300 cursor-default transition-all duration-300 hover:text-white"
+              className="group cursor-default px-4 py-2 rounded-xl text-xs font-medium tracking-wider text-slate-300 transition-all duration-300"
               style={{
                 background: 'rgba(255,255,255,0.03)',
                 border: '1px solid rgba(255,255,255,0.07)',

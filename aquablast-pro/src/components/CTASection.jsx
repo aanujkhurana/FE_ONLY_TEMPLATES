@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import ProgressiveImage from './ProgressiveImage';
 
 function ShimmerText({ children }) {
   return (
-    <span className="relative inline-block">
-      {/* Base text — white, slightly transparent */}
+    <span className="relative inline-block overflow-hidden">
       <span
         className="relative z-10"
         style={{
@@ -17,10 +17,9 @@ function ShimmerText({ children }) {
         {children}
       </span>
 
-      {/* Travelling shimmer overlay */}
-      <motion.span
+      <span
         aria-hidden
-        className="absolute inset-0 z-20 pointer-events-none"
+        className="absolute inset-0 z-20 pointer-events-none shimmer-sweep"
         style={{
           background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.85) 50%, transparent 80%)",
           backgroundClip: "text",
@@ -28,11 +27,9 @@ function ShimmerText({ children }) {
           WebkitTextFillColor: "transparent",
           backgroundSize: "250% 100%",
         }}
-        animate={{ backgroundPosition: ["150% center", "-50% center"] }}
-        transition={{ duration: 3.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.8 }}
       >
         {children}
-      </motion.span>
+      </span>
     </span>
   );
 }
@@ -58,13 +55,13 @@ export default function CTASection() {
         className="absolute inset-0 z-0"
         style={{ y: imgY }}
       >
-        <img
+        <ProgressiveImage
           src="/footer-md.webp"
           srcSet="/footer-sm.webp 600w, /footer-md.webp 1000w, /footer.webp 1600w"
           alt="Crystal clear luxury pool — Aura Aquatics"
-          className="w-full h-full object-cover object-center scale-110"
-          loading="lazy"
-          decoding="async"
+          className="w-full h-full scale-110"
+          imgClassName="object-center"
+          placeholder="#020b14"
         />
       </motion.div>
 
@@ -111,10 +108,10 @@ export default function CTASection() {
             <p className="section-label mb-6">Begin Your Aura Journey</p>
           </motion.div>
 
-          {/* Headline */}
-<motion.h2
-        initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      {/* Headline */}
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="relative text-4xl sm:text-6xl font-light tracking-tight leading-[1.12]"

@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import ProgressiveImage from './ProgressiveImage';
 
 const FEATURES = [
   {
@@ -113,13 +113,13 @@ export default function ExperienceSection() {
 
             {/* Image panel */}
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
-              <img
+              <ProgressiveImage
                 src="/hero-md.webp"
                 srcSet="/hero-sm.webp 600w, /hero-md.webp 1000w, /hero.webp 1600w"
                 alt="Luxury pool lifestyle — Aura Aquatics Brisbane"
-                className="w-full h-full object-cover object-center"
-                loading="lazy"
-                decoding="async"
+                className="w-full h-full"
+                imgClassName="object-center"
+                placeholder="#0d2840"
               />
 
               {/* Gradient veil — bottom fade to dark for testimonial readability */}
@@ -139,19 +139,19 @@ export default function ExperienceSection() {
               />
 
               {/* Floating stat chips — top right */}
-              <div className="absolute top-5 right-5 flex flex-col gap-2">
-                <div className="px-3 py-2 rounded-xl bg-black/50 border border-[#34d399]/25 backdrop-blur-md">
+                <div className="absolute top-5 right-5 flex flex-col gap-2">
+                <div className="px-3 py-2 rounded-xl bg-black/50 border border-[#34d399]/25 backdrop-blur-sm">
                   <p className="text-[8px] font-mono uppercase tracking-[0.25em] text-[#34d399]">Water Quality</p>
                   <p className="text-sm font-bold text-white">Pristine</p>
                 </div>
-                <div className="px-3 py-2 rounded-xl bg-black/50 border border-[#c8a96e]/25 backdrop-blur-md">
+                <div className="px-3 py-2 rounded-xl bg-black/50 border border-[#c8a96e]/25 backdrop-blur-sm">
                   <p className="text-[8px] font-mono uppercase tracking-[0.25em] text-[#c8a96e]">Last Service</p>
                   <p className="text-sm font-bold text-white">Today</p>
                 </div>
               </div>
 
               {/* Testimonial glass card — bottom */}
-              <div className="absolute bottom-5 left-5 right-5 p-5 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-xl">
+              <div className="absolute bottom-5 left-5 right-5 p-5 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-md">
                 <p className="text-sm italic font-serif text-slate-200 leading-relaxed">
                   "The absolute peace of mind knowing my pool is completely ready for a client lunch or
                   family weekend at any given moment is unmatched."

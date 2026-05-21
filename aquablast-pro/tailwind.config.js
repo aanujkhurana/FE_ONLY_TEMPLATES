@@ -44,8 +44,7 @@ export default {
         'float-slower':     'floatSlow 12s ease-in-out infinite alternate',
         'glow-pulse':       'glowPulse 3s ease-in-out infinite',
         'shimmer':          'shimmer 2.5s linear infinite',
-        'refract-slow':     'slowRefract 25s ease-in-out infinite',
-        'refract-slower':   'slowRefract 35s ease-in-out infinite alternate',
+
         'scan-down':        'scanDown 8s linear infinite',
       },
       keyframes: {
@@ -69,11 +68,7 @@ export default {
           '0%':   { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
-        slowRefract: {
-          '0%,100%': { borderRadius: '42% 58% 70% 30% / 45% 45% 55% 55%', transform: 'rotate(0deg) scale(1)' },
-          '33%':     { borderRadius: '70% 30% 52% 48% / 60% 40% 60% 40%', transform: 'rotate(90deg) scale(1.08)' },
-          '66%':     { borderRadius: '50% 50% 30% 70% / 40% 60% 40% 60%', transform: 'rotate(180deg) scale(0.95)' },
-        },
+
         scanDown: {
           '0%':   { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100vh)' },

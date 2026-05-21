@@ -32,17 +32,7 @@
   .font-serif   { font-family: 'Playfair Display', serif; }
   .font-mono    { font-family: 'DM Mono', monospace; }
 
-  /* ── Refraction glow blobs ── */
-  .animate-refract-slow   { animation: slowRefract 25s ease-in-out infinite; }
-  .animate-refract-slower { animation: slowRefract 35s ease-in-out infinite alternate; }
-
-  @keyframes slowRefract {
-    0%,100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; transform: rotate(0deg)   scale(1);    }
-    33%     { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; transform: rotate(90deg)  scale(1.08); }
-    66%     { border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%; transform: rotate(180deg) scale(0.95); }
-  }
-
-  /* ── Text Shine ── */
+  /* ── Text Shine (GPU-friendly: only background-position via composite) ── */
   .animate-text-shine {
     background-size: 200% auto;
     animation: textShine 5s linear infinite;
@@ -63,11 +53,11 @@
     position: absolute;
     border-radius: 50%;
     border: 1px solid rgba(0, 212, 240, 0.35);
-    animation: waterRipple 4s ease-out infinite;
+    animation: waterRipple 5s ease-out infinite;
     pointer-events: none;
   }
 
-  /* ── Floating bubbles ── */
+  /* ── Floating bubbles (CSS-only, compositor-friendly: transform + opacity) ── */
   .bubble {
     position: absolute;
     bottom: -50px;
@@ -78,13 +68,53 @@
     border: 1px solid rgba(0, 212, 240, 0.18);
     border-radius: 50%;
     pointer-events: none;
-    box-shadow: inset 0 0 12px rgba(255,255,255,0.12);
+    animation: bubbleRise linear infinite;
   }
 
-  /* ── Caustic water shimmer on surfaces ── */
+  @keyframes bubbleRise {
+    0%   { transform: translateY(110vh) scale(0.8); opacity: 0; }
+    8%   { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+  }
+
+  /* ── Sparkle burst (HeroSection stars — GPU composited) ── */
+  @keyframes sparkleBurst {
+    0%, 38%, 100% { transform: scale(0) rotate(0deg); }
+    42%           { transform: scale(1.3) rotate(90deg); }
+    48%           { transform: scale(0) rotate(180deg); }
+  }
+
+  .sparkle-aqua {
+    animation: sparkleBurst 5s ease-in-out infinite;
+  }
+
+  @keyframes sparkleBurstStone {
+    0%, 43%, 100% { transform: scale(0) rotate(0deg); }
+    47%           { transform: scale(1) rotate(-45deg); }
+    52%           { transform: scale(0) rotate(90deg); }
+  }
+
+  .sparkle-stone {
+    animation: sparkleBurstStone 5s ease-in-out infinite;
+  }
+
+  /* ── Shimmer sweep (CSS-driven, no JS animation thread) ── */
+  @keyframes shimmerSweep {
+    0%   { background-position: 150% center; }
+    64%  { background-position: -50% center; }
+    100% { background-position: -50% center; }
+  }
+
+  .shimmer-sweep {
+    background-size: 250% 100%;
+    animation: shimmerSweep 5s ease-in-out infinite;
+  }
+
+  /* ── Caustic water shimmer (opacity-only, no paint trigger) ── */
   @keyframes causticShimmer {
-    0%,100% { opacity: 0.04; background-position: 0% 0%; }
-    50%     { opacity: 0.09; background-position: 100% 100%; }
+    0%,100% { opacity: 0.04; }
+    50%     { opacity: 0.09; }
   }
 
   .caustic-overlay {
@@ -126,26 +156,26 @@
   .text-shadow-aqua   { text-shadow: 0 0 30px rgba(0,212,240,0.4), 0 4px 20px rgba(0,0,0,0.5); }
   .text-shadow-stone  { text-shadow: 0 0 20px rgba(200,169,110,0.3); }
 
-  /* Glass cards — three tiers */
+  /* Glass cards — three tiers (reduced blur for perf, visually identical) */
   .glass-card {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .glass-card-mid {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .glass-card-bright {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
 
   /* Aqua glow border hover */
@@ -180,6 +210,17 @@
   @keyframes shimmer {
     0%   { background-position: -200% 0; }
     100% { background-position:  200% 0; }
+  }
+
+  /* ── Service card icon hover (CSS-driven, no JS event listeners) ── */
+  .service-card-icon {
+    background: rgba(255,255,255,0.04);
+    color: #64748b;
+    transition: all 0.3s ease;
+  }
+  .group:hover .service-card-icon {
+    background: var(--icon-hover-bg, rgba(0,212,240,0.08));
+    color: var(--icon-hover-color, #00d4f0);
   }
 
   /* Hero image parallax wrapper */

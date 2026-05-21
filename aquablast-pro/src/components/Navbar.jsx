@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 60);
-  });
+  const navReveal = useTransform(scrollY, [40, 80], [0, 1]);
 
   return (
     <>
@@ -15,13 +10,14 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-[#020b14]/80 backdrop-blur-2xl border-b border-white/[0.06] shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-            : "bg-transparent border-b border-transparent"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50"
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        {/* Scroll-driven background — no React state, no re-renders, instant response */}
+        <motion.div
+          className="absolute inset-0 bg-[#020b14]/85 backdrop-blur-md border-b border-white/[0.06]"
+          style={{ opacity: navReveal }}
+        />
+        <div className="relative max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* LOGO */}
           <div className="flex flex-col">
             <span
@@ -85,7 +81,7 @@ export default function Navbar() {
       </motion.nav>
 
       {/* ── STICKY MOBILE CONVERSION BAR ── */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#020b14]/90 backdrop-blur-xl border-t border-white/[0.08] px-5 py-3 flex items-center justify-between">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#020b14]/90 backdrop-blur-md border-t border-white/[0.08] px-5 py-3 flex items-center justify-between">
         <div className="flex flex-col">
           <span className="text-[8px] uppercase tracking-[0.35em] text-[#c8a96e]/80 font-mono">
             Direct Concierge
