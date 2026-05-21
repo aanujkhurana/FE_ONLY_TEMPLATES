@@ -169,13 +169,12 @@ export default function Hero() {
           transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex-1 w-full max-w-lg lg:max-w-none"
         >
-          <div className="relative group">
+          <div className="relative">
             <div
-              className="absolute -inset-8 bg-gold/[0.04] blur-3xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-              style={{ transform: 'scale(1.01)' }}
+              className="absolute -inset-8 bg-gold/[0.04] blur-3xl rounded-3xl opacity-40"
             />
 
-            <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0c0c0d] shadow-[0_50px_120px_rgba(0,0,0,0.5)] transition-shadow duration-500 group-hover:shadow-[0_60px_140px_rgba(201,168,76,0.08)]">
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0c0c0d] shadow-[0_60px_140px_rgba(201,168,76,0.08)]">
               <div className="h-11 bg-white/[0.03] flex items-center px-4 gap-2 border-b border-white/[0.05]">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-500/40" />

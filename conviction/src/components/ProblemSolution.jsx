@@ -18,8 +18,7 @@ export default function ProblemSolution() {
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
           <ScrollReveal direction="left">
             <div className="relative group h-full">
-              <div className="absolute -inset-1 bg-white/[0.02] blur rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative h-full rounded-3xl border border-white/[0.06] bg-white/[0.02] p-8 sm:p-10 overflow-hidden">
+              <div className="relative h-full rounded-3xl border border-white/[0.06] bg-white/[0.02] p-8 sm:p-10 overflow-hidden transition-[border-color,box-shadow] duration-500 group-hover:border-white/[0.12] group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
                     <svg className="w-4 h-4 text-red-400/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,8 +61,7 @@ export default function ProblemSolution() {
 
           <ScrollReveal direction="right" delay={0.2}>
             <div className="relative group h-full">
-              <div className="absolute -inset-1 bg-gold/[0.06] blur rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative h-full rounded-3xl border border-gold/[0.12] bg-gradient-to-br from-gold/[0.03] to-transparent p-8 sm:p-10 overflow-hidden">
+              <div className="relative h-full rounded-3xl border border-gold/[0.12] bg-gradient-to-br from-gold/[0.03] to-transparent p-8 sm:p-10 overflow-hidden transition-[border-color,box-shadow] duration-500 group-hover:border-gold/[0.25] group-hover:shadow-[0_20px_60px_rgba(201,168,76,0.08)]">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
                     <svg className="w-4 h-4 text-gold/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">

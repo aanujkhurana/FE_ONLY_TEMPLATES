@@ -114,9 +114,12 @@ export default function ExperienceSection() {
             {/* Image panel */}
             <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
               <img
-                src="/hero.jpg"
+                src="/hero-md.webp"
+                srcSet="/hero-sm.webp 600w, /hero-md.webp 1000w, /hero.webp 1600w"
                 alt="Luxury pool lifestyle — Aura Aquatics Brisbane"
                 className="w-full h-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
               />
 
               {/* Gradient veil — bottom fade to dark for testimonial readability */}

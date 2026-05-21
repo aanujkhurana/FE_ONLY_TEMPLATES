@@ -59,9 +59,12 @@ export default function CTASection() {
         style={{ y: imgY }}
       >
         <img
-          src="/footer.jpg"
+          src="/footer-md.webp"
+          srcSet="/footer-sm.webp 600w, /footer-md.webp 1000w, /footer.webp 1600w"
           alt="Crystal clear luxury pool — Aura Aquatics"
           className="w-full h-full object-cover object-center scale-110"
+          loading="lazy"
+          decoding="async"
         />
       </motion.div>
 

@@ -56,10 +56,12 @@ export default function HeroSection({ backgroundY }) {
         style={{ y: imgY, scale: imgScale }}
       >
         <img
-          src="/hero2.jpg"
+          src="/hero2-md.webp"
+          srcSet="/hero2-sm.webp 600w, /hero2-md.webp 1000w, /hero2.webp 1600w"
           alt="Crystal clear luxury pool aerial view — Aura Aquatics"
           className="w-full h-full object-cover object-center opacity-25"
           loading="eager"
+          decoding="async"
         />
       </motion.div>
       <motion.div
@@ -316,9 +318,12 @@ export default function HeroSection({ backgroundY }) {
               {/* Card header — pool preview thumbnail using the hero image itself */}
               <div className="relative h-40 overflow-hidden">
                 <img
-                  src="/afterImage2.png"
+                  src="/afterImage2-md.webp"
+                  srcSet="/afterImage2-sm.webp 600w, /afterImage2-md.webp 1000w, /afterImage2.webp 1600w"
                   alt="Live pool status"
                   className="w-full h-full object-cover object-top scale-110"
+                  loading="lazy"
+                  decoding="async"
                 />
                 {/* Dark glass overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#040f1c]/30 to-[#040f1c]" />

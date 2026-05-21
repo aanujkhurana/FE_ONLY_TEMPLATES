@@ -46,9 +46,12 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
             {/* ─ BEFORE: neglected pool ─ */}
             <div className="absolute inset-0">
               <img
-                src="/beforeImage.png"
+                src="/beforeImage-md.webp"
+                srcSet="/beforeImage-sm.webp 600w, /beforeImage-md.webp 1000w, /beforeImage.webp 1600w"
                 alt="Before — Neglected green pool"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               {/* Green tint overlay to sell the "neglected" state */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/60 via-transparent to-black/60" />
@@ -69,9 +72,12 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
               style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
             >
               <img
-                src="/afterImage.png"
+                src="/afterImage-md.webp"
+                srcSet="/afterImage-sm.webp 600w, /afterImage-md.webp 1000w, /afterImage.webp 1600w"
                 alt="After — Crystal clear Aura pool"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               {/* Aqua shine overlay */}
               <div
