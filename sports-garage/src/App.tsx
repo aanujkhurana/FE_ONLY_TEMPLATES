@@ -53,13 +53,13 @@ const PERFORMANCE_TRUST = [
 ];
 
 const TRANSFORMATION_TABS = [
-  {
+{
     id: 'track',
     label: 'Track Upgrade',
     issue: {
       title: 'THE LIMITATION',
       description: 'Factory suspension components are designed for comfort, not performance. OEM springs sag over time, bushings wear, and alignment specs are generic—not optimised for aggressive cornering or track use.',
-      image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop',
+      image: 'https://images.unsplash.com/photo-1761942943097-047e87880031?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       bullets: [
         'Sagged OEM springs reduce cornering grip',
         'Worn bushings introduce compliance',
@@ -70,7 +70,7 @@ const TRANSFORMATION_TABS = [
     solution: {
       title: 'THE ELITE SOLUTION',
       description: 'We install precision-engineered coilover systems from Bilstein, KW, and Ohlins—each tuned to your specific vehicle and driving style. Our in-house corner balancing ensures perfect weight distribution.',
-      image: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&h=500&fit=crop',
+      image: 'https://images.unsplash.com/photo-1776231659226-48cd902b867e?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',      
       badges: [
         '+40% Cornering Grip',
         'Adjustable Damping (22-click)',
@@ -111,7 +111,7 @@ const TRANSFORMATION_TABS = [
     issue: {
       title: 'THE VULNERABILITY',
       description: 'Standard brake rotors are engineered for everyday driving—not repeated hard laps or mountain drives. Factory pads fade quickly, rotors warp under heat stress, and brake fluid degrades, compromising pedal feel.',
-      image: 'https://images.unsplash.com/photo-1597681393878-940f7d3ac2d7?w=800&h=500&fit=crop',
+image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&h=500&fit=crop',
       bullets: [
         'Glazed rotors cause brake fade',
         'Generic pads lack heat tolerance',
@@ -122,7 +122,7 @@ const TRANSFORMATION_TABS = [
     solution: {
       title: 'THE ELITE SOLUTION',
       description: 'We install premium big brake kits from Brembo, Alcon, and Endless—complete with floating two-piece rotors, race-grade pads, braided steel lines, and fresh DOT 5.1 fluid. Every system is bedded in and tested.',
-      image: 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&h=500&fit=crop',
+      image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=500&fit=crop',
       badges: [
         '+35% Braking Efficiency',
         'Heat Dissipation Optimised',
