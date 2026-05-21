@@ -27,36 +27,28 @@ export default function Hero() {
       <div className="noise absolute inset-0 z-[2] pointer-events-none" />
 
       <div className="absolute inset-0 z-0">
-        <motion.div
-          animate={{ x: [0, 100, -50, 0], y: [0, -80, 40, 0], scale: [1, 1.2, 0.9, 1] }}
-          transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
+        <div
           className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full opacity-40"
           style={{
             background: 'radial-gradient(circle at 30% 30%, rgba(201,168,76,0.35) 0%, rgba(201,168,76,0.05) 50%, transparent 70%)',
             filter: 'blur(100px)',
           }}
         />
-        <motion.div
-          animate={{ x: [0, -80, 60, 0], y: [0, 80, -50, 0], scale: [1, 0.85, 1.15, 1] }}
-          transition={{ duration: 35, repeat: Infinity, ease: 'easeInOut' }}
+        <div
           className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-35"
           style={{
             background: 'radial-gradient(circle at 70% 30%, rgba(122,92,245,0.3) 0%, rgba(122,92,245,0.05) 50%, transparent 70%)',
             filter: 'blur(100px)',
           }}
         />
-        <motion.div
-          animate={{ x: [0, 50, -80, 0], y: [0, -50, 80, 0], scale: [1, 1.1, 1.2, 1] }}
-          transition={{ duration: 32, repeat: Infinity, ease: 'easeInOut' }}
+        <div
           className="absolute -bottom-40 left-1/4 w-[650px] h-[650px] rounded-full opacity-25"
           style={{
             background: 'radial-gradient(circle at 50% 70%, rgba(45,212,191,0.2) 0%, rgba(45,212,191,0.05) 50%, transparent 70%)',
             filter: 'blur(100px)',
           }}
         />
-        <motion.div
-          animate={{ x: [0, -40, 30, 0], y: [0, 30, -40, 0], scale: [1, 1.05, 0.95, 1] }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+        <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15"
           style={{
             background: 'radial-gradient(circle at center, rgba(236,232,225,0.15) 0%, transparent 60%)',
@@ -66,49 +58,39 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#080808] via-transparent to-[#080808] opacity-70" />
       </div>
 
-      <motion.div
-        animate={{ y: [0, -25, 0], rotate: [0, 10, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      <div
         className="absolute top-24 right-[15%] w-28 h-28 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-2xl z-[1] hidden lg:block"
-        style={{ boxShadow: '0 0 40px rgba(255,255,255,0.02)' }}
+        style={{ boxShadow: '0 0 40px rgba(255,255,255,0.02)', animation: 'float-1 8s ease-in-out infinite' }}
       />
-      <motion.div
-        animate={{ y: [0, 30, 0], rotate: [0, -15, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+      <div
         className="absolute bottom-1/4 left-[10%] w-40 h-40 rounded-full border border-white/[0.06] bg-white/[0.02] backdrop-blur-2xl z-[1] hidden lg:block"
-        style={{ boxShadow: '0 0 60px rgba(255,255,255,0.02)' }}
+        style={{ boxShadow: '0 0 60px rgba(255,255,255,0.02)', animation: 'float-2 10s ease-in-out infinite 1.5s' }}
       />
-      <motion.div
-        animate={{ y: [0, -18, 0], x: [0, 12, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+      <div
         className="absolute top-[45%] right-[28%] w-16 h-16 rounded-xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-2xl z-[1] hidden lg:block"
+        style={{ animation: 'float-3 7s ease-in-out infinite 3s' }}
       />
-      <motion.div
-        animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+      <div
         className="absolute top-[60%] left-[20%] w-20 h-20 rounded-full border border-white/[0.06] bg-white/[0.02] backdrop-blur-2xl z-[1] hidden xl:block"
+        style={{ animation: 'float-4 9s ease-in-out infinite 4s' }}
       />
-      <motion.div
-        animate={{ y: [0, -22, 0], scale: [1, 1.05, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+      <div
         className="absolute top-[20%] left-[55%] w-12 h-12 rounded-lg border border-white/[0.06] bg-white/[0.02] backdrop-blur-2xl z-[1] hidden lg:block"
-        style={{ transform: 'rotate(45deg)' }}
+        style={{ transform: 'rotate(45deg)', animation: 'float-5 6s ease-in-out infinite 2s' }}
       />
 
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+      <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2"
+        style={{ animation: 'scroll-pulse 2.5s ease-in-out infinite' }}
       >
         <span className="text-[10px] tracking-[0.2em] uppercase text-ivory-dark/20">Scroll</span>
         <div className="w-[18px] h-[30px] rounded-full border border-white/[0.08] flex items-start justify-center p-1">
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          <div
             className="w-[3px] h-[6px] rounded-full bg-gold/60"
+            style={{ animation: 'scroll-dot 2.5s ease-in-out infinite' }}
           />
         </div>
-      </motion.div>
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 min-h-screen flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
         <motion.div
@@ -118,10 +100,9 @@ export default function Hero() {
           className="flex-1 pt-16 lg:pt-0"
         >
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/[0.15] bg-gold/[0.04] text-gold/70 text-[11px] tracking-[0.2em] uppercase mb-8 backdrop-blur-sm">
-            <motion.span
+            <span
               className="w-1.5 h-1.5 rounded-full bg-gold"
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ animation: 'skeleton-pulse 2s ease-in-out infinite' }}
             />
             Premium Digital Presence
           </motion.div>
@@ -169,11 +150,8 @@ export default function Hero() {
           <motion.div variants={fadeUp} className="mt-14 flex items-center gap-4">
             <div className="flex -space-x-2">
               {Array.from({ length: 4 }).map((_, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8 + i * 0.1 }}
                   className="w-8 h-8 rounded-full border-2 border-[#080808] bg-gradient-to-br from-gold/40 to-violet/40"
                   style={{ zIndex: 4 - i }}
                 />
@@ -192,10 +170,9 @@ export default function Hero() {
           className="flex-1 w-full max-w-lg lg:max-w-none"
         >
           <div className="relative group">
-            <motion.div
+            <div
               className="absolute -inset-8 bg-gold/[0.04] blur-3xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-              animate={{ scale: [1, 1.02, 1] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ transform: 'scale(1.01)' }}
             />
 
             <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0c0c0d] shadow-[0_50px_120px_rgba(0,0,0,0.5)] transition-shadow duration-500 group-hover:shadow-[0_60px_140px_rgba(201,168,76,0.08)]">
@@ -218,40 +195,25 @@ export default function Hero() {
                     <div className="h-3 w-14 rounded bg-white/[0.03]" />
                     <div className="h-3 w-14 rounded bg-white/[0.03]" />
                   </div>
-                  <motion.div
-                    className="h-7 w-20 rounded-full"
-                    style={{ backgroundColor: 'rgba(201,168,76,0.15)' }}
-                    animate={{ opacity: [0.5, 1, 0.5] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                  />
+                  <div className="h-7 w-20 rounded-full" style={{ backgroundColor: 'rgba(201,168,76,0.15)' }} />
                 </div>
 
                 <div className="pt-10 pb-8 space-y-4">
                   <div className="h-10 w-4/5 rounded-lg bg-gradient-to-r from-white/[0.06] to-white/[0.03]" />
                   <div className="h-10 w-3/5 rounded-lg bg-gradient-to-r from-white/[0.06] to-white/[0.03]" />
-                  <motion.div
-                    className="h-4 w-2/3 rounded bg-white/[0.03] mt-6"
-                    animate={{ opacity: [0.3, 0.6, 0.3] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  />
+                  <div className="h-4 w-2/3 rounded bg-white/[0.03] mt-6" />
                   <div className="flex gap-3 mt-6">
-                    <motion.div
-                      className="h-9 w-28 rounded-full"
-                      style={{ backgroundColor: 'rgba(201,168,76,0.2)' }}
-                      animate={{ scale: [1, 1.02, 1] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                    />
+                    <div className="h-9 w-28 rounded-full" style={{ backgroundColor: 'rgba(201,168,76,0.2)' }} />
                     <div className="h-9 w-28 rounded-full border border-white/[0.05]" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
                   {Array.from({ length: 3 }).map((_, i) => (
-                    <motion.div
+                    <div
                       key={i}
                       className="h-20 sm:h-28 rounded-xl bg-gradient-to-b from-white/[0.03] to-white/[0.01] border border-white/[0.03]"
-                      animate={{ y: [0, -2, 0] }}
-                      transition={{ duration: 5, delay: i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+                      style={{ animation: `mockup-up 5s ease-in-out infinite ${i * 0.3}s` }}
                     />
                   ))}
                 </div>

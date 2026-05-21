@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import ScrollReveal from './ui/ScrollReveal'
 
 const testimonials = [
@@ -57,12 +56,9 @@ export default function Testimonials() {
         <div className="grid md:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
             <ScrollReveal key={t.name} delay={i * 0.15}>
-              <motion.div
-                whileHover={{ y: -6 }}
-                className="relative group p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] h-full flex flex-col"
-              >
-                <motion.div
-                  className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              <div className="relative group p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] h-full flex flex-col transition-all duration-500 hover:-translate-y-1.5 hover:border-white/[0.1]">
+                <div
+                  className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
                     background: 'linear-gradient(135deg, rgba(201,168,76,0.06), transparent 50%)',
                     filter: 'blur(20px)',
@@ -85,7 +81,7 @@ export default function Testimonials() {
                     <div className="text-xs text-ivory-dark/40 mt-0.5">{t.business}</div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </ScrollReveal>
           ))}
         </div>

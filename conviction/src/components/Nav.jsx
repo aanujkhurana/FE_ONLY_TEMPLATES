@@ -44,18 +44,16 @@ export default function Nav() {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
-        <motion.a
+        <a
           href="#"
           className="text-ivory font-semibold text-lg tracking-tight flex items-center gap-2 group"
-          whileHover={{ scale: 1.02 }}
         >
-          <motion.span
+          <span
             className="w-2 h-2 rounded-full bg-gold"
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ animation: 'nav-dot-pulse 2s ease-in-out infinite' }}
           />
           Conviction
-        </motion.a>
+        </a>
 
         <nav className="hidden md:flex items-center gap-8">
           {links.map((link) => {
@@ -70,10 +68,7 @@ export default function Nav() {
               >
                 {link.label}
                 {isActive && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-gold"
-                  />
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-gold" />
                 )}
               </a>
             )
@@ -100,17 +95,17 @@ export default function Nav() {
           className="md:hidden flex flex-col gap-1.5 p-2"
           aria-label="Menu"
         >
-          <motion.span
-            animate={open ? { rotate: 45, y: 3 } : { rotate: 0, y: 0 }}
-            className="block w-5 h-[1.5px] bg-ivory origin-center"
+          <span
+            className="block w-5 h-[1.5px] bg-ivory origin-center transition-transform duration-300"
+            style={{ transform: open ? 'rotate(45deg) translateY(3px)' : 'rotate(0)' }}
           />
-          <motion.span
-            animate={open ? { opacity: 0, x: -5 } : { opacity: 1, x: 0 }}
-            className="block w-5 h-[1.5px] bg-ivory"
+          <span
+            className="block w-5 h-[1.5px] bg-ivory transition-all duration-300"
+            style={{ opacity: open ? 0 : 1, transform: open ? 'translateX(-5px)' : 'translateX(0)' }}
           />
-          <motion.span
-            animate={open ? { rotate: -45, y: -3 } : { rotate: 0, y: 0 }}
-            className="block w-5 h-[1.5px] bg-ivory origin-center"
+          <span
+            className="block w-5 h-[1.5px] bg-ivory origin-center transition-transform duration-300"
+            style={{ transform: open ? 'rotate(-45deg) translateY(-3px)' : 'rotate(0)' }}
           />
         </button>
       </div>

@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { usePreview } from '../context/PreviewContext'
 import ScrollReveal from './ui/ScrollReveal'
 
@@ -8,19 +7,15 @@ export default function CTA() {
   return (
     <section id="cta" className="relative py-48 overflow-hidden">
       <div className="absolute inset-0">
-        <motion.div
-          animate={{ scale: [1, 1.3, 1], rotate: [0, 8, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+        <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full opacity-25"
           style={{
             background: 'radial-gradient(circle at center, rgba(201,168,76,0.3) 0%, rgba(122,92,245,0.1) 35%, rgba(45,212,191,0.05) 60%, transparent 80%)',
             filter: 'blur(120px)',
           }}
         />
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full"
+        <div
+          className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full opacity-15"
           style={{
             background: 'radial-gradient(circle at center, rgba(201,168,76,0.15) 0%, transparent 70%)',
             filter: 'blur(80px)',

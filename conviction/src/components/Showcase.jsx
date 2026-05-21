@@ -38,41 +38,52 @@ const projects = [
 
 function Mockup3D({ project }) {
   const ref = useRef(null)
-  const [rotateX, setRotateX] = useState(0)
-  const [rotateY, setRotateY] = useState(0)
+  const rafRef = useRef(null)
+  const currentRotate = useRef({ x: 0, y: 0 })
 
   const handleMove = useCallback((e) => {
     if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width
-    const y = (e.clientY - rect.top) / rect.height
-    setRotateX((y - 0.5) * -14)
-    setRotateY((x - 0.5) * 14)
+    if (rafRef.current) return
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null
+      const rect = ref.current.getBoundingClientRect()
+      const x = (e.clientX - rect.left) / rect.width
+      const y = (e.clientY - rect.top) / rect.height
+      currentRotate.current = {
+        x: (y - 0.5) * -14,
+        y: (x - 0.5) * 14,
+      }
+      if (ref.current) {
+        ref.current.style.transform = `rotateX(${currentRotate.current.x}deg) rotateY(${currentRotate.current.y}deg)`
+      }
+    })
   }, [])
 
   const handleLeave = useCallback(() => {
-    setRotateX(0)
-    setRotateY(0)
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+    currentRotate.current = { x: 0, y: 0 }
+    if (ref.current) {
+      ref.current.style.transform = 'rotateX(0deg) rotateY(0deg)'
+    }
   }, [])
 
   return (
-    <motion.div
+    <div
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      animate={{ rotateX, rotateY }}
-      transition={{ type: 'spring', stiffness: 180, damping: 18, mass: 0.5 }}
-      style={{ perspective: '1200px' }}
+      style={{ perspective: '1200px', willChange: 'transform', transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}
       className="relative group cursor-pointer"
     >
-      <motion.div
-        className="absolute -inset-6 rounded-3xl transition-opacity duration-700"
+      <div
+        className="absolute -inset-6 rounded-3xl opacity-15 transition-opacity duration-700 group-hover:opacity-30"
         style={{
           background: `radial-gradient(circle at center, ${project.accent}20, transparent 70%)`,
           filter: 'blur(40px)',
         }}
-        animate={{ opacity: [0.15, 0.3, 0.15] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0c0c0d] shadow-[0_40px_100px_rgba(0,0,0,0.5)] transition-shadow duration-500 group-hover:shadow-[0_50px_120px_rgba(0,0,0,0.6)]">
@@ -98,12 +109,7 @@ function Mockup3D({ project }) {
         ) : (
           <div className={`p-6 sm:p-8 bg-gradient-to-br ${project.gradient}`}>
             <div className="flex items-center justify-between mb-8">
-              <motion.div
-                className="h-3 w-16 rounded"
-                style={{ backgroundColor: `${project.accent}30` }}
-                animate={{ width: [64, 72, 64] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              />
+              <div className="h-3 w-16 rounded" style={{ backgroundColor: `${project.accent}30` }} />
               <div className="flex gap-4">
                 <div className="h-2 w-12 rounded bg-white/[0.04]" />
                 <div className="h-2 w-12 rounded bg-white/[0.04]" />
@@ -111,42 +117,28 @@ function Mockup3D({ project }) {
             </div>
 
             <div className="pb-8 space-y-3">
-              <motion.div
-                className="h-7 w-2/3 rounded"
-                style={{ backgroundColor: `${project.accent}25` }}
-                animate={{ opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <motion.div
-                className="h-7 w-1/3 rounded bg-white/[0.06]"
-                animate={{ width: ['33%', '38%', '33%'] }}
-                transition={{ duration: 4, delay: 0.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
+              <div className="h-7 w-2/3 rounded" style={{ backgroundColor: `${project.accent}25` }} />
+              <div className="h-7 w-1/3 rounded bg-white/[0.06]" />
               <div className="h-3 w-1/2 rounded bg-white/[0.03] mt-4" />
               <div className="flex gap-3 mt-6">
-                <motion.div
-                  className="h-8 w-24 rounded-full"
-                  style={{ backgroundColor: `${project.accent}25` }}
-                  whileHover={{ scale: 1.05 }}
-                />
+                <div className="h-8 w-24 rounded-full" style={{ backgroundColor: `${project.accent}25` }} />
                 <div className="h-8 w-24 rounded-full border border-white/[0.05]" />
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
               {Array.from({ length: 3 }).map((_, i) => (
-                <motion.div
+                <div
                   key={i}
                   className="h-16 sm:h-20 rounded-lg bg-white/[0.03] border border-white/[0.03]"
-                  animate={{ y: [0, -3, 0] }}
-                  transition={{ duration: 5, delay: i * 0.4, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{ animation: `mockup-up 5s ease-in-out infinite ${i * 0.4}s` }}
                 />
               ))}
             </div>
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   )
 }
 
@@ -211,51 +203,30 @@ export default function Showcase() {
           >
             <div className="lg:col-span-2 space-y-6">
               <div>
-                <motion.span
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="text-xs tracking-[0.2em] uppercase text-ivory-dark/40"
-                >
+                <span className="text-xs tracking-[0.2em] uppercase text-ivory-dark/40">
                   {project.tag}
-                </motion.span>
-                <motion.h3
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
-                  className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-ivory"
-                >
+                </span>
+                <h3 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-ivory">
                   {project.title}
-                </motion.h3>
+                </h3>
               </div>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-ivory-dark/60 leading-relaxed"
-              >
+              <p className="text-ivory-dark/60 leading-relaxed">
                 {project.description}
-              </motion.p>
+              </p>
               <ul className="space-y-3">
-                {project.features.map((f, i) => (
-                  <motion.li
+                {project.features.map((f) => (
+                  <li
                     key={f}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 + i * 0.05 }}
                     className="flex items-center gap-3 text-sm text-ivory-dark/50"
                   >
                     <svg className="w-4 h-4 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                     {f}
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
-              <motion.a
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
+              <a
                 href={project.url || '#cta'}
                 target={project.url ? '_blank' : undefined}
                 rel={project.url ? 'noopener noreferrer' : undefined}
@@ -265,7 +236,7 @@ export default function Showcase() {
                 <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </motion.a>
+              </a>
             </div>
 
             <div className="lg:col-span-3">
