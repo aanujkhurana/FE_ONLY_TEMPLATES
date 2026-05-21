@@ -1,28 +1,237 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+
+function ShimmerText({ children }) {
+  return (
+    <span className="relative inline-block">
+      {/* Base text — white, slightly transparent */}
+      <span
+        className="relative z-10"
+        style={{
+          background: "linear-gradient(135deg, #e0f7ff 0%, #ffffff 40%, #a8efff 60%, #ffffff 80%, #cffafe 100%)",
+          backgroundClip: "text",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        {children}
+      </span>
+
+      {/* Travelling shimmer overlay */}
+      <motion.span
+        aria-hidden
+        className="absolute inset-0 z-20 pointer-events-none"
+        style={{
+          background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.85) 50%, transparent 80%)",
+          backgroundClip: "text",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundSize: "250% 100%",
+        }}
+        animate={{ backgroundPosition: ["150% center", "-50% center"] }}
+        transition={{ duration: 3.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 1.8 }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
 
 export default function CTASection() {
+  
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
+
+  // Parallax on the background image — slow scroll
+  const imgY     = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['4%', '-4%']);
+
   return (
-    <section id="contact" className="py-32 px-6 max-w-5xl mx-auto relative text-center">
-      <div className="absolute inset-0 bg-gradient-to-tr from-[#00f2fe]/10 to-transparent filter blur-[120px] pointer-events-none -z-10" />
-      <div className="bg-gradient-to-b from-white/[0.03] to-transparent p-12 sm:p-20 rounded-3xl border border-white/10 space-y-8 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#00f2fe_1px,transparent_1px)] [background-size:24px_24px]" />
-        
-        <h2 className="text-3xl sm:text-5xl font-light tracking-tight max-w-2xl mx-auto leading-tight">
-          Elevate Your Water Architecture to <span className="font-semibold bg-gradient-to-r from-white via-[#4facfe] to-[#00f2fe] bg-clip-text text-transparent">Resort Quality.</span>
-        </h2>
-        <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto font-light">
-          Contact our engineering desk today. Secure your preferred recurring valet sequence before our premium seasonal capacity limits lock.
-        </p>
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-          <a href="tel:1300287278" className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#4facfe] to-[#00f2fe] text-slate-900 font-bold rounded-xl text-xs tracking-widest uppercase hover:shadow-[0_0_30px_rgba(0,242,254,0.3)] transition-all">
-            Call Senior Chemist
-          </a>
-          <a href="mailto:concierge@auraaquatics.com.au" className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 hover:bg-white/10 rounded-xl text-xs tracking-widest uppercase transition-all">
-            Request Estate Audit
-          </a>
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="relative py-0 overflow-hidden"
+      style={{ minHeight: '70vh' }}
+    >
+      {/* ── FULL-BLEED HERO IMAGE (parallax) ── */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ y: imgY }}
+      >
+        <img
+          src="/footer.jpg"
+          alt="Crystal clear luxury pool — Aura Aquatics"
+          className="w-full h-full object-cover object-center scale-110"
+        />
+      </motion.div>
+
+      {/* ── OVERLAY SYSTEM ── */}
+      {/* Primary dark overlay */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background: 'linear-gradient(180deg, rgba(2,11,20,0.88) 0%, rgba(2,11,20,0.72) 40%, rgba(2,11,20,0.92) 100%)',
+        }}
+      />
+      {/* Dual-temperature side vignettes */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 50% 80% at 0% 50%, rgba(200,169,110,0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 80% at 100% 50%, rgba(0,212,240,0.08) 0%, transparent 60%)',
+        }}
+      />
+      {/* Caustic light shimmer overlay */}
+      <div className="absolute inset-0 z-10 caustic-overlay opacity-60 pointer-events-none" />
+
+      {/* ── CONTENT ── */}
+      <motion.div
+        style={{ y: contentY }}
+        className="relative z-20 flex items-center justify-center min-h-[70vh] px-6 py-24"
+      >
+        <div className="max-w-3xl mx-auto text-center space-y-10">
+
+          {/* Ripple rings — centred decorative element echoing hero image */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            <div className="water-ripple-ring" style={{ width: 200, height: 200, marginLeft: -100, marginTop: -100, animationDelay: '0s' }} />
+            <div className="water-ripple-ring" style={{ width: 350, height: 350, marginLeft: -175, marginTop: -175, animationDelay: '1.3s' }} />
+            <div className="water-ripple-ring" style={{ width: 500, height: 500, marginLeft: -250, marginTop: -250, animationDelay: '2.6s' }} />
+          </div>
+
+          {/* Label */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+          >
+            <p className="section-label mb-6">Begin Your Aura Journey</p>
+          </motion.div>
+
+          {/* Headline */}
+<motion.h2
+        initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="relative text-4xl sm:text-6xl font-light tracking-tight leading-[1.12]"
+        style={{
+          color: "rgba(255,255,255,0.93)",
+          textShadow: "0 2px 40px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.1)",
+          letterSpacing: "-0.02em",
+        }}
+      >
+        {/* First line — staggered word reveal */}
+        <motion.span
+          className="block overflow-hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
+          }}
+        >
+          {["Elevate", "Your", "Water", "Architecture", "to"].map((word, i) => (
+            <motion.span
+              key={i}
+              className="inline-block mr-[0.28em]"
+              variants={{
+                hidden: { y: "110%", opacity: 0 },
+                visible: { y: 0, opacity: 1, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } },
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </motion.span>
+
+        {/* Second line — the premium shimmer phrase */}
+        <motion.span
+          className="block mt-1 font-semibold"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <ShimmerText>Resort Quality.</ShimmerText>
+        </motion.span>
+      </motion.h2>
+
+          {/* Sub */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="text-slate-300/90 max-w-xl mx-auto text-sm sm:text-base font-light leading-relaxed"
+          >
+            Contact our engineering desk today. Secure your preferred recurring valet sequence
+            before our premium seasonal capacity limits lock.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.32 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            {/* Primary — aqua gradient with shimmer */}
+            <a
+              href="tel:1300287278"
+              className="group relative overflow-hidden inline-flex items-center gap-2.5 w-full sm:w-auto px-9 py-4 rounded-xl font-bold text-[11px] tracking-[0.22em] uppercase text-[#020b14] transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                background: 'linear-gradient(135deg, #0ba3d4 0%, #00d4f0 50%, #38bdf8 100%)',
+                boxShadow: '0 0 0 rgba(0,212,240,0)',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 50px rgba(0,212,240,0.45), 0 10px 30px rgba(0,0,0,0.4)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 0 rgba(0,212,240,0)'; }}
+            >
+              <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent skew-x-12" />
+              <svg className="relative z-10 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+              <span className="relative z-10">Call 1300 Aura</span>
+            </a>
+
+            {/* Secondary — warm stone border */}
+            <a
+              href="mailto:concierge@auraaquatics.com.au"
+              className="inline-flex items-center gap-2.5 w-full sm:w-auto px-9 py-4 rounded-xl font-semibold text-[11px] tracking-[0.22em] uppercase text-slate-200 transition-all duration-300 hover:text-white glass-card-mid"
+              style={{ border: '1px solid rgba(200,169,110,0.25)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(200,169,110,0.5)';
+                e.currentTarget.style.boxShadow = '0 0 20px rgba(200,169,110,0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(200,169,110,0.25)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <svg className="w-4 h-4 text-[#c8a96e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
+              Request Estate Audit
+            </a>
+          </motion.div>
+
+          {/* Trust footnote */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="flex items-center justify-center gap-4 text-[10px] uppercase tracking-[0.25em] text-slate-600 font-mono"
+          >
+            <span>No Contract</span>
+            <span className="w-1 h-1 rounded-full bg-slate-700" />
+            <span>Discretion Guaranteed</span>
+            <span className="w-1 h-1 rounded-full bg-slate-700" />
+            <span>Same-Day Dispatch</span>
+          </motion.div>
         </div>
-        <p className="text-[10px] uppercase tracking-widest text-slate-500 font-medium">No Contract Commitment • Discretion Guaranteed</p>
-      </div>
+      </motion.div>
     </section>
   );
 }
