@@ -1,34 +1,95 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  ArrowUpRight,
+  ChevronRight,
+  Droplets,
+  Leaf,
+  Moon,
+  Ruler,
+  Shovel,
+  Sparkles,
+  SunMedium,
+  Waves,
+} from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, MoveRight } from 'lucide-react';
 
-// --- THEME & CONFIGURATION ---
-// Colors used via arbitrary Tailwind classes to ensure plug-and-play functionality:
-// Sandstone: #EAE4D9 | Warm Beige: #F7F5F0 | Deep Forest: #1A231E 
-// Olive: #4C5444 | Charcoal: #202A25 | Warm White: #FAFAF8
-
-const transition = { duration: 1.2, ease: [0.16, 1, 0.3, 1] };
-const fadeUp = {
-  initial: { opacity: 0, y: 40 },
+const ease = [0.16, 1, 0.3, 1];
+const reveal = {
+  initial: { opacity: 0, y: 36 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-100px" },
-  transition: transition
+  viewport: { once: true, margin: '-90px' },
+  transition: { duration: 0.9, ease },
 };
 
-export default function LuxuryLandscape() {
+const images = {
+  hero: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=82',
+  pool: 'https://images.unsplash.com/photo-1576013551627-11971f36c953?auto=format&fit=crop&w=1500&q=82',
+  courtyard: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1500&q=82',
+  stone: 'https://images.unsplash.com/photo-1599809275671-b5942cabc7a2?auto=format&fit=crop&w=1500&q=82',
+  foliage: 'https://images.unsplash.com/photo-1473773508845-188df298d2d1?auto=format&fit=crop&w=1400&q=82',
+  garden: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1500&q=82',
+  texture: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&w=1800&q=82',
+};
+
+const projects = [
+  {
+    title: 'Stonewell Residence',
+    type: 'Pool landscape, terraces, evening lighting',
+    location: 'Northern Beaches',
+    img: images.pool,
+    detail: 'A layered outdoor room shaped around water, hand-set stone, filtered shade, and a restrained planting palette that softens the architecture.',
+    stats: ['38 native species', '92m2 reclaimed stone', '4 season planting'],
+  },
+  {
+    title: 'Kamakura Courtyard',
+    type: 'Japanese garden, courtyard renewal',
+    location: 'Toorak',
+    img: images.courtyard,
+    detail: 'A quiet internal landscape where maple, moss, gravel, and timber thresholds turn a compact courtyard into a daily ritual.',
+    stats: ['6 week install', 'Low water canopy', 'Hand-raked gravel'],
+  },
+  {
+    title: 'Dune House Garden',
+    type: 'Coastal outdoor living',
+    location: 'Byron hinterland',
+    img: images.stone,
+    detail: 'A wind-conscious coastal garden with sculpted paths, sheltered gathering pockets, and materials chosen to patina with salt air.',
+    stats: ['Salt-tolerant planting', 'Outdoor kitchen', 'Moonlit path'],
+  },
+];
+
+const services = [
+  ['Landscape Design', 'Concept plans, planting architecture, spatial flow, and material palettes for high-end residential sites.', Ruler],
+  ['Garden Transformations', 'Full-site renewal from tired lawn and fragmented beds into layered, living outdoor environments.', Leaf],
+  ['Outdoor Living', 'Dining terraces, lounges, fire settings, outdoor kitchens, shade structures, and calm gathering places.', SunMedium],
+  ['Pool Landscaping', 'Resort-like pool surrounds with stone, planting, privacy, lighting, and water-conscious detailing.', Droplets],
+  ['Paving & Stonework', 'Natural stone, steppers, walls, thresholds, gravel fields, and tactile architectural ground planes.', Shovel],
+  ['Lighting & Maintenance', 'Atmospheric lighting, seasonal care, pruning, soil stewardship, and long-term garden evolution.', Moon],
+];
+
+const process = [
+  ['Listen', 'We begin on site, reading light, slope, views, privacy, routines, and the emotional tone you want the garden to hold.'],
+  ['Compose', 'Ideas become spatial studies, planting rhythm, water movement, materials, and a precise design language for the property.'],
+  ['Craft', 'Our build teams shape each surface, edge, threshold, and planting layer with the patience of architectural workmanship.'],
+  ['Evolve', 'The garden is guided after handover so it settles beautifully, matures intentionally, and keeps revealing itself.'],
+];
+
+export default function App() {
   const { scrollYProgress } = useScroll();
-  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const heroY = useTransform(scrollYProgress, [0, 0.35], ['0%', '12%']);
+  const textureY = useTransform(scrollYProgress, [0.45, 1], ['-8%', '8%']);
 
   return (
-    <div className="bg-[#F7F5F0] text-[#202A25] font-sans antialiased selection:bg-[#4C5444] selection:text-[#F7F5F0]">
+    <div className="min-h-screen bg-warm text-charcoal selection:bg-olive selection:text-warm">
       <Navigation />
       <main>
-        <Hero yBg={yBg} />
-        <DesignPhilosophy />
+        <Hero heroY={heroY} />
+        <Intro />
         <FeaturedProjects />
         <Services />
+        <Philosophy textureY={textureY} />
         <Process />
-        <Testimonial />
+        <Testimonials />
         <FinalCTA />
       </main>
       <Footer />
@@ -36,122 +97,91 @@ export default function LuxuryLandscape() {
   );
 }
 
-// --- COMPONENTS ---
-
 function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
-    <motion.nav 
-      initial={{ opacity: 0, y: -20 }}
+    <motion.header
+      initial={{ opacity: 0, y: -18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 w-full z-50 transition-all duration-700 px-6 md:px-12 py-6 flex justify-between items-center ${
-        scrolled ? 'bg-[#F7F5F0]/90 backdrop-blur-md py-4' : 'bg-transparent'
+      transition={{ duration: 0.8, ease }}
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-500 ${
+        scrolled ? 'border-charcoal/10 bg-warm/95 shadow-[0_18px_60px_rgba(32,42,37,0.08)]' : 'border-warm/20 bg-transparent text-warm'
       }`}
     >
-      <div className="text-xl font-serif tracking-widest uppercase text-[#202A25]">
-        Aethel & Co.
-      </div>
-      <div className="hidden md:flex gap-12 text-sm tracking-widest uppercase font-medium text-[#202A25]/70">
-        <a href="#philosophy" className="hover:text-[#202A25] transition-colors">Philosophy</a>
-        <a href="#projects" className="hover:text-[#202A25] transition-colors">Projects</a>
-        <a href="#services" className="hover:text-[#202A25] transition-colors">Services</a>
-      </div>
-      <button className="text-sm uppercase tracking-widest border-b border-[#202A25] pb-1 hover:text-[#4C5444] hover:border-[#4C5444] transition-all">
-        Consultation
-      </button>
-    </motion.nav>
+      <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-4 md:px-10">
+        <a href="#top" className="flex items-center gap-3" aria-label="Aurea Grounds home">
+          <span className="grid h-10 w-10 place-items-center border border-current/40 text-[11px] font-medium tracking-[0.22em]">AG</span>
+          <span className="font-serif text-xl tracking-[0.08em]">Aurea Grounds</span>
+        </a>
+        <div className="hidden items-center gap-9 text-[12px] font-semibold uppercase tracking-[0.22em] lg:flex">
+          <a href="#projects" className="nav-link">Projects</a>
+          <a href="#services" className="nav-link">Disciplines</a>
+          <a href="#process" className="nav-link">Process</a>
+          <a href="#journal" className="nav-link">Notes</a>
+        </div>
+        <a href="#consultation" className="group inline-flex items-center gap-3 border border-current/50 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.2em] transition hover:bg-charcoal hover:text-warm md:px-5">
+          Enquire
+          <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </a>
+      </nav>
+    </motion.header>
   );
 }
 
-function Hero({ yBg }) {
+function Hero({ heroY }) {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-32 pb-20 overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-center relative z-10">
-        
-        {/* Editorial Typography */}
-        <div className="lg:col-span-7 flex flex-col z-20">
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="overflow-hidden"
-          >
-            <h1 className="font-serif text-6xl md:text-8xl lg:text-[9rem] leading-[0.85] tracking-tight text-[#202A25]">
-              Spaces<br/>
-              <span className="italic font-light text-[#4C5444]">Designed</span><br/>
-              To Breathe.
-            </h1>
-          </motion.div>
-          
-          <motion.p 
-            {...fadeUp}
-            transition={{ ...transition, delay: 0.6 }}
-            className="mt-12 text-lg md:text-xl max-w-md font-light leading-relaxed text-[#202A25]/80"
-          >
-            We sculpt the natural world with architectural precision, creating immersive outdoor sanctuaries for high-end residential living.
-          </motion.p>
-          
-          <motion.div 
-            {...fadeUp}
-            transition={{ ...transition, delay: 0.8 }}
-            className="mt-12 flex items-center gap-6"
-          >
-            <button className="group flex items-center gap-4 text-sm tracking-widest uppercase font-semibold border border-[#202A25] px-8 py-4 hover:bg-[#202A25] hover:text-[#F7F5F0] transition-all duration-500">
-              Discover Our Work
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-500" />
-            </button>
-          </motion.div>
-        </div>
+    <section id="top" className="relative min-h-[100svh] overflow-hidden bg-forest text-warm">
+      <motion.img src={images.hero} alt="Architectural home opening into a calm landscaped garden at dusk" className="absolute inset-0 h-[112%] w-full object-cover" style={{ y: heroY }} />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(26,35,30,0.92),rgba(26,35,30,0.48)_42%,rgba(26,35,30,0.2)_70%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-forest to-transparent" />
 
-        {/* Cinematic Imagery */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 relative h-[60vh] lg:h-[85vh] w-full"
-        >
-          <div className="absolute inset-0 bg-[#202A25]/10 mix-blend-overlay z-10" />
-          <motion.img 
-            style={{ y: yBg }}
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop" 
-            alt="Luxury architectural landscape" 
-            className="w-full h-[120%] object-cover object-center absolute top-[-10%]"
-          />
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-[1500px] grid-cols-1 px-5 pb-10 pt-28 md:px-10 lg:grid-cols-12 lg:items-end lg:gap-10">
+        <motion.div initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.15 }} className="self-center lg:col-span-7 lg:pb-20">
+          <p className="mb-7 max-w-xs text-[12px] font-bold uppercase tracking-[0.34em] text-moss">Residential landscape architecture</p>
+          <h1 className="max-w-5xl font-serif text-[clamp(4.7rem,13vw,11.8rem)] leading-[0.78] tracking-normal">Spaces Designed To Breathe.</h1>
+          <div className="mt-8 flex max-w-3xl flex-col gap-7 border-l border-warm/35 pl-5 md:flex-row md:items-end md:gap-12">
+            <p className="max-w-lg text-lg leading-8 text-warm/82 md:text-xl">Outdoor sanctuaries shaped with architectural precision, botanical patience, and the quiet luxury of materials that age well.</p>
+            <a href="#projects" className="cta-button shrink-0">
+              Explore Work
+              <ChevronRight className="h-4 w-4" />
+            </a>
+          </div>
         </motion.div>
+
+        <motion.aside initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease, delay: 0.45 }} className="mt-10 self-end border-y border-warm/20 py-6 lg:col-span-4 lg:col-start-9 lg:mb-14">
+          <div className="grid grid-cols-3 gap-5">
+            {[
+              ['18+', 'years crafting gardens'],
+              ['42', 'premium residences'],
+              ['01', 'studio-led build team'],
+            ].map(([number, label]) => (
+              <div key={label}>
+                <div className="font-serif text-4xl text-sand md:text-5xl">{number}</div>
+                <p className="mt-2 text-[11px] uppercase leading-5 tracking-[0.2em] text-warm/65">{label}</p>
+              </div>
+            ))}
+          </div>
+        </motion.aside>
       </div>
     </section>
   );
 }
 
-function DesignPhilosophy() {
+function Intro() {
   return (
-    <section id="philosophy" className="py-32 md:py-48 px-6 md:px-12 bg-[#EAE4D9]">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-32">
-        <motion.div {...fadeUp} className="md:w-1/3">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#4C5444] font-semibold border-b border-[#4C5444] pb-2">
-            Our Philosophy
-          </span>
-        </motion.div>
-        <motion.div {...fadeUp} className="md:w-2/3">
-          <h2 className="font-serif text-4xl md:text-6xl leading-tight tracking-tight text-[#202A25]">
-            Landscapes are not merely built. They are cultivated with deep reverence for nature, engineered to merge seamlessly with architectural form.
-          </h2>
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 text-[#202A25]/75 font-light leading-relaxed">
-            <p>
-              We approach every terrain as a blank canvas, understanding the subtle dialogue between soil, light, and stone. Our design language speaks in textures, shadows, and the organic flow of seasons.
-            </p>
-            <p>
-              By prioritizing sustainable craftsmanship and intentional materiality, we shape environments that age beautifully—outdoor spaces that pull you outside and invite you to linger.
-            </p>
-          </div>
+    <section className="bg-forest px-5 pb-28 pt-10 text-warm md:px-10 md:pb-40">
+      <div className="mx-auto grid max-w-[1500px] gap-14 border-t border-warm/20 pt-12 lg:grid-cols-12">
+        <motion.p {...reveal} className="text-[12px] font-bold uppercase tracking-[0.3em] text-clay lg:col-span-3">Nature crafted with architectural precision</motion.p>
+        <motion.div {...reveal} className="lg:col-span-8 lg:col-start-5">
+          <h2 className="font-serif text-[clamp(2.6rem,6vw,6.7rem)] leading-[0.95] tracking-normal">We design gardens as living architecture: shade, stone, scent, water, and season composed into everyday rituals.</h2>
         </motion.div>
       </div>
     </section>
@@ -159,59 +189,75 @@ function DesignPhilosophy() {
 }
 
 function FeaturedProjects() {
-  const projects = [
-    {
-      title: "The Glasshouse Retreat",
-      category: "Landscape Architecture & Pool",
-      img: "https://images.unsplash.com/photo-1576013551627-11971f36c953?q=80&w=2069&auto=format&fit=crop",
-      alignment: "left"
-    },
-    {
-      title: "Coastal Pavilion",
-      category: "Outdoor Living & Botany",
-      img: "https://images.unsplash.com/photo-1599809275671-b5942cabc7a2?q=80&w=2070&auto=format&fit=crop",
-      alignment: "right"
-    }
-  ];
+  return (
+    <section id="projects" className="overflow-hidden bg-stone px-5 py-24 md:px-10 md:py-36">
+      <div className="mx-auto max-w-[1500px]">
+        <motion.div {...reveal} className="mb-20 grid gap-8 lg:grid-cols-12">
+          <p className="text-[12px] font-bold uppercase tracking-[0.3em] text-olive lg:col-span-3">Featured projects</p>
+          <h2 className="font-serif text-[clamp(3rem,7vw,7.5rem)] leading-[0.88] lg:col-span-7">Case studies in outdoor atmosphere.</h2>
+        </motion.div>
+        <div className="space-y-28 md:space-y-40">
+          {projects.map((project, index) => <ProjectStory key={project.title} project={project} index={index} />)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProjectStory({ project, index }) {
+  const reverse = index % 2 === 1;
 
   return (
-    <section id="projects" className="py-32 md:py-48 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
-        <motion.h2 {...fadeUp} className="font-serif text-5xl md:text-7xl mb-32 text-center text-[#202A25]">
-          Selected Works
-        </motion.h2>
+    <motion.article {...reveal} className="grid items-center gap-8 lg:grid-cols-12">
+      <div className={`${reverse ? 'lg:order-2 lg:col-span-6 lg:col-start-7' : 'lg:col-span-7'} relative`}>
+        <div className="relative aspect-[5/6] overflow-hidden bg-forest md:aspect-[16/11]">
+          <img src={project.img} alt={`${project.title} landscape project`} className="h-full w-full object-cover transition duration-[1600ms] hover:scale-[1.035]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(26,35,30,0.46))]" />
+          <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between text-warm">
+            <span className="text-[11px] uppercase tracking-[0.24em]">{project.location}</span>
+            <span className="border border-warm/45 px-3 py-2 text-[10px] uppercase tracking-[0.22em]">Case {index + 1}</span>
+          </div>
+        </div>
+        <div className={`absolute hidden bg-clay/90 p-5 text-warm shadow-xl md:block ${reverse ? '-left-10 top-10' : '-right-10 bottom-12'}`}>
+          <p className="max-w-48 font-serif text-2xl leading-tight">before to after, composed in layers</p>
+        </div>
+      </div>
 
-        <div className="space-y-40">
-          {projects.map((project, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={transition}
-              className={`flex flex-col ${project.alignment === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-16`}
-            >
-              <div className="w-full md:w-3/5 overflow-hidden group">
-                <div className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden">
-                  <motion.img 
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    src={project.img} 
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+      <div className={reverse ? 'lg:col-span-5 lg:col-start-1 lg:row-start-1' : 'lg:col-span-4 lg:col-start-9'}>
+        <p className="mb-4 text-[12px] font-bold uppercase tracking-[0.28em] text-olive">{project.type}</p>
+        <h3 className="font-serif text-5xl leading-none md:text-7xl">{project.title}</h3>
+        <p className="mt-7 max-w-xl text-lg leading-8 text-charcoal/72">{project.detail}</p>
+        <div className="mt-9 border-y border-charcoal/15">
+          {project.stats.map((stat) => (
+            <div key={stat} className="flex items-center justify-between gap-5 border-b border-charcoal/10 py-4 last:border-b-0">
+              <span className="text-sm text-charcoal/62">Measured detail</span>
+              <span className="text-right font-serif text-xl">{stat}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function Services() {
+  return (
+    <section id="services" className="bg-warm px-5 py-24 md:px-10 md:py-36">
+      <div className="mx-auto max-w-[1500px]">
+        <motion.div {...reveal} className="grid gap-10 lg:grid-cols-12 lg:items-end">
+          <h2 className="font-serif text-[clamp(3.4rem,8vw,8.5rem)] leading-[0.86] lg:col-span-7">Disciplines for a complete outdoor life.</h2>
+          <p className="text-lg leading-8 text-charcoal/70 lg:col-span-4 lg:col-start-9">From first sketch to seasonal stewardship, every service is held inside one calm studio process.</p>
+        </motion.div>
+
+        <div className="mt-20 grid border-t border-charcoal/15 lg:grid-cols-2">
+          {services.map(([name, text, Icon], index) => (
+            <motion.div key={name} {...reveal} transition={{ duration: 0.8, ease, delay: index * 0.05 }} className="group grid min-h-52 grid-cols-[56px_1fr] gap-6 border-b border-charcoal/15 py-8 transition hover:bg-stone/70 md:grid-cols-[74px_1fr] md:p-10 lg:odd:border-r">
+              <div className="grid h-12 w-12 place-items-center border border-olive/30 text-olive transition group-hover:bg-forest group-hover:text-warm">
+                <Icon className="h-5 w-5" />
               </div>
-              <div className="w-full md:w-2/5 flex flex-col justify-center">
-                <span className="text-xs tracking-[0.2em] uppercase text-[#4C5444] mb-4">
-                  {project.category}
-                </span>
-                <h3 className="font-serif text-4xl md:text-5xl mb-8 text-[#202A25]">
-                  {project.title}
-                </h3>
-                <button className="self-start text-sm uppercase tracking-widest border-b border-[#202A25] pb-1 hover:text-[#4C5444] hover:border-[#4C5444] transition-all flex items-center gap-2">
-                  View Case Study <MoveRight className="w-4 h-4" />
-                </button>
+              <div>
+                <h3 className="font-serif text-3xl md:text-4xl">{name}</h3>
+                <p className="mt-4 max-w-xl text-base leading-7 text-charcoal/68">{text}</p>
               </div>
             </motion.div>
           ))}
@@ -221,44 +267,30 @@ function FeaturedProjects() {
   );
 }
 
-function Services() {
-  const services = [
-    "Landscape Architecture",
-    "Botanical Curation",
-    "Pool & Water Environments",
-    "Custom Stonework & Paving",
-    "Atmospheric Lighting"
-  ];
-
+function Philosophy({ textureY }) {
   return (
-    <section id="services" className="py-32 bg-[#202A25] text-[#F7F5F0] px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
-          <motion.h2 {...fadeUp} className="font-serif text-5xl md:text-7xl w-full md:w-1/2">
-            Crafting The<br/>External Realm.
-          </motion.h2>
-          <motion.p {...fadeUp} className="w-full md:w-1/3 text-[#F7F5F0]/70 font-light leading-relaxed">
-            Our disciplines merge architectural rigor with horticultural mastery. We oversee every detail, from the conceptual blueprint to the final laying of stone.
-          </motion.p>
-        </div>
-
-        <div className="flex flex-col border-t border-[#F7F5F0]/20">
-          {services.map((service, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: idx * 0.1 }}
-              className="group py-10 border-b border-[#F7F5F0]/20 flex justify-between items-center cursor-pointer hover:px-6 transition-all duration-500"
-            >
-              <h3 className="font-serif text-3xl md:text-5xl text-[#F7F5F0]/80 group-hover:text-[#F7F5F0] transition-colors">
-                {service}
-              </h3>
-              <ArrowRight className="w-8 h-8 opacity-0 group-hover:opacity-100 transform -translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-[#EAE4D9]" />
-            </motion.div>
-          ))}
-        </div>
+    <section className="relative overflow-hidden bg-forest px-5 py-24 text-warm md:px-10 md:py-40">
+      <motion.img src={images.texture} alt="" aria-hidden="true" className="absolute inset-y-0 right-0 h-[112%] w-full object-cover opacity-20 mix-blend-luminosity" style={{ y: textureY }} />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,#1a231e_0%,rgba(26,35,30,0.92)_48%,rgba(26,35,30,0.72))]" />
+      <div className="relative z-10 mx-auto grid max-w-[1500px] gap-14 lg:grid-cols-12">
+        <motion.div {...reveal} className="lg:col-span-5">
+          <p className="mb-6 text-[12px] font-bold uppercase tracking-[0.32em] text-clay">Design philosophy</p>
+          <h2 className="font-serif text-[clamp(3rem,7vw,7.2rem)] leading-[0.88]">Quiet gardens leave room for life to unfold.</h2>
+        </motion.div>
+        <motion.div {...reveal} className="lg:col-span-6 lg:col-start-7">
+          <div className="grid gap-8 text-lg leading-8 text-warm/76 md:grid-cols-2">
+            <p>We value restraint, but never emptiness. The right stone edge, the right canopy, the right pause between plantings can change how a home is felt.</p>
+            <p>Sustainability is treated as craft: resilient species, permeable surfaces, water awareness, soil health, and materials selected for longevity rather than novelty.</p>
+          </div>
+          <div className="mt-12 grid gap-4 border-t border-warm/20 pt-8 sm:grid-cols-3">
+            {['Craftsmanship', 'Ecology', 'Outdoor ritual'].map((item) => (
+              <div key={item} className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-[0.22em] text-sand">
+                <Sparkles className="h-4 w-4 text-clay" />
+                {item}
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -266,32 +298,18 @@ function Services() {
 
 function Process() {
   return (
-    <section className="py-32 md:py-48 px-6 md:px-12 bg-[#F7F5F0]">
-      <div className="max-w-4xl mx-auto">
-        <motion.div {...fadeUp} className="text-center mb-24">
-          <span className="text-xs tracking-[0.3em] uppercase text-[#4C5444] font-semibold border-b border-[#4C5444] pb-2">
-            The Journey
-          </span>
+    <section id="process" className="bg-sand px-5 py-24 md:px-10 md:py-36">
+      <div className="mx-auto max-w-[1500px]">
+        <motion.div {...reveal} className="mb-20 grid gap-8 lg:grid-cols-12">
+          <p className="text-[12px] font-bold uppercase tracking-[0.3em] text-olive lg:col-span-3">Process</p>
+          <h2 className="font-serif text-[clamp(3rem,7vw,7.2rem)] leading-[0.9] lg:col-span-8">A garden is not rushed into being.</h2>
         </motion.div>
-
-        <div className="relative border-l border-[#202A25]/20 pl-8 md:pl-16 space-y-24">
-          {[
-            { step: "01", title: "Topography & Vision", desc: "We begin by walking the land, studying the existing ecosystem, architecture, and your aspirations to form a cohesive vision." },
-            { step: "02", title: "Architectural Blueprint", desc: "Conceptual sketches evolve into precise architectural plans, detailing materiality, elevation, and botanical palettes." },
-            { step: "03", title: "Master Craftsmanship", desc: "Our artisans and horticulturists sculpt the terrain, meticulously executing the design with uncompromising quality." }
-          ].map((item, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ ...transition, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="absolute -left-[33px] md:-left-[65px] top-1 w-2 h-2 bg-[#4C5444] rounded-full" />
-              <span className="text-sm font-serif italic text-[#4C5444] mb-2 block">Phase {item.step}</span>
-              <h4 className="font-serif text-3xl md:text-4xl text-[#202A25] mb-4">{item.title}</h4>
-              <p className="text-[#202A25]/70 font-light leading-relaxed max-w-lg">{item.desc}</p>
+        <div className="grid gap-5">
+          {process.map(([title, text], index) => (
+            <motion.div key={title} {...reveal} transition={{ duration: 0.85, ease, delay: index * 0.08 }} className="grid gap-6 border-t border-charcoal/15 py-8 md:grid-cols-[120px_1fr_1.4fr] md:gap-10">
+              <span className="font-serif text-5xl text-olive/60">0{index + 1}</span>
+              <h3 className="font-serif text-4xl md:text-5xl">{title}</h3>
+              <p className="max-w-2xl text-lg leading-8 text-charcoal/70">{text}</p>
             </motion.div>
           ))}
         </div>
@@ -300,45 +318,43 @@ function Process() {
   );
 }
 
-function Testimonial() {
+function Testimonials() {
   return (
-    <section className="py-32 px-6 md:px-12 bg-[#EAE4D9] flex items-center justify-center">
-      <motion.div 
-        {...fadeUp}
-        className="max-w-5xl mx-auto text-center"
-      >
-        <p className="font-serif text-3xl md:text-5xl lg:text-6xl leading-[1.2] text-[#202A25] mb-12">
-          "They did not just landscape our property; they redefined how we live. Our outdoor space is now a sanctuary of quiet luxury and architectural beauty."
-        </p>
-        <div className="uppercase tracking-[0.2em] text-sm text-[#4C5444] font-semibold">
-          — The Harrison Residence
-        </div>
-      </motion.div>
+    <section className="bg-warm px-5 py-24 md:px-10 md:py-36">
+      <div className="mx-auto max-w-[1320px]">
+        <motion.div {...reveal} className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <img src={images.foliage} alt="Layered foliage and garden texture" className="aspect-[4/5] h-full w-full object-cover" />
+          </div>
+          <div className="flex flex-col justify-center lg:col-span-6 lg:col-start-7">
+            <Waves className="mb-9 h-8 w-8 text-clay" />
+            <blockquote className="font-serif text-[clamp(2.4rem,5vw,5.8rem)] leading-[1.02]">"The house finally feels complete. Every morning now begins outside."</blockquote>
+            <div className="mt-10 border-t border-charcoal/15 pt-6">
+              <p className="text-[12px] font-bold uppercase tracking-[0.26em] text-olive">Mira and James Ellery</p>
+              <p className="mt-2 text-charcoal/62">Whole-property landscape transformation, Mosman</p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
 
 function FinalCTA() {
   return (
-    <section className="relative py-48 px-6 md:px-12 bg-[#1A231E] overflow-hidden flex items-center justify-center text-center">
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <img 
-          src="https://images.unsplash.com/photo-1533460004989-cef01064af7e?q=80&w=2070&auto=format&fit=crop" 
-          alt="Dark foliage texture" 
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <motion.div 
-        {...fadeUp}
-        className="relative z-10 max-w-4xl mx-auto flex flex-col items-center"
-      >
-        <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-[#F7F5F0] mb-12 tracking-tight">
-          Design Your<br/>
-          <span className="italic text-[#EAE4D9] font-light">Outdoor Sanctuary.</span>
-        </h2>
-        <button className="bg-[#F7F5F0] text-[#1A231E] px-10 py-5 text-sm uppercase tracking-widest font-semibold hover:bg-[#EAE4D9] transition-colors duration-500">
-          Request a Consultation
-        </button>
+    <section id="consultation" className="relative overflow-hidden bg-forest px-5 py-28 text-warm md:px-10 md:py-44">
+      <img src={images.garden} alt="Lush premium garden pathway" className="absolute inset-0 h-full w-full object-cover opacity-45" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(26,35,30,0.94),rgba(26,35,30,0.72),rgba(26,35,30,0.36))]" />
+      <motion.div {...reveal} className="relative z-10 mx-auto max-w-[1500px]">
+        <p className="mb-7 text-[12px] font-bold uppercase tracking-[0.34em] text-moss">Private residential commissions</p>
+        <h2 className="max-w-5xl font-serif text-[clamp(3.4rem,8vw,8.8rem)] leading-[0.88]">Transform the way you live outdoors.</h2>
+        <div className="mt-10 flex flex-col gap-6 border-l border-warm/30 pl-5 md:max-w-3xl md:flex-row md:items-center md:gap-10">
+          <p className="text-lg leading-8 text-warm/76">Tell us about the site, the season you imagine, and how you want the space to feel. We will shape the next step.</p>
+          <a href="mailto:studio@aureagrounds.com" className="cta-button bg-warm text-forest hover:bg-sand">
+            Book Consultation
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
       </motion.div>
     </section>
   );
@@ -346,40 +362,35 @@ function FinalCTA() {
 
 function Footer() {
   return (
-    <footer className="bg-[#1A231E] pt-24 pb-12 px-6 md:px-12 text-[#F7F5F0]/60 border-t border-[#F7F5F0]/10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-        <div className="md:col-span-2">
-          <div className="text-2xl font-serif tracking-widest uppercase text-[#F7F5F0] mb-6">
-            Aethel & Co.
-          </div>
-          <p className="max-w-sm font-light text-sm leading-relaxed">
-            Elevating outdoor living through masterful landscape architecture, intentional design, and uncompromising craftsmanship.
-          </p>
+    <footer id="journal" className="bg-[#111713] px-5 py-14 text-warm/68 md:px-10">
+      <div className="mx-auto grid max-w-[1500px] gap-14 border-b border-warm/15 pb-14 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <div className="font-serif text-3xl text-warm">Aurea Grounds</div>
+          <p className="mt-5 max-w-md leading-7">A landscape architecture and outdoor living studio for calm, crafted, high-end residential environments.</p>
         </div>
-        
-        <div className="flex flex-col gap-4">
-          <h4 className="text-[#F7F5F0] text-xs uppercase tracking-[0.2em] mb-4">Studio</h4>
-          <a href="#" className="hover:text-[#F7F5F0] text-sm transition-colors">Philosophy</a>
-          <a href="#" className="hover:text-[#F7F5F0] text-sm transition-colors">Selected Works</a>
-          <a href="#" className="hover:text-[#F7F5F0] text-sm transition-colors">Disciplines</a>
-          <a href="#" className="hover:text-[#F7F5F0] text-sm transition-colors">Journal</a>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <h4 className="text-[#F7F5F0] text-xs uppercase tracking-[0.2em] mb-4">Connect</h4>
-          <a href="#" className="hover:text-[#F7F5F0] text-sm transition-colors">Instagram</a>
-          <a href="#" className="hover:text-[#F7F5F0] text-sm transition-colors">Pinterest</a>
-          <a href="#" className="hover:text-[#F7F5F0] text-sm transition-colors">Architecture Digest</a>
+        <div className="grid gap-10 sm:grid-cols-3 lg:col-span-6 lg:col-start-7">
+          <FooterColumn title="Studio" items={['Projects', 'Disciplines', 'Process', 'Philosophy']} />
+          <FooterColumn title="Enquiries" items={['studio@aureagrounds.com', '+61 2 4088 0194', 'Private consultations']} />
+          <FooterColumn title="Social" items={['Instagram', 'Pinterest', 'Design Journal']} />
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs tracking-widest pt-8 border-t border-[#F7F5F0]/10">
-        <p>&copy; {new Date().getFullYear()} AETHEL & CO. ALL RIGHTS RESERVED.</p>
-        <div className="flex gap-8 mt-4 md:mt-0">
-          <a href="#" className="hover:text-[#F7F5F0] transition-colors">Privacy</a>
-          <a href="#" className="hover:text-[#F7F5F0] transition-colors">Terms</a>
-        </div>
+      <div className="mx-auto mt-8 flex max-w-[1500px] flex-col gap-4 text-[11px] uppercase tracking-[0.22em] md:flex-row md:items-center md:justify-between">
+        <p>© {new Date().getFullYear()} Aurea Grounds. All rights reserved.</p>
+        <p>Landscape architecture, garden design, outdoor living.</p>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({ title, items }) {
+  return (
+    <div>
+      <h3 className="mb-5 text-[11px] font-bold uppercase tracking-[0.26em] text-sand">{title}</h3>
+      <div className="space-y-3">
+        {items.map((item) => (
+          <a key={item} href="#top" className="block text-sm transition hover:text-warm">{item}</a>
+        ))}
+      </div>
+    </div>
   );
 }
