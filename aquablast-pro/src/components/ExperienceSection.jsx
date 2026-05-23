@@ -47,8 +47,8 @@ export default function ExperienceSection() {
 
           {/* LEFT — Text content */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ x: -30 }}
+            whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-8"
@@ -71,8 +71,8 @@ export default function ExperienceSection() {
               {FEATURES.map((item, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ x: -20 }}
+                  whileInView={{ x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: i * 0.12 }}
                   className="flex gap-4 p-4 rounded-xl group hover:bg-white/[0.03] transition-colors"
@@ -102,8 +102,8 @@ export default function ExperienceSection() {
 
           {/* RIGHT — Hero image as lifestyle visual with glass testimonial */}
           <motion.div
-            initial={{ opacity: 0, x: 30, scale: 0.97 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            initial={{ x: 30, scale: 0.97 }}
+            whileInView={{ x: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
             className="relative"

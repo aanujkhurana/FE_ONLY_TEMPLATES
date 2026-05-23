@@ -105,8 +105,8 @@ export default function FAQSection({ activeFaq, setActiveFaq }) {
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
           className="text-center space-y-4 mb-16"
@@ -128,8 +128,8 @@ export default function FAQSection({ activeFaq, setActiveFaq }) {
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.04 }}
                 className="rounded-2xl overflow-hidden transition-all duration-300"

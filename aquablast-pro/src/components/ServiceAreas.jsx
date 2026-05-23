@@ -21,8 +21,8 @@ export default function ServiceAreas() {
 
       <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ x: -20 }}
+          whileInView={{ x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="space-y-2 text-center md:text-left shrink-0"
@@ -35,8 +35,8 @@ export default function ServiceAreas() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.1 }}
           className="flex flex-wrap justify-center md:justify-end gap-3 max-w-xl"
@@ -44,8 +44,8 @@ export default function ServiceAreas() {
           {SUBURBS.map((suburb, i) => (
             <motion.span
               key={suburb}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ scale: 0.9 }}
+              whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06, duration: 0.5 }}
               whileHover={{ scale: 1.05 }}

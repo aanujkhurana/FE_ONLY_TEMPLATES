@@ -70,8 +70,8 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden:   { opacity: 0, y: 40 },
-  visible:  { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+  hidden:   { y: 40 },
+  visible:  { y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function ServicesSection() {
@@ -94,8 +94,8 @@ export default function ServicesSection() {
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
           className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20"

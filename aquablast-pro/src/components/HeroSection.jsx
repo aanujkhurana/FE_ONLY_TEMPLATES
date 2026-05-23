@@ -32,7 +32,7 @@ function StatBadge({ value, label }) {
   );
 }
 
-export default function HeroSection({ backgroundY }) {
+export default function HeroSection({ backgroundY, onHeroLoad }) {
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -63,6 +63,7 @@ export default function HeroSection({ backgroundY }) {
           placeholder="#0a2e4c"
           fetchPriority="high"
           eager
+          onLoad={onHeroLoad}
         />
       </motion.div>
       <motion.div

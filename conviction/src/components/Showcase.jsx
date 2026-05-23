@@ -11,7 +11,10 @@ const projects = [
     gradient: 'from-cyan-500/10 to-blue-600/10',
     accent: '#06b6d4',
     url: 'https://aquablast-pro.vercel.app',
-    screenshot: '/aquablast-project.png',
+    images: {
+      src: '/images/aquablast-project.webp',
+      srcSet: '/images/aquablast-project-sm.webp 600w, /images/aquablast-project-md.webp 1000w, /images/aquablast-project.webp 1600w',
+    },
     features: ['Quote request system', 'Service area showcase', 'Before/after gallery', 'Mobile-optimised booking'],
   },
   {
@@ -22,7 +25,10 @@ const projects = [
     gradient: 'from-violet-500/10 to-purple-600/10',
     accent: '#8b5cf6',
     url: 'https://sportgarage.vercel.app',
-    screenshot: '/sportsgarage-project.png',
+    images: {
+      src: '/images/sportsgarage-project.webp',
+      srcSet: '/images/sportsgarage-project-sm.webp 600w, /images/sportsgarage-project-md.webp 1000w, /images/sportsgarage-project.webp 1600w',
+    },
     features: ['Service booking system', 'Customer review wall', 'Emergency CTA', 'Pricing transparency'],
   },
   {
@@ -35,6 +41,62 @@ const projects = [
     features: ['Instant quote calculator', 'Service area map', 'Project showcase', 'Seasonal promotions'],
   },
 ]
+
+function PressureDashboard({ accent }) {
+  return (
+    <div className="p-5 sm:p-6 space-y-4 bg-[#0a0a0b]">
+      <div className="flex items-center gap-4 pb-2 border-b border-white/[0.04]">
+        <span className="text-xs font-medium text-ivory/80">Aussie Pressure Kings</span>
+        <div className="flex items-center gap-3 ml-auto">
+          {['Services', 'Gallery', 'Get Quote'].map((item) => (
+            <span key={item} className={`text-[10px] tracking-wide ${item === 'Get Quote' ? 'font-medium' : 'text-ivory-dark/40'}`} style={{ color: item === 'Get Quote' ? accent : undefined }}>
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-3">
+        <span className="text-[11px] font-medium text-ivory/70 block mb-3">Instant Quote Calculator</span>
+        <div className="flex gap-1.5 mb-3">
+          {['Driveway', 'Patio', 'Roof'].map((item) => (
+            <span key={item} className="text-[10px] px-2.5 py-1 rounded-full border border-white/[0.06] bg-white/[0.03] text-ivory-dark/50">{item}</span>
+          ))}
+        </div>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-[10px] text-ivory-dark/40">Area:</span>
+          <div className="flex-1 h-1.5 rounded-full bg-white/[0.04] overflow-hidden">
+            <div className="h-full rounded-full" style={{ width: '72%', backgroundColor: accent, opacity: 0.5 }} />
+          </div>
+          <span className="text-[10px] text-ivory/60">180m&sup2;</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-lg font-semibold text-ivory/90">$299</span>
+          <span className="text-[11px] font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: `${accent}20`, color: accent }}>Book Now &rarr;</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-xl border border-white/[0.04] overflow-hidden">
+          <div className="h-16 bg-gradient-to-br from-white/[0.06] to-white/[0.02]" />
+          <div className="p-2">
+            <span className="text-[9px] text-ivory-dark/40 uppercase tracking-wide">Before</span>
+          </div>
+        </div>
+        <div className="rounded-xl border border-white/[0.04] overflow-hidden">
+          <div className="h-16 bg-gradient-to-br" style={{ background: `linear-gradient(135deg, ${accent}25, ${accent}10)` }} />
+          <div className="p-2">
+            <span className="text-[9px] text-ivory-dark/40 uppercase tracking-wide">After</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-xl p-3 text-center border border-white/[0.06]" style={{ background: `linear-gradient(135deg, ${accent}15, transparent)` }}>
+        <span className="text-xs font-medium" style={{ color: accent }}>&#x1F338; Spring Special &mdash; 15% OFF all services</span>
+      </div>
+    </div>
+  )
+}
 
 function Mockup3D({ project }) {
   const ref = useRef(null)
@@ -95,47 +157,22 @@ function Mockup3D({ project }) {
           </div>
         </div>
 
-        {project.screenshot ? (
+        {project.images ? (
           <div className="relative">
             <img
-              src={project.screenshot}
+              src={project.images.src}
+              srcSet={project.images.srcSet}
+              sizes="(max-width: 640px) 600px, (max-width: 1024px) 1000px, 1600px"
               alt={`${project.title} website preview`}
               className="w-full h-auto block select-none pointer-events-none"
               draggable={false}
               loading="lazy"
+              decoding="async"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0d] via-transparent to-transparent opacity-30 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0d] via-transparent to-transparent opacity-20 pointer-events-none" />
           </div>
         ) : (
-          <div className={`p-6 sm:p-8 bg-gradient-to-br ${project.gradient}`}>
-            <div className="flex items-center justify-between mb-8">
-              <div className="h-3 w-16 rounded" style={{ backgroundColor: `${project.accent}30` }} />
-              <div className="flex gap-4">
-                <div className="h-2 w-12 rounded bg-white/[0.04]" />
-                <div className="h-2 w-12 rounded bg-white/[0.04]" />
-              </div>
-            </div>
-
-            <div className="pb-8 space-y-3">
-              <div className="h-7 w-2/3 rounded" style={{ backgroundColor: `${project.accent}25` }} />
-              <div className="h-7 w-1/3 rounded bg-white/[0.06]" />
-              <div className="h-3 w-1/2 rounded bg-white/[0.03] mt-4" />
-              <div className="flex gap-3 mt-6">
-                <div className="h-8 w-24 rounded-full" style={{ backgroundColor: `${project.accent}25` }} />
-                <div className="h-8 w-24 rounded-full border border-white/[0.05]" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-16 sm:h-20 rounded-lg bg-white/[0.03] border border-white/[0.03]"
-                  style={{ animation: `mockup-up 5s ease-in-out infinite ${i * 0.4}s` }}
-                />
-              ))}
-            </div>
-          </div>
+          <PressureDashboard accent={project.accent} />
         )}
       </div>
     </div>

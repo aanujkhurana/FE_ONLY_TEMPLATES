@@ -62,7 +62,7 @@ export default function CTASection() {
           alt="Crystal clear luxury pool — Aura Aquatics"
           className="w-full h-full scale-110"
           imgClassName="object-center"
-          placeholder="#020b14"
+          placeholder="#0d2840"
         />
       </motion.div>
 
@@ -101,8 +101,8 @@ export default function CTASection() {
 
           {/* Label */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 24 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
           >
@@ -111,8 +111,8 @@ export default function CTASection() {
 
       {/* Headline */}
       <motion.h2
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ y: 40 }}
+        whileInView={{ y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="relative text-4xl sm:text-6xl font-light tracking-tight leading-[1.12]"
@@ -149,8 +149,8 @@ export default function CTASection() {
         {/* Second line — the premium shimmer phrase */}
         <motion.span
           className="block mt-1 font-semibold"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
         >
@@ -160,8 +160,8 @@ export default function CTASection() {
 
           {/* Sub */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.2 }}
             className="text-slate-300/90 max-w-xl mx-auto text-sm sm:text-base font-light leading-relaxed"
@@ -172,8 +172,8 @@ export default function CTASection() {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.32 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
@@ -219,8 +219,8 @@ export default function CTASection() {
 
           {/* Trust footnote */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ y: 8 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
             className="flex items-center justify-center gap-4 text-[10px] uppercase tracking-[0.25em] text-slate-600 font-mono"

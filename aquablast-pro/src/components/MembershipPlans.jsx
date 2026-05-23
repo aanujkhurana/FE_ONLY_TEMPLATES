@@ -58,8 +58,8 @@ export default function MembershipPlans() {
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
           className="text-center space-y-4 mb-20"
@@ -82,8 +82,8 @@ export default function MembershipPlans() {
             return (
               <motion.div
                 key={plan.name}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 40 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.12 }}
                 className="relative flex flex-col"
@@ -210,8 +210,8 @@ export default function MembershipPlans() {
 
         {/* Trust footnote */}
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ y: 8 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
           className="text-center text-[10px] uppercase tracking-[0.25em] text-slate-600 font-mono mt-12"

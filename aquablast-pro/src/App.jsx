@@ -53,7 +53,17 @@ export default function App() {
   const { scrollY } = useScroll();
   const backgroundY = useTransform(scrollY, [0, 1000], [0, 220]);
 
-  useEffect(() => { window.__hideLoading?.(); }, []);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  const [minTimePassed, setMinTimePassed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMinTimePassed(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (heroLoaded && minTimePassed) window.__hideLoading?.();
+  }, [heroLoaded, minTimePassed]);
 
   const handleSliderMove = useCallback((clientX) => {
     if (!beforeAfterRef.current) return;
@@ -83,7 +93,7 @@ export default function App() {
       <Navbar />
 
       {/* ── SECTIONS ── */}
-      <HeroSection backgroundY={backgroundY} />
+      <HeroSection backgroundY={backgroundY} onHeroLoad={() => setHeroLoaded(true)} />
       <TransformationSection
         beforeAfterRef={beforeAfterRef}
         handleSliderMove={handleSliderMove}

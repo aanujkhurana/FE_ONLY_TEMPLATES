@@ -218,6 +218,26 @@ export default function Hero() {
                 </div>
               </div>
             </div>
+
+            <div
+              className="absolute -top-4 -right-4 lg:-right-6 px-4 py-2 rounded-xl border border-white/[0.06] bg-[#0c0c0d]/90 backdrop-blur-xl shadow-lg"
+              style={{ animation: 'float-2 7s ease-in-out infinite' }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500/60" />
+                <span className="text-[10px] font-medium text-ivory-dark/60">50+ sites delivered</span>
+              </div>
+            </div>
+
+            <div
+              className="absolute -bottom-3 -left-4 lg:-left-6 px-4 py-2 rounded-xl border border-white/[0.06] bg-[#0c0c0d]/90 backdrop-blur-xl shadow-lg"
+              style={{ animation: 'float-1 8s ease-in-out infinite 1s' }}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-medium text-gold/70">&#9733; 4.9</span>
+                <span className="text-[9px] text-ivory-dark/40">avg. rating</span>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

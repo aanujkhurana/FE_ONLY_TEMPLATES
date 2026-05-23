@@ -14,8 +14,8 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
 
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="text-center space-y-4 mb-16"
@@ -32,8 +32,8 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
 
         {/* Before / After Slider */}
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ y: 40, scale: 0.98 }}
+          whileInView={{ y: 0, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
@@ -120,8 +120,8 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
 
         {/* Stats row below slider */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-10 flex flex-wrap items-center justify-center gap-8"

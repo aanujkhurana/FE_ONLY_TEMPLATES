@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function ProgressiveImage({
   src, srcSet, alt, className, imgClassName,
-  placeholder, sizes, eager, fetchPriority, style, ...imgProps
+  placeholder, sizes, eager, fetchPriority, style, onLoad, ...imgProps
 }) {
   const [loaded, setLoaded] = useState(false);
   const mountedRef = useRef(true);
@@ -14,10 +14,14 @@ export default function ProgressiveImage({
     if (srcSet) img.srcset = srcSet;
     if (sizes) img.sizes = sizes;
     img.src = src;
-    const onLoad = () => { if (mountedRef.current) setLoaded(true); };
-    img.addEventListener('load', onLoad);
-    img.addEventListener('error', onLoad);
-    if (img.complete) setLoaded(true);
+    const handleLoad = () => {
+      if (!mountedRef.current) return;
+      setLoaded(true);
+      onLoad?.();
+    };
+    img.addEventListener('load', handleLoad);
+    img.addEventListener('error', handleLoad);
+    if (img.complete) handleLoad();
     return () => { mountedRef.current = false; };
   }, [src, srcSet, sizes]);
 

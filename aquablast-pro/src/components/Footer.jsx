@@ -41,8 +41,8 @@ export default function Footer() {
 
           {/* Brand column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="space-y-5"
@@ -98,8 +98,8 @@ export default function Footer() {
           {Object.entries(LINKS).map(([heading, items], colIdx) => (
             <motion.div
               key={heading}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: (colIdx + 1) * 0.08 }}
               className="space-y-4"
