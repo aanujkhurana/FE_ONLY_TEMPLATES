@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useCallback } from 'react';
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import Navbar from './components/Navbar';
@@ -52,6 +52,8 @@ export default function App() {
   const beforeAfterRef = useRef(null);
   const { scrollY } = useScroll();
   const backgroundY = useTransform(scrollY, [0, 1000], [0, 220]);
+
+  useEffect(() => { window.__hideLoading?.(); }, []);
 
   const handleSliderMove = useCallback((clientX) => {
     if (!beforeAfterRef.current) return;

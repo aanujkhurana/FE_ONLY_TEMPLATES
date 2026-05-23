@@ -48,6 +48,7 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
               <ProgressiveImage
                 src="/beforeImage-md.webp"
                 srcSet="/beforeImage-sm.webp 600w, /beforeImage-md.webp 1000w, /beforeImage.webp 1600w"
+                sizes="(max-width: 1024px) 100vw, 1024px"
                 alt="Before — Neglected green pool"
                 className="w-full h-full"
                 placeholder="#1a3a2a"
@@ -73,6 +74,7 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
               <ProgressiveImage
                 src="/afterImage-md.webp"
                 srcSet="/afterImage-sm.webp 600w, /afterImage-md.webp 1000w, /afterImage.webp 1600w"
+                sizes="(max-width: 1024px) 100vw, 1024px"
                 alt="After — Crystal clear Aura pool"
                 className="w-full h-full"
                 placeholder="#0a3d6b"

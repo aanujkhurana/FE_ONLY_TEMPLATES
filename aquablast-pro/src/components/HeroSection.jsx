@@ -57,9 +57,11 @@ export default function HeroSection({ backgroundY }) {
         <ProgressiveImage
           src="/hero2-md.webp"
           srcSet="/hero2-sm.webp 600w, /hero2-md.webp 1000w, /hero2.webp 1600w"
+          sizes="100vw"
           alt="Crystal clear luxury pool aerial view — Aura Aquatics"
           className="w-full h-full object-cover object-center opacity-25"
           placeholder="#0a2e4c"
+          fetchPriority="high"
           eager
         />
       </motion.div>
@@ -284,6 +286,7 @@ export default function HeroSection({ backgroundY }) {
                 <ProgressiveImage
                   src="/afterImage2-md.webp"
                   srcSet="/afterImage2-sm.webp 600w, /afterImage2-md.webp 1000w, /afterImage2.webp 1600w"
+                  sizes="(max-width: 1024px) 50vw, 360px"
                   alt="Live pool status"
                   className="w-full h-full scale-110"
                   imgClassName="object-top"

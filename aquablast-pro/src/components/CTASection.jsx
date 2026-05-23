@@ -58,6 +58,7 @@ export default function CTASection() {
         <ProgressiveImage
           src="/footer-md.webp"
           srcSet="/footer-sm.webp 600w, /footer-md.webp 1000w, /footer.webp 1600w"
+          sizes="100vw"
           alt="Crystal clear luxury pool — Aura Aquatics"
           className="w-full h-full scale-110"
           imgClassName="object-center"

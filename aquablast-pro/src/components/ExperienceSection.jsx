@@ -116,6 +116,7 @@ export default function ExperienceSection() {
               <ProgressiveImage
                 src="/hero-md.webp"
                 srcSet="/hero-sm.webp 600w, /hero-md.webp 1000w, /hero.webp 1600w"
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 alt="Luxury pool lifestyle — Aura Aquatics Brisbane"
                 className="w-full h-full"
                 imgClassName="object-center"
