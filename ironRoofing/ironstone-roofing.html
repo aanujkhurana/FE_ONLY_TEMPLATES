@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ironstone Roofing — Built to Outlast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0B0B08;
+  --charcoal:#161613;
+  --dark:#1D1D1A;
+  --slate:#272723;
+  --mid:#373732;
+  --concrete:#4E4E47;
+  --warm-gray:#7A7970;
+  --sand:#B5AD97;
+  --cream:#E5E0D5;
+  --warm-white:#F4F1EA;
+  --white:#FAFAF7;
+  --copper:#7B4B27;
+  --copper-l:#9E6235;
+  --copper-xl:#B87840;
+}
+html{scroll-behavior:smooth}
+body{background:var(--charcoal);color:var(--warm-white);font-family:'Barlow',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden}
+
+/* ── TYPOGRAPHY ── */
+.d{font-family:'Bebas Neue',sans-serif;line-height:.88;letter-spacing:.02em}
+.hd{font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.lbl{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:11px}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1320px;margin:0 auto;padding:0 48px}
+section{position:relative}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:68px;background:rgba(22,22,19,.95);border-bottom:1px solid rgba(255,255,255,.05);transition:background .3s}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:19px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-white);text-decoration:none}
+.nav-logo em{color:var(--copper-l);font-style:normal}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--warm-white)}
+.nav-cta{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal);background:var(--copper-l);padding:10px 24px;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--copper-xl)}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:grid;grid-template-columns:55% 45%;overflow:hidden}
+.hero-l{display:flex;flex-direction:column;justify-content:flex-end;padding:140px 0 88px 48px;position:relative;z-index:2}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:36px}
+.hero-eyebrow .pip{width:5px;height:5px;background:var(--copper-l);border-radius:50%}
+.hero-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(108px,11vw,180px);line-height:.86;color:var(--warm-white);margin-bottom:40px}
+.hero-h em{color:var(--copper-l);font-style:normal}
+.hero-sub{font-size:18px;font-weight:300;color:var(--sand);max-width:400px;line-height:1.75;margin-bottom:52px}
+.hero-btns{display:flex;align-items:center;gap:32px}
+.btn-solid{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--warm-white);padding:16px 44px;text-decoration:none;transition:background .2s,color .2s}
+.btn-solid:hover{background:var(--copper-l);color:var(--warm-white)}
+.btn-text{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);text-decoration:none;transition:color .2s}
+.btn-text:hover{color:var(--warm-white)}
+.btn-text span{transition:transform .2s}
+.btn-text:hover span{transform:translateX(4px)}
+
+/* Hero right panel */
+.hero-r{position:relative;overflow:hidden;background:var(--dark)}
+.hero-r::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--charcoal) 0%,transparent 45%);z-index:2}
+.hero-r-inner{position:absolute;inset:0}
+.roof-pattern{width:100%;height:100%}
+.hero-badge{position:absolute;bottom:88px;left:48px;z-index:3;border-left:3px solid var(--copper-l);padding-left:20px}
+.hero-badge .bnum{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;color:var(--warm-white)}
+.hero-badge .bnum em{font-style:normal;color:var(--copper-l);font-size:44px}
+.hero-badge .blbl{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);margin-top:4px}
+
+/* ── METRICS ── */
+.metrics{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.m-item{padding:48px 44px;border-right:1px solid rgba(255,255,255,.05)}
+.m-item:last-child{border-right:none}
+.m-num{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;color:var(--warm-white);margin-bottom:6px}
+.m-num em{font-style:normal;color:var(--copper-l)}
+.m-lbl{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--warm-gray)}
+
+/* ── SECTION LABEL ── */
+.sec-lbl{display:flex;align-items:center;gap:14px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-l);margin-bottom:24px}
+.sec-lbl::after{content:'';display:block;width:36px;height:1px;background:var(--copper-l)}
+
+/* ── POSITIONING ── */
+#about{padding:128px 0;background:var(--charcoal)}
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:80px;align-items:center}
+.about-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(40px,4vw,66px);line-height:1.02;text-transform:uppercase;letter-spacing:.02em;color:var(--warm-white)}
+.about-p{font-size:17px;font-weight:300;color:var(--sand);line-height:1.85;margin-top:32px}
+.pillars{display:flex;flex-direction:column;gap:0}
+.pillar{border-top:1px solid rgba(255,255,255,.08);padding:28px 0}
+.pillar:last-child{border-bottom:1px solid rgba(255,255,255,.08)}
+.pillar-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--copper-l);line-height:1}
+.pillar-txt{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:400;color:var(--sand);margin-top:4px}
+
+/* ── CRAFTSMANSHIP ── */
+#craft{padding:128px 0;background:var(--dark)}
+.craft-hdr{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:48px;margin-bottom:72px}
+.craft-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,7vw,112px);line-height:.88;color:var(--warm-white)}
+.craft-p{font-size:17px;font-weight:300;color:var(--sand);line-height:1.85;max-width:400px}
+.craft-grid{display:grid;grid-template-columns:3fr 2fr;grid-template-rows:auto auto;gap:16px}
+.c-panel{position:relative;overflow:hidden}
+.c-panel-lg{grid-row:span 2;min-height:580px}
+.c-panel-sm{min-height:272px}
+.c-panel-lbl{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 28px;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%);z-index:2}
+.c-panel-lbl .c-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-l);margin-bottom:6px}
+.c-panel-lbl .c-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:.06em;color:var(--warm-white)}
+.c-panel-lbl .c-sub{font-size:13px;font-weight:300;color:var(--sand);margin-top:4px}
+
+/* ── SERVICES ── */
+#services{padding:128px 0;background:var(--warm-white)}
+.svc-hdr{margin-bottom:80px}
+.svc-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,7vw,112px);line-height:.88;color:var(--ink)}
+.svc-list{list-style:none}
+.svc-item{display:grid;grid-template-columns:80px 1fr 40px;align-items:center;gap:40px;padding:36px 0;border-top:1px solid rgba(0,0,0,.09);cursor:default;transition:background .15s;position:relative}
+.svc-item:last-child{border-bottom:1px solid rgba(0,0,0,.09)}
+.svc-item::after{content:'';position:absolute;bottom:-1px;left:0;width:0;height:2px;background:var(--copper-l);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.svc-item:hover::after{width:100%}
+.svc-n{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--concrete);line-height:1}
+.svc-body .svc-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);transition:color .2s}
+.svc-item:hover .svc-name{color:var(--copper)}
+.svc-body .svc-desc{font-size:14px;font-weight:300;color:var(--concrete);margin-top:6px;line-height:1.6}
+.svc-arr{font-size:22px;color:var(--sand);transition:transform .2s,color .2s;text-align:right}
+.svc-item:hover .svc-arr{transform:translateX(5px);color:var(--copper-l)}
+
+/* ── PROCESS ── */
+#process{padding:128px 0;background:var(--ink);overflow:hidden}
+#process::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-30deg,transparent,transparent 70px,rgba(255,255,255,.007) 70px,rgba(255,255,255,.007) 71px);pointer-events:none}
+.proc-hdr{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:96px}
+.proc-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,7vw,112px);line-height:.88;color:var(--warm-white)}
+.proc-sub{font-size:17px;font-weight:300;color:var(--warm-gray);line-height:1.85}
+.proc-steps{display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.proc-steps::before{content:'';position:absolute;top:27px;left:5%;right:5%;height:1px;background:rgba(255,255,255,.07)}
+.p-step{padding:0 20px}
+.p-ind{width:56px;height:56px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;background:var(--ink);margin-bottom:32px;transition:border-color .3s,background .3s}
+.p-step:hover .p-ind{border-color:var(--copper-l);background:rgba(155,98,53,.08)}
+.p-ind-n{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:var(--warm-gray);letter-spacing:.05em}
+.p-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.06em;color:var(--warm-white);margin-bottom:12px}
+.p-desc{font-size:13px;font-weight:300;color:var(--warm-gray);line-height:1.75}
+
+/* ── SHOWCASE ── */
+#showcase{padding:128px 0;background:var(--charcoal)}
+.show-hdr{margin-bottom:64px}
+.show-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,7vw,112px);line-height:.88;color:var(--warm-white)}
+.proj-card{display:grid;grid-template-columns:3fr 2fr;border:1px solid rgba(255,255,255,.06)}
+.proj-vis{min-height:480px;position:relative;overflow:hidden;cursor:crosshair}
+.ba-before,.ba-after{position:absolute;inset:0}
+.ba-after{clip-path:inset(0 35% 0 0);transition:clip-path .5s cubic-bezier(.4,0,.2,1)}
+.proj-vis:hover .ba-after{clip-path:inset(0 0% 0 0)}
+.ba-tag{position:absolute;top:20px;z-index:3;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;background:rgba(0,0,0,.55)}
+.ba-tag.bef{left:20px;color:var(--sand)}
+.ba-tag.aft{right:20px;color:var(--copper-l)}
+.ba-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:3;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.proj-info{background:var(--dark);padding:52px;display:flex;flex-direction:column;justify-content:space-between}
+.proj-type{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-l);margin-bottom:16px}
+.proj-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:34px;text-transform:uppercase;letter-spacing:.04em;color:var(--warm-white);line-height:1.1;margin-bottom:24px}
+.proj-desc{font-size:14px;font-weight:300;color:var(--sand);line-height:1.8}
+.proj-specs{margin-top:40px}
+.spec-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid rgba(255,255,255,.06)}
+.spec-k{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-gray)}
+.spec-v{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;color:var(--warm-white)}
+
+/* ── TRUST ── */
+#trust{padding:112px 0;background:var(--warm-white)}
+.trust-hdr{margin-bottom:72px}
+.trust-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,7vw,112px);line-height:.88;color:var(--ink)}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.t-item{padding:52px 44px;border-right:1px solid rgba(0,0,0,.09)}
+.t-item:last-child{border-right:none}
+.t-ico{width:44px;height:44px;margin-bottom:28px}
+.t-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);margin-bottom:14px}
+.t-desc{font-size:14px;font-weight:300;color:var(--concrete);line-height:1.8}
+
+/* ── TESTIMONIALS ── */
+#testimonials{padding:128px 0;background:var(--charcoal)}
+.testi-wrap{max-width:840px;margin:0 auto;text-align:center}
+.qmark{font-family:'Bebas Neue',sans-serif;font-size:140px;line-height:.5;color:var(--copper-l);opacity:.5;margin-bottom:40px;display:block}
+.t-text{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(26px,3.2vw,46px);line-height:1.25;color:var(--warm-white);letter-spacing:.02em;margin-bottom:48px;transition:opacity .4s,transform .4s}
+.t-author{display:flex;align-items:center;justify-content:center;gap:20px}
+.t-aline{width:36px;height:1px;background:var(--copper-l)}
+.t-aname{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);transition:opacity .4s}
+.t-nav{display:flex;justify-content:center;gap:12px;margin-top:64px}
+.t-dot{width:8px;height:8px;background:var(--mid);cursor:pointer;transition:background .3s,width .35s}
+.t-dot.on{background:var(--copper-l);width:36px}
+
+/* ── CTA ── */
+#cta{padding:140px 0;background:var(--ink);overflow:hidden}
+#cta::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 90px,rgba(155,98,53,.025) 90px,rgba(155,98,53,.025) 91px)}
+.cta-grid{display:grid;grid-template-columns:3fr 2fr;gap:80px;align-items:center;position:relative}
+.cta-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,8vw,120px);line-height:.86;color:var(--warm-white)}
+.cta-sub{font-size:17px;font-weight:300;color:var(--warm-gray);margin-top:32px;line-height:1.85;max-width:480px}
+.cta-r{display:flex;flex-direction:column;gap:20px}
+.cta-block{padding:32px;border:1px solid rgba(255,255,255,.08)}
+.cta-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--copper-l);margin-bottom:10px}
+.cta-val{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;color:var(--warm-white);text-decoration:none;transition:color .2s}
+.cta-val:hover{color:var(--copper-l)}
+.btn-block{display:block;width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--warm-white);padding:18px;text-align:center;text-decoration:none;border:none;cursor:pointer;transition:background .2s,color .2s}
+.btn-block:hover{background:var(--copper-l);color:var(--warm-white)}
+
+/* ── FOOTER ── */
+footer{background:var(--charcoal);border-top:1px solid rgba(255,255,255,.06);padding:80px 0 40px}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:72px}
+.ft-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-white)}
+.ft-logo em{font-style:normal;color:var(--copper-l)}
+.ft-tag{font-size:14px;font-weight:300;color:var(--warm-gray);margin-top:16px;line-height:1.75;max-width:280px}
+.ft-certs{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.cert{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-gray);border:1px solid rgba(255,255,255,.1);padding:6px 14px}
+.ft-col-hd{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--warm-gray);margin-bottom:24px}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.ft-links a{font-size:14px;color:var(--sand);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:var(--warm-white)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:32px;border-top:1px solid rgba(255,255,255,.06)}
+.ft-copy{font-size:12px;color:var(--warm-gray)}
+.ft-right{display:flex;gap:10px}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  #hero{grid-template-columns:1fr}
+  .hero-r{display:none}
+  .hero-l{padding:140px 48px 88px}
+  .about-grid,.craft-hdr,.proc-hdr,.cta-grid{grid-template-columns:1fr;gap:48px}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .proc-steps{grid-template-columns:repeat(3,1fr);gap:40px 0}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:48px}
+  .proj-card{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .wrap{padding:0 24px}
+  .trust-grid{grid-template-columns:1fr}
+  .t-item{border-right:none;border-bottom:1px solid rgba(0,0,0,.09)}
+  .t-item:last-child{border-bottom:none}
+  .proc-steps{grid-template-columns:1fr 1fr}
+  .svc-item{grid-template-columns:60px 1fr;gap:20px}
+  .svc-arr{display:none}
+  .ft-grid{grid-template-columns:1fr;gap:40px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">IRON<em>STONE</em></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#showcase">Projects</a></li>
+    <li><a href="#trust">Why Us</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Get A Quote</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-l">
+    <div class="hero-eyebrow">
+      <div class="pip"></div>
+      <span class="lbl" style="color:var(--sand)">Premium Roofing · Est. 1999</span>
+    </div>
+    <h1 class="hero-h">BUILT<br>TO<br><em>OUTLAST.</em></h1>
+    <p class="hero-sub">Precision roofing for homes that demand more than ordinary. We engineer solutions built to endure decades, not seasons.</p>
+    <div class="hero-btns">
+      <a href="#cta" class="btn-solid">Request Assessment</a>
+      <a href="#showcase" class="btn-text">View Our Work <span>→</span></a>
+    </div>
+  </div>
+
+  <div class="hero-r">
+    <div class="hero-r-inner">
+      <svg class="roof-pattern" viewBox="0 0 720 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="gtile" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.035)" stroke-width=".5"/>
+          </pattern>
+          <pattern id="rtile" x="0" y="0" width="90" height="52" patternUnits="userSpaceOnUse">
+            <rect x="2" y="2" width="86" height="24" fill="rgba(40,40,36,.9)" stroke="rgba(0,0,0,.6)" stroke-width="1" rx="1.5"/>
+            <rect x="47" y="28" width="86" height="24" fill="rgba(38,38,34,.9)" stroke="rgba(0,0,0,.55)" stroke-width="1" rx="1.5"/>
+            <rect x="-43" y="28" width="86" height="24" fill="rgba(38,38,34,.9)" stroke="rgba(0,0,0,.55)" stroke-width="1" rx="1.5"/>
+          </pattern>
+          <clipPath id="rclip"><polygon points="360,60 680,380 40,380"/></clipPath>
+          <clipPath id="wallclip"><rect x="80" y="380" width="560" height="460"/></clipPath>
+          <filter id="subtle-noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feBlend mode="overlay" in="SourceGraphic"/></filter>
+        </defs>
+
+        <!-- Background -->
+        <rect width="720" height="900" fill="#181815"/>
+        <rect width="720" height="900" fill="url(#gtile)"/>
+
+        <!-- Roof face tiled -->
+        <polygon points="360,60 680,380 40,380" fill="rgba(30,30,27,.95)"/>
+        <rect x="0" y="0" width="720" height="900" fill="url(#rtile)" clip-path="url(#rclip)" opacity=".9"/>
+
+        <!-- Ridge highlight -->
+        <line x1="360" y1="60" x2="360" y2="60" stroke="none"/>
+        <polygon points="360,60 365,64 355,64" fill="rgba(155,98,53,.5)"/>
+
+        <!-- Eave line -->
+        <line x1="40" y1="380" x2="680" y2="380" stroke="rgba(155,98,53,.35)" stroke-width="2"/>
+
+        <!-- Wall -->
+        <rect x="80" y="380" width="560" height="460" fill="rgba(26,26,23,.85)"/>
+        <rect x="80" y="380" width="560" height="460" fill="url(#gtile)"/>
+
+        <!-- Fascia detail -->
+        <rect x="80" y="375" width="560" height="12" fill="rgba(50,48,43,.9)"/>
+
+        <!-- Windows -->
+        <rect x="150" y="450" width="110" height="130" fill="rgba(20,30,40,.6)" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+        <line x1="205" y1="450" x2="205" y2="580" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+        <line x1="150" y1="515" x2="260" y2="515" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+
+        <rect x="460" y="450" width="110" height="130" fill="rgba(20,30,40,.6)" stroke="rgba(255,255,255,.06)" stroke-width=".5"/>
+        <line x1="515" y1="450" x2="515" y2="580" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+        <line x1="460" y1="515" x2="570" y2="515" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
+
+        <!-- Door -->
+        <rect x="305" y="560" width="110" height="280" fill="rgba(18,18,15,.8)" stroke="rgba(255,255,255,.07)" stroke-width=".5"/>
+        <circle cx="400" cy="700" r="5" fill="none" stroke="rgba(155,98,53,.4)" stroke-width="1"/>
+
+        <!-- Engineering annotations -->
+        <line x1="80" y1="415" x2="640" y2="415" stroke="rgba(155,98,53,.15)" stroke-width=".5" stroke-dasharray="5,5"/>
+        <text x="360" y="411" fill="rgba(155,98,53,.4)" font-family="Barlow Condensed,sans-serif" font-size="9" letter-spacing="3" text-anchor="middle" font-weight="600">FASCIA LINE · COLORBOND HERITAGE GREY</text>
+        <line x1="360" y1="60" x2="360" y2="375" stroke="rgba(255,255,255,.04)" stroke-width=".5" stroke-dasharray="4,6"/>
+        <text x="375" y="190" fill="rgba(255,255,255,.2)" font-family="Barlow Condensed,sans-serif" font-size="9" letter-spacing="2" font-weight="600">PITCH 6/12</text>
+      </svg>
+    </div>
+    <div class="hero-badge">
+      <div class="bnum">25<em>+</em></div>
+      <div class="blbl">Years of precision roofing</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ METRICS ═══ -->
+<div class="metrics">
+  <div class="metrics-grid">
+    <div class="m-item reveal"><div class="m-num">1,200<em>+</em></div><div class="m-lbl">Projects Completed</div></div>
+    <div class="m-item reveal d1"><div class="m-num">25<em>+</em></div><div class="m-lbl">Years Experience</div></div>
+    <div class="m-item reveal d2"><div class="m-num">10<em>yr</em></div><div class="m-lbl">Workmanship Guarantee</div></div>
+    <div class="m-item reveal d3"><div class="m-num">4.9<em style="font-size:48px">/5</em></div><div class="m-lbl">Customer Satisfaction</div></div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="sec-lbl">01 — Who We Are</div>
+        <h2 class="about-h reveal">We don't cut corners.<br>We prevent them<br>from failing.</h2>
+        <p class="about-p reveal d1">Ironstone Roofing was built on a single principle: every roof we touch should outlast our involvement. No shortcuts, no compromises. We engineer roofing solutions with precision materials, master-grade installation, and a commitment to craft that most contractors simply don't bother with.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar reveal"><div class="pillar-num">100%</div><div class="pillar-txt">Licensed, insured, and certified. Not optional — standard.</div></div>
+        <div class="pillar reveal d1"><div class="pillar-num">Zero</div><div class="pillar-txt">Hidden costs. You know exactly what you're getting, and for how much.</div></div>
+        <div class="pillar reveal d2"><div class="pillar-num">Every</div><div class="pillar-txt">Job backed by a decade of workmanship guarantee. We stand behind our work.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CRAFTSMANSHIP ═══ -->
+<section id="craft">
+  <div class="wrap">
+    <div class="craft-hdr">
+      <div>
+        <div class="sec-lbl">02 — Materials</div>
+        <h2 class="craft-h reveal">MATERIALS<br>THAT<br>ENDURE.</h2>
+      </div>
+      <p class="craft-p reveal">We work exclusively with premium materials from trusted manufacturers. Every component is selected for longevity, not price. The difference shows — in appearance, performance, and decades of protection.</p>
+    </div>
+
+    <div class="craft-grid reveal">
+      <!-- Large: tile close-up -->
+      <div class="c-panel c-panel-lg" style="background:var(--slate)">
+        <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 400 580" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="big-tile" x="0" y="0" width="80" height="50" patternUnits="userSpaceOnUse">
+              <rect x="1.5" y="1.5" width="77" height="23" fill="#2E2E2A" stroke="#111110" stroke-width="1.5" rx="2"/>
+              <rect x="41.5" y="26.5" width="77" height="23" fill="#2A2A26" stroke="#111110" stroke-width="1.5" rx="2"/>
+              <rect x="-38.5" y="26.5" width="77" height="23" fill="#2A2A26" stroke="#111110" stroke-width="1.5" rx="2"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="580" fill="#1A1A17"/>
+          <rect width="400" height="580" fill="url(#big-tile)"/>
+          <!-- Depth shadow lines -->
+          <rect width="400" height="580" fill="url(#big-tile)" opacity=".4"/>
+          <!-- Copper ridge detail across middle -->
+          <rect x="0" y="288" width="400" height="2" fill="rgba(155,98,53,.3)"/>
+          <rect x="0" y="290" width="400" height="4" fill="rgba(0,0,0,.5)"/>
+        </svg>
+        <div class="c-panel-lbl">
+          <div class="c-tag">Colorbond Steel · 0.42 BMT</div>
+          <div class="c-title">ARCHITECTURAL ROOFING</div>
+          <div class="c-sub">25-year paint warranty. Certified installation.</div>
+        </div>
+      </div>
+
+      <!-- Top-right: metal detail -->
+      <div class="c-panel c-panel-sm" style="background:var(--mid)">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.6" viewBox="0 0 280 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="stripes" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="4" height="8" fill="rgba(255,255,255,.03)"/>
+            </pattern>
+          </defs>
+          <rect width="280" height="260" fill="url(#stripes)"/>
+          <line x1="0" y1="50" x2="280" y2="50" stroke="rgba(155,98,53,.25)" stroke-width="1"/>
+          <line x1="0" y1="52" x2="280" y2="52" stroke="rgba(0,0,0,.4)" stroke-width="2"/>
+          <line x1="0" y1="130" x2="280" y2="130" stroke="rgba(155,98,53,.2)" stroke-width=".5"/>
+          <circle cx="140" cy="130" r="50" fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+          <circle cx="140" cy="130" r="20" fill="none" stroke="rgba(155,98,53,.2)" stroke-width=".5"/>
+        </svg>
+        <div class="c-panel-lbl">
+          <div class="c-tag">Seamless Guttering</div>
+          <div class="c-title">PRECISION FLASHING</div>
+          <div class="c-sub">Sealed to last a lifetime.</div>
+        </div>
+      </div>
+
+      <!-- Bottom-right: copper accent panel -->
+      <div class="c-panel c-panel-sm" style="background:var(--copper)">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:28px">
+          <div class="lbl" style="color:rgba(255,255,255,.5);font-size:10px;letter-spacing:.2em">Australian Standard</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:96px;color:rgba(0,0,0,.15);line-height:1">AS/NZS</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;color:rgba(255,255,255,.85);letter-spacing:.1em;text-transform:uppercase">Certified Installation</div>
+        </div>
+        <div class="c-panel-lbl">
+          <div class="c-title">INSTALLATION STANDARD</div>
+          <div class="c-sub">Every job meets Australian Building Code.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="wrap">
+    <div class="svc-hdr">
+      <div class="sec-lbl" style="color:var(--copper-l)">03 — Our Services</div>
+      <h2 class="svc-h reveal">WHAT WE<br>BUILD.</h2>
+    </div>
+    <ul class="svc-list">
+      <li class="svc-item reveal">
+        <div class="svc-n">01</div>
+        <div class="svc-body"><div class="svc-name">Roof Restoration</div><div class="svc-desc">Full surface clean, re-bedding, re-pointing, and premium re-coating. Your existing roof, engineered to last again.</div></div>
+        <div class="svc-arr">→</div>
+      </li>
+      <li class="svc-item reveal d1">
+        <div class="svc-n">02</div>
+        <div class="svc-body"><div class="svc-name">Roof Replacement</div><div class="svc-desc">Complete removal and premium installation. Colorbond, tile, or custom specification. Designed for your home.</div></div>
+        <div class="svc-arr">→</div>
+      </li>
+      <li class="svc-item reveal d2">
+        <div class="svc-n">03</div>
+        <div class="svc-body"><div class="svc-name">Roof Repairs</div><div class="svc-desc">Leak diagnosis and precision repair. No guesswork — we find the root cause and fix it permanently.</div></div>
+        <div class="svc-arr">→</div>
+      </li>
+      <li class="svc-item reveal d3">
+        <div class="svc-n">04</div>
+        <div class="svc-body"><div class="svc-name">Guttering & Downpipes</div><div class="svc-desc">Custom-cut seamless guttering. No joins, no weak points. Complete water management built to last.</div></div>
+        <div class="svc-arr">→</div>
+      </li>
+      <li class="svc-item reveal d4">
+        <div class="svc-n">05</div>
+        <div class="svc-body"><div class="svc-name">Roof Inspections</div><div class="svc-desc">Detailed condition report with photographic documentation. Know exactly what you're dealing with — before it becomes expensive.</div></div>
+        <div class="svc-arr">→</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section id="process">
+  <div class="wrap">
+    <div class="proc-hdr">
+      <div>
+        <div class="sec-lbl">04 — Our Process</div>
+        <h2 class="proc-h reveal">HOW WE<br>WORK.</h2>
+      </div>
+      <p class="proc-sub reveal">Every Ironstone job follows a precise, methodical process. No surprises, no shortcuts. From first contact to final inspection, you know exactly where things stand.</p>
+    </div>
+    <div class="proc-steps">
+      <div class="p-step reveal">
+        <div class="p-ind"><span class="p-ind-n">01</span></div>
+        <div class="p-name">Inspection</div>
+        <div class="p-desc">Comprehensive on-site assessment. We document everything — no guesswork, no assumptions.</div>
+      </div>
+      <div class="p-step reveal d1">
+        <div class="p-ind"><span class="p-ind-n">02</span></div>
+        <div class="p-name">Proposal</div>
+        <div class="p-desc">Detailed written scope with clear pricing. What you see is what you pay. Always.</div>
+      </div>
+      <div class="p-step reveal d2">
+        <div class="p-ind"><span class="p-ind-n">03</span></div>
+        <div class="p-name">Materials</div>
+        <div class="p-desc">Premium materials ordered and checked on site before any work begins.</div>
+      </div>
+      <div class="p-step reveal d3">
+        <div class="p-ind"><span class="p-ind-n">04</span></div>
+        <div class="p-name">Installation</div>
+        <div class="p-desc">Precision installation by certified tradespeople. Daily updates throughout.</div>
+      </div>
+      <div class="p-step reveal d4">
+        <div class="p-ind"><span class="p-ind-n">05</span></div>
+        <div class="p-name">Handover</div>
+        <div class="p-desc">Final inspection, photographic report, and warranty documentation in hand.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHOWCASE ═══ -->
+<section id="showcase">
+  <div class="wrap">
+    <div class="show-hdr">
+      <div class="sec-lbl">05 — Featured Project</div>
+      <h2 class="show-h reveal">THE WORK<br>SPEAKS.</h2>
+    </div>
+    <div class="proj-card reveal">
+      <div class="proj-vis">
+        <!-- BEFORE -->
+        <div class="ba-before">
+          <svg style="width:100%;height:100%" viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="old-t" x="0" y="0" width="90" height="52" patternUnits="userSpaceOnUse">
+                <rect x="2" y="2" width="86" height="24" fill="#4A4540" stroke="#2A2520" stroke-width="1" rx="1.5"/>
+                <rect x="47" y="28" width="86" height="24" fill="#484340" stroke="#2A2520" stroke-width="1" rx="1.5"/>
+                <rect x="-43" y="28" width="86" height="24" fill="#484340" stroke="#2A2520" stroke-width="1" rx="1.5"/>
+              </pattern>
+            </defs>
+            <rect width="600" height="480" fill="#3A3530"/>
+            <rect width="600" height="480" fill="url(#old-t)"/>
+            <rect width="600" height="480" fill="rgba(0,0,0,.25)"/>
+            <!-- Weathering / damage streaks -->
+            <line x1="160" y1="0" x2="200" y2="480" stroke="rgba(0,0,0,.3)" stroke-width="12"/>
+            <line x1="380" y1="0" x2="350" y2="480" stroke="rgba(0,0,0,.2)" stroke-width="6"/>
+            <ellipse cx="280" cy="200" rx="40" ry="20" fill="rgba(0,0,0,.25)"/>
+          </svg>
+        </div>
+        <!-- AFTER -->
+        <div class="ba-after">
+          <svg style="width:100%;height:100%" viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="new-t" x="0" y="0" width="90" height="52" patternUnits="userSpaceOnUse">
+                <rect x="2" y="2" width="86" height="24" fill="#1A2E3A" stroke="#0D1E28" stroke-width="1" rx="1.5"/>
+                <rect x="47" y="28" width="86" height="24" fill="#182A35" stroke="#0D1E28" stroke-width="1" rx="1.5"/>
+                <rect x="-43" y="28" width="86" height="24" fill="#182A35" stroke="#0D1E28" stroke-width="1" rx="1.5"/>
+              </pattern>
+            </defs>
+            <rect width="600" height="480" fill="#12232E"/>
+            <rect width="600" height="480" fill="url(#new-t)"/>
+            <rect width="600" height="480" fill="rgba(18,50,80,.08)"/>
+          </svg>
+        </div>
+        <div class="ba-tag bef">Before</div>
+        <div class="ba-tag aft">After</div>
+        <div class="ba-hint">Hover to reveal</div>
+      </div>
+      <div class="proj-info">
+        <div>
+          <div class="proj-type">Full Replacement · Paddington, QLD</div>
+          <h3 class="proj-name">FEDERATION HOME<br>RESTORATION</h3>
+          <p class="proj-desc">Complete tear-off and replacement of original 1920s terracotta. Heritage-matched Colorbond installed with custom ridge capping and integrated gutter system. Delivered six weeks ahead of schedule.</p>
+        </div>
+        <div class="proj-specs">
+          <div class="spec-row"><span class="spec-k">Material</span><span class="spec-v">Colorbond Heritage</span></div>
+          <div class="spec-row"><span class="spec-k">Roof Area</span><span class="spec-v">340 m²</span></div>
+          <div class="spec-row"><span class="spec-k">Duration</span><span class="spec-v">8 Days</span></div>
+          <div class="spec-row"><span class="spec-k">Warranty</span><span class="spec-v">10-Year Workmanship</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST ═══ -->
+<section id="trust">
+  <div class="wrap">
+    <div class="trust-hdr">
+      <div class="sec-lbl" style="color:var(--copper-l)">06 — Why Ironstone</div>
+      <h2 class="trust-h reveal">BUILT ON<br>STANDARDS.</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="t-item reveal">
+        <svg class="t-ico" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x=".5" y=".5" width="43" height="43" stroke="#7B4B27" stroke-width="1"/>
+          <path d="M22 8L26.5 17.5L37 19L29.5 26L31.5 36L22 31L12.5 36L14.5 26L7 19L17.5 17.5L22 8Z" stroke="#7B4B27" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="t-title">Licensed & Insured</div>
+        <div class="t-desc">Fully licensed roofing contractor with comprehensive public liability and workmanship insurance. Your home is protected throughout every stage of the project.</div>
+      </div>
+      <div class="t-item reveal d1">
+        <svg class="t-ico" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x=".5" y=".5" width="43" height="43" stroke="#7B4B27" stroke-width="1"/>
+          <circle cx="22" cy="22" r="10" stroke="#7B4B27" stroke-width="1"/>
+          <path d="M22 12v2M22 30v2M12 22h2M30 22h2" stroke="#7B4B27" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        <div class="t-title">10-Year Guarantee</div>
+        <div class="t-desc">Every installation backed by a full decade of workmanship guarantee. If something isn't right, we make it right — at absolutely no cost to you.</div>
+      </div>
+      <div class="t-item reveal d2">
+        <svg class="t-ico" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x=".5" y=".5" width="43" height="43" stroke="#7B4B27" stroke-width="1"/>
+          <polyline points="11,23 19,31 33,15" stroke="#7B4B27" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="t-title">Fixed-Price Quotes</div>
+        <div class="t-desc">No surprises. No extras. Our quotes are comprehensive and firm. What we say, we charge. Nothing more added once work begins.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="sec-lbl" style="justify-content:center;margin-bottom:72px">07 — What They Say</div>
+    <div class="testi-wrap">
+      <span class="qmark">"</span>
+      <p class="t-text" id="tt">Ironstone didn't just replace our roof — they gave us confidence our home is properly protected. The attention to detail was unlike anything I'd seen from a tradesperson before.</p>
+      <div class="t-author">
+        <div class="t-aline"></div>
+        <span class="t-aname" id="ta">Michael R. — Ascot, QLD</span>
+        <div class="t-aline"></div>
+      </div>
+      <div class="t-nav">
+        <div class="t-dot on" onclick="setT(0)"></div>
+        <div class="t-dot" onclick="setT(1)"></div>
+        <div class="t-dot" onclick="setT(2)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div>
+        <div class="sec-lbl">08 — Get Started</div>
+        <h2 class="cta-h reveal">PROTECT<br>WHAT<br>MATTERS.</h2>
+        <p class="cta-sub reveal d1">A roofing assessment costs you nothing but time. What you get in return is clarity, confidence, and a plan built specifically for your home.</p>
+      </div>
+      <div class="cta-r">
+        <div class="cta-block reveal">
+          <div class="cta-lbl">Call Us Directly</div>
+          <a href="tel:0412345678" class="cta-val">0412 345 678</a>
+        </div>
+        <div class="cta-block reveal d1">
+          <div class="cta-lbl">Send An Enquiry</div>
+          <a href="mailto:hello@ironstoneroofing.com.au" class="cta-val" style="font-size:17px">hello@ironstoneroofing.com.au</a>
+        </div>
+        <a href="mailto:hello@ironstoneroofing.com.au" class="btn-block reveal d2">Request Free Assessment →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo">IRON<em>STONE</em> ROOFING</div>
+        <p class="ft-tag">Premium roofing for homes that deserve more than ordinary. Built on craft, backed by a decade of guarantee.</p>
+        <div class="ft-certs">
+          <div class="cert">QBCC Licensed</div>
+          <div class="cert">Fully Insured</div>
+          <div class="cert">4.9★ Google</div>
+        </div>
+      </div>
+      <div>
+        <div class="ft-col-hd">Services</div>
+        <ul class="ft-links">
+          <li><a href="#">Roof Restoration</a></li>
+          <li><a href="#">Roof Replacement</a></li>
+          <li><a href="#">Roof Repairs</a></li>
+          <li><a href="#">Guttering</a></li>
+          <li><a href="#">Inspections</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-hd">Company</div>
+        <ul class="ft-links">
+          <li><a href="#">About Ironstone</a></li>
+          <li><a href="#">Our Process</a></li>
+          <li><a href="#">Featured Projects</a></li>
+          <li><a href="#">Testimonials</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-hd">Contact</div>
+        <ul class="ft-links">
+          <li><a href="tel:0412345678">0412 345 678</a></li>
+          <li><a href="mailto:hello@ironstoneroofing.com.au">hello@ironstoneroofing.com.au</a></li>
+          <li><a href="#">Brisbane & surrounds</a></li>
+          <li><a href="#">Mon–Sat 7am–5pm</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span class="ft-copy">© 2025 Ironstone Roofing Pty Ltd. All rights reserved. QBCC Licence 1234567.</span>
+      <div class="ft-right">
+        <div class="cert">10yr Warranty</div>
+        <div class="cert">AS/NZS Compliant</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL REVEAL ──
+const els=document.querySelectorAll('.reveal');
+const ob=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+els.forEach(e=>ob.observe(e));
+
+// ── NAV SCROLL ──
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.style.background=window.scrollY>50?'rgba(11,11,8,.98)':'rgba(22,22,19,.95)';
+});
+
+// ── TESTIMONIALS ──
+const ts=[
+  {t:"Ironstone didn't just replace our roof — they gave us confidence our home is properly protected. The attention to detail was unlike anything I'd seen from a tradesperson before.",a:"Michael R. — Ascot, QLD"},
+  {t:"From quote to completion, zero surprises. The crew was professional, fast, and incredibly clean. The roof looks better than I imagined. I'd recommend them without hesitation.",a:"Sarah & Tom K. — New Farm, QLD"},
+  {t:"We had three quotes. Ironstone wasn't the cheapest, but they were the only ones who gave us a truly detailed assessment. Worth every cent — the quality difference is obvious.",a:"David M. — Clayfield, QLD"}
+];
+let cur=0;
+function setT(i){
+  cur=i;
+  const te=document.getElementById('tt'),ae=document.getElementById('ta');
+  te.style.opacity='0';te.style.transform='translateY(8px)';ae.style.opacity='0';
+  setTimeout(()=>{
+    te.textContent=ts[i].t;ae.textContent=ts[i].a;
+    te.style.transition='opacity .5s,transform .5s';ae.style.transition='opacity .5s';
+    te.style.opacity='1';te.style.transform='none';ae.style.opacity='1';
+  },300);
+  document.querySelectorAll('.t-dot').forEach((d,j)=>d.classList.toggle('on',j===i));
+}
+setInterval(()=>setT((cur+1)%ts.length),6500);
+</script>
+</body>
+</html>
