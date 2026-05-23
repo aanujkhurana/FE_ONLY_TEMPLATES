@@ -7,8 +7,32 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="min-h-screen grid grid-cols-[55%_45%] max-xl:grid-cols-1 overflow-hidden"
+      className="min-h-screen grid grid-cols-[50%_50%] max-xl:grid-cols-1 overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(to right, var(--color-dark) 0%, #181815 50%, #181815 100%)',
+      }}
     >
+      <div
+        className="absolute inset-0 z-1 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(135deg,var(--color-charcoal) 0%,transparent 45%)',
+        }}
+      />
+      <div className="inset-0 z-1 pointer-events-none noise" style={{ position: 'absolute' }} />
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+          WebkitMaskImage:
+            'linear-gradient(to right, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.3) 40%, black 70%, black 100%)',
+          maskImage:
+            'linear-gradient(to right, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.3) 40%, black 70%, black 100%)',
+        }}
+      />
       <div className="flex flex-col justify-end pt-[140px] pb-22 pl-12 max-xl:px-12 relative z-2">
         <div className="flex items-center gap-3 mb-9">
           <div className="w-[5px] h-[5px] bg-copper-l rounded-full" />
@@ -46,14 +70,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="relative overflow-hidden bg-dark max-xl:hidden">
-        <div
-          className="absolute inset-0 z-2"
-          style={{
-            background:
-              'linear-gradient(135deg,var(--color-charcoal) 0%,transparent 45%)',
-          }}
-        />
+      <div className="relative overflow-hidden max-xl:hidden">
         <div className="absolute inset-0">
           <RoofSVG />
         </div>
@@ -80,6 +97,14 @@ function RoofSVG() {
     >
       <defs>
         <pattern id="gtile" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <animateTransform
+            attributeName="patternTransform"
+            type="translate"
+            from="0 0"
+            to="40 40"
+            dur="40s"
+            repeatCount="indefinite"
+          />
           <path d="M40 0L0 0 0 40" fill="none" stroke="rgba(255,255,255,.035)" strokeWidth=".5" />
         </pattern>
         <pattern id="rtile" x="0" y="0" width="90" height="52" patternUnits="userSpaceOnUse">
@@ -93,9 +118,25 @@ function RoofSVG() {
 
       <rect width="720" height="900" fill="#181815" />
       <rect width="720" height="900" fill="url(#gtile)" />
-      <polygon points="360,60 680,380 40,380" fill="rgba(30,30,27,.95)" />
-      <rect x="0" y="0" width="720" height="900" fill="url(#rtile)" clipPath="url(#rclip)" opacity=".9" />
-      <polygon points="360,60 365,64 355,64" fill="rgba(155,98,53,.5)" />
+
+      <g>
+        <animateTransform
+          attributeName="transform"
+          type="translate"
+          values="0 0; 0 -10; 0 0; 0 -10; 0 0"
+          keyTimes="0; 0.4; 0.5; 0.9; 1"
+          dur="10s"
+          repeatCount="indefinite"
+          calcMode="spline"
+          keySplines="0.45 0 0.15 1; 0.45 0 0.15 1; 0.45 0 0.15 1; 0.45 0 0.15 1"
+        />
+        <polygon points="360,60 680,380 40,380" fill="rgba(30,30,27,.95)" />
+        <rect x="0" y="0" width="720" height="900" fill="url(#rtile)" clipPath="url(#rclip)" opacity=".9" />
+        <polygon points="360,60 365,64 355,64" fill="rgba(155,98,53,.5)" />
+        <line x1="360" y1="60" x2="360" y2="375" stroke="rgba(255,255,255,.04)" strokeWidth=".5" strokeDasharray="4,6" />
+        <text x="375" y="190" fill="rgba(255,255,255,.2)" fontFamily="Barlow Condensed,sans-serif" fontSize="9" letterSpacing="2" fontWeight="600">PITCH 6/12</text>
+      </g>
+
       <line x1="40" y1="380" x2="680" y2="380" stroke="rgba(155,98,53,.35)" strokeWidth="2" />
       <rect x="80" y="380" width="560" height="460" fill="rgba(26,26,23,.85)" />
       <rect x="80" y="380" width="560" height="460" fill="url(#gtile)" />
@@ -110,8 +151,6 @@ function RoofSVG() {
       <circle cx="400" cy="700" r="5" fill="none" stroke="rgba(155,98,53,.4)" strokeWidth="1" />
       <line x1="80" y1="415" x2="640" y2="415" stroke="rgba(155,98,53,.15)" strokeWidth=".5" strokeDasharray="5,5" />
       <text x="360" y="411" fill="rgba(155,98,53,.4)" fontFamily="Barlow Condensed,sans-serif" fontSize="9" letterSpacing="3" textAnchor="middle" fontWeight="600">FASCIA LINE · COLORBOND HERITAGE GREY</text>
-      <line x1="360" y1="60" x2="360" y2="375" stroke="rgba(255,255,255,.04)" strokeWidth=".5" strokeDasharray="4,6" />
-      <text x="375" y="190" fill="rgba(255,255,255,.2)" fontFamily="Barlow Condensed,sans-serif" fontSize="9" letterSpacing="2" fontWeight="600">PITCH 6/12</text>
     </svg>
   )
 }

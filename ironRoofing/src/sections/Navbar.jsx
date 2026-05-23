@@ -21,9 +21,15 @@ export default function Navbar() {
     >
       <a
         href="#"
-        className="font-condensed font-black text-[19px] tracking-[0.1em] uppercase text-warm-white no-underline"
+        className="flex items-center gap-3 no-underline"
       >
-        IRON<em className="text-copper-l not-italic">STONE</em>
+        <svg width="28" height="28" viewBox="0 0 64 64" className="shrink-0">
+          <polygon points="32,8 56,40 8,40" fill="none" stroke="#9B6235" strokeWidth="3" strokeLinejoin="round"/>
+          <line x1="8" y1="40" x2="56" y2="40" stroke="#9B6235" strokeWidth="3"/>
+        </svg>
+        <span className="font-condensed font-black text-[19px] tracking-[0.1em] uppercase text-warm-white">
+          IRON<em className="text-copper-l not-italic">STONE</em>
+        </span>
       </a>
 
       <ul className="flex gap-9 list-none max-md:hidden">
