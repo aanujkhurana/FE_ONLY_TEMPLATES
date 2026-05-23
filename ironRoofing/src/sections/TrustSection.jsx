@@ -36,7 +36,7 @@ const items = [
 
 export default function TrustSection() {
   return (
-    <section id="trust" className="py-28 bg-warm-white">
+    <section id="trust" className="py-28 section-trust noise">
       <div className="max-w-[1320px] mx-auto px-12 max-md:px-6">
         <div className="mb-[72px]">
           <div className="section-label" style={{ color: 'var(--color-copper-l)' }}>

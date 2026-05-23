@@ -9,7 +9,7 @@ const metrics = [
 
 export default function MetricsBar() {
   return (
-    <div className="bg-dark border-t border-white/5 border-b border-white/5">
+    <div className="bg-dark border-t border-white/5 border-b border-white/5 noise relative">
       <div className="grid grid-cols-4 max-xl:grid-cols-2">
         {metrics.map((m, i) => (
           <MetricItem key={m.label} metric={m} delay={i} />

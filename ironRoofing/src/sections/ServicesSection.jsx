@@ -30,7 +30,7 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-32 bg-warm-white">
+    <section id="services" className="py-32 section-services noise">
       <div className="max-w-[1320px] mx-auto px-12 max-md:px-6">
         <div className="mb-20">
           <div className="section-label" style={{ color: 'var(--color-copper-l)' }}>

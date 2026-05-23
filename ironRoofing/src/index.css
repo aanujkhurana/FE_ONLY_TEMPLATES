@@ -42,6 +42,103 @@
   }
 }
 
+/* ── NOISE TEXTURE SYSTEM ── */
+.noise {
+  position: relative;
+}
+
+.noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.noise > * {
+  position: relative;
+  z-index: 1;
+}
+
+.noise-copper::before {
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.9 0 0 0 0 0 0.6 0 0 0 0 0 0.3 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.noise-copper > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── ARCHITECTURAL GRID ── */
+.arch-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── HERO ATMOSPHERE ── */
+.hero-vignette {
+  background: radial-gradient(ellipse 140% 120% at 50% 40%, transparent 55%, rgba(0,0,0,0.25) 100%);
+}
+
+.hero-annotation-line {
+  position: absolute;
+  height: 1px;
+  background: rgba(155,98,53,0.12);
+  z-index: 1;
+}
+
+/* ── SECTION GRADIENT BACKGROUNDS ── */
+.section-about {
+  background: linear-gradient(180deg, var(--color-charcoal) 0%, #131310 100%);
+}
+
+.section-craft {
+  background: linear-gradient(180deg, var(--color-dark) 0%, #181815 100%);
+}
+
+.section-services {
+  background: linear-gradient(180deg, var(--color-warm-white) 0%, #E8E3D8 100%);
+}
+
+.section-process {
+  background: linear-gradient(180deg, var(--color-ink) 0%, #0B0B08 100%);
+}
+
+.section-showcase {
+  background: linear-gradient(180deg, var(--color-charcoal) 0%, #131310 100%);
+}
+
+.section-trust {
+  background: linear-gradient(180deg, var(--color-warm-white) 0%, #E5E0D5 100%);
+}
+
+.section-testimonials {
+  background: linear-gradient(180deg, var(--color-charcoal) 0%, #12120F 100%);
+}
+
+.section-cta {
+  background: linear-gradient(180deg, var(--color-ink) 0%, #0B0B08 100%);
+}
+
+/* ── SECTION DIVIDER ACCENTS ── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-copper-l), transparent);
+  opacity: 0.15;
+}
+
+/* ── SHARED COMPONENT STYLES ── */
 .section-label {
   display: flex;
   align-items: center;
@@ -173,6 +270,7 @@
   clip-path: inset(0 0% 0 0) !important;
 }
 
+/* ── SCROLL REVEAL ── */
 .reveal {
   opacity: 0;
   transform: translateY(36px);
@@ -189,3 +287,10 @@
 .d2 { transition-delay: 0.2s; }
 .d3 { transition-delay: 0.3s; }
 .d4 { transition-delay: 0.4s; }
+
+/* ── RESPONSIVE ADJUSTMENTS ── */
+@media (max-width: 1100px) {
+  .hero-vignette {
+    background: radial-gradient(ellipse 140% 120% at 50% 30%, transparent 55%, rgba(0,0,0,0.25) 100%);
+  }
+}

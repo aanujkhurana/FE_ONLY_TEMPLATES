@@ -20,18 +20,18 @@ export default function HeroSection() {
           </span>
         </div>
 
-        <h1 className="font-display text-[clamp(108px,11vw,180px)] leading-[.86] text-warm-white mb-10">
-          BUILT<br />TO<br />
-          <em className="text-copper-l not-italic">OUTLAST.</em>
-        </h1>
+            <h1 className="font-display text-[clamp(108px,11vw,180px)] leading-[.86] text-warm-white mb-10">
+              BUILT<br />TO<br />
+              <em className="text-copper-l not-italic">OUTLAST.</em>
+            </h1>
 
-        <p
-          ref={revealRef}
-          className="font-body text-[18px] font-light text-sand max-w-[400px] leading-[1.75] mb-13 reveal"
-        >
-          Precision roofing for homes that demand more than ordinary. We
-          engineer solutions built to endure decades, not seasons.
-        </p>
+            <p
+              ref={revealRef}
+              className="font-body text-[18px] font-light text-sand max-w-[400px] leading-[1.75] mb-13 reveal"
+            >
+              Precision roofing for homes that demand more than ordinary. We
+              engineer solutions built to endure decades, not seasons.
+            </p>
 
         <div
           ref={revealRef2}

@@ -4,7 +4,7 @@ export default function CraftsmanshipSection() {
   const gridRef = useScrollReveal()
 
   return (
-    <section id="craft" className="py-32 bg-dark">
+    <section id="craft" className="py-32 section-craft noise">
       <div className="max-w-[1320px] mx-auto px-12 max-md:px-6">
         <div className="grid grid-cols-[1fr_1fr] gap-12 items-end mb-[72px] max-xl:grid-cols-1 max-xl:gap-12">
           <div>

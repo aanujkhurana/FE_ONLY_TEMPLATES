@@ -30,7 +30,7 @@ const steps = [
 
 export default function ProcessSection() {
   return (
-    <section id="process" className="py-32 bg-ink relative overflow-hidden">
+    <section id="process" className="py-32 section-process noise relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{

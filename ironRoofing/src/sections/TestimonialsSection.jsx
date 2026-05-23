@@ -5,7 +5,7 @@ export default function TestimonialsSection() {
   const { current, fading, goTo, testimonial } = useTestimonial(testimonials)
 
   return (
-    <section id="testimonials" className="py-32 bg-charcoal">
+    <section id="testimonials" className="py-32 section-testimonials noise">
       <div className="max-w-[1320px] mx-auto px-12 max-md:px-6">
         <div
           className="section-label"

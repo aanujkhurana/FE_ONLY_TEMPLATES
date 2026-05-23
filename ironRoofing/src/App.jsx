@@ -11,19 +11,32 @@ import TestimonialsSection from './sections/TestimonialsSection'
 import CTASection from './sections/CTASection'
 import Footer from './sections/Footer'
 
+function SectionDivider() {
+  return <div className="section-divider" />
+}
+
 export default function App() {
   return (
     <>
       <Navbar />
       <HeroSection />
+      <SectionDivider />
       <MetricsBar />
+      <SectionDivider />
       <AboutSection />
+      <SectionDivider />
       <CraftsmanshipSection />
+      <SectionDivider />
       <ServicesSection />
+      <SectionDivider />
       <ProcessSection />
+      <SectionDivider />
       <ShowcaseSection />
+      <SectionDivider />
       <TrustSection />
+      <SectionDivider />
       <TestimonialsSection />
+      <SectionDivider />
       <CTASection />
       <Footer />
     </>

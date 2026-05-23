@@ -4,7 +4,7 @@ export default function ShowcaseSection() {
   const cardRef = useScrollReveal()
 
   return (
-    <section id="showcase" className="py-32 bg-charcoal">
+    <section id="showcase" className="py-32 section-showcase noise">
       <div className="max-w-[1320px] mx-auto px-12 max-md:px-6">
         <div className="mb-16">
           <div className="section-label">05 — Featured Project</div>

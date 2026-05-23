@@ -8,7 +8,7 @@ const pillars = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-32 bg-charcoal">
+    <section id="about" className="py-32 section-about noise">
       <div className="max-w-[1320px] mx-auto px-12 max-md:px-6">
         <div className="grid grid-cols-[3fr_2fr] gap-20 items-center max-xl:grid-cols-1 max-xl:gap-12">
           <div>

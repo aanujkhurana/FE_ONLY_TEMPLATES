@@ -2,7 +2,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 
 export default function CTASection() {
   return (
-    <section id="cta" className="py-[140px] bg-ink relative overflow-hidden">
+    <section id="cta" className="py-[140px] section-cta noise relative overflow-hidden">
       <div
         className="absolute inset-0"
         style={{
