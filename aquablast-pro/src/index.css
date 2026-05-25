@@ -262,3 +262,16 @@
     -webkit-text-fill-color: transparent;
   }
 }
+
+/* ─── REDUCED MOTION (OS setting + mobile perf) ─────────────────────────── */
+@media (prefers-reduced-motion: reduce), (max-width: 768px) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

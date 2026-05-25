@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, MotionConfig, useScroll, useTransform } from 'framer-motion';
 
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
@@ -74,6 +74,7 @@ export default function App() {
   }, []);
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="bg-[#020b14] text-white font-sans antialiased selection:bg-[#00d4f0]/25 overflow-x-hidden relative">
 
       {/* ── FLOATING BUBBLES (CSS-driven, 0 JS animation threads) ── */}
@@ -108,5 +109,6 @@ export default function App() {
       <Footer />
 
     </div>
+    </MotionConfig>
   );
 }
