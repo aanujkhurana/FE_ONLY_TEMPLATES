@@ -21,13 +21,15 @@ const reveal = {
   transition: { duration: 0.9, ease },
 };
 
+
+
 const images = {
-  hero: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=82',
-  pool: 'https://images.unsplash.com/photo-1576013551627-11971f36c953?auto=format&fit=crop&w=1500&q=82',
-  courtyard: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1500&q=82',
+  hero: 'https://images.unsplash.com/photo-1757439402277-1a88c7abc89d?q=80&w=1740&auto=format&fit=crop',
+  pool: 'https://images.unsplash.com/photo-1622015663084-307d19eabbbf?auto=format&fit=crop&w=1800&q=82',
+  courtyard: 'https://images.unsplash.com/photo-1659259540437-0fe84def75cf?auto=format&fit=crop&w=1500&q=82',
   stone: 'https://images.unsplash.com/photo-1599809275671-b5942cabc7a2?auto=format&fit=crop&w=1500&q=82',
-  foliage: 'https://images.unsplash.com/photo-1473773508845-188df298d2d1?auto=format&fit=crop&w=1400&q=82',
-  garden: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1500&q=82',
+  foliage: 'https://images.unsplash.com/photo-1757439402342-976f4e0733ec?auto=format&fit=crop&w=1400&q=82',
+  garden: 'https://images.unsplash.com/photo-1776362552930-fea1349d22af?auto=format&fit=crop&w=1500&q=82',
   texture: 'https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&w=1800&q=82',
 };
 
@@ -144,21 +146,6 @@ function Hero({ heroY }) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_46%,rgba(230,215,189,0.16),transparent_34%)]" />
       <div className="hero-grain absolute inset-0 opacity-[0.18]" />
       <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-forest via-forest/60 to-transparent" />
-
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease, delay: 0.55 }}
-        className="absolute right-5 top-[18%] z-10 hidden w-[min(24vw,330px)] border border-warm/24 bg-forest/58 p-3 shadow-[0_30px_80px_rgba(0,0,0,0.22)] lg:block"
-      >
-        <div className="aspect-[4/5] overflow-hidden">
-          <img src={images.pool} alt="Pool terrace detail with layered planting" className="h-full w-full object-cover" />
-        </div>
-        <div className="flex items-center justify-between border-t border-warm/20 px-1 pt-4">
-          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-sand">Stonewell Residence</p>
-          <ArrowUpRight className="h-4 w-4 text-clay" />
-        </div>
-      </motion.div>
 
       <div className="absolute left-5 top-1/2 z-10 hidden -translate-y-1/2 [writing-mode:vertical-rl] text-[10px] font-bold uppercase tracking-[0.34em] text-warm/50 xl:block">
         Garden architecture / water / stone / shade
