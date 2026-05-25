@@ -139,33 +139,83 @@ function Navigation() {
 function Hero({ heroY }) {
   return (
     <section id="top" className="relative min-h-[100svh] overflow-hidden bg-forest text-warm">
-      <motion.img src={images.hero} alt="Architectural home opening into a calm landscaped garden at dusk" className="absolute inset-0 h-[112%] w-full object-cover" style={{ y: heroY }} />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(26,35,30,0.92),rgba(26,35,30,0.48)_42%,rgba(26,35,30,0.2)_70%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-forest to-transparent" />
+      <motion.img src={images.hero} alt="Architectural home opening into a calm landscaped garden at dusk" className="absolute inset-0 h-[114%] w-full object-cover object-[58%_center]" style={{ y: heroY }} />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,23,19,0.94)_0%,rgba(26,35,30,0.76)_36%,rgba(26,35,30,0.18)_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_46%,rgba(230,215,189,0.16),transparent_34%)]" />
+      <div className="hero-grain absolute inset-0 opacity-[0.18]" />
+      <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-forest via-forest/60 to-transparent" />
 
-      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-[1500px] grid-cols-1 px-5 pb-10 pt-28 md:px-10 lg:grid-cols-12 lg:items-end lg:gap-10">
-        <motion.div initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.15 }} className="self-center lg:col-span-7 lg:pb-20">
-          <p className="mb-7 max-w-xs text-[12px] font-bold uppercase tracking-[0.34em] text-moss">Residential landscape architecture</p>
-          <h1 className="max-w-5xl font-serif text-[clamp(4.7rem,13vw,11.8rem)] leading-[0.78] tracking-normal">Spaces Designed To Breathe.</h1>
-          <div className="mt-8 flex max-w-3xl flex-col gap-7 border-l border-warm/35 pl-5 md:flex-row md:items-end md:gap-12">
-            <p className="max-w-lg text-lg leading-8 text-warm/82 md:text-xl">Outdoor sanctuaries shaped with architectural precision, botanical patience, and the quiet luxury of materials that age well.</p>
-            <a href="#projects" className="cta-button shrink-0">
-              Explore Work
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease, delay: 0.55 }}
+        className="absolute right-5 top-[18%] z-10 hidden w-[min(24vw,330px)] border border-warm/24 bg-forest/58 p-3 shadow-[0_30px_80px_rgba(0,0,0,0.22)] lg:block"
+      >
+        <div className="aspect-[4/5] overflow-hidden">
+          <img src={images.pool} alt="Pool terrace detail with layered planting" className="h-full w-full object-cover" />
+        </div>
+        <div className="flex items-center justify-between border-t border-warm/20 px-1 pt-4">
+          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-sand">Stonewell Residence</p>
+          <ArrowUpRight className="h-4 w-4 text-clay" />
+        </div>
+      </motion.div>
+
+      <div className="absolute left-5 top-1/2 z-10 hidden -translate-y-1/2 [writing-mode:vertical-rl] text-[10px] font-bold uppercase tracking-[0.34em] text-warm/50 xl:block">
+        Garden architecture / water / stone / shade
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease, delay: 0.7 }}
+        className="absolute bottom-8 right-10 z-10 hidden w-[430px] border-t border-warm/20 pt-5 text-warm xl:block"
+      >
+        <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-warm/55">Material language</p>
+        <div className="grid grid-cols-4 gap-3">
+          {[
+            ['Stone', 'bg-stone'],
+            ['Moss', 'bg-moss'],
+            ['Clay', 'bg-clay'],
+            ['Forest', 'bg-forest border border-warm/25'],
+          ].map(([name, color]) => (
+            <div key={name} className="group">
+              <div className={`h-2.5 w-full ${color}`} />
+              <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-warm/60 transition group-hover:text-warm">{name}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-[1500px] grid-cols-1 px-5 pb-8 pt-28 md:px-10 lg:grid-cols-12 lg:items-end lg:gap-10">
+        <motion.div initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.12 }} className="self-center lg:col-span-8 lg:pb-24">
+          <div className="mb-6 flex max-w-3xl items-center gap-4 md:mb-8">
+            <span className="h-px w-14 bg-clay" />
+            <p className="text-[11px] font-bold uppercase leading-5 tracking-[0.26em] text-moss md:text-[12px] md:tracking-[0.34em]">Residential landscape architecture</p>
+          </div>
+          <h1 className="max-w-6xl font-serif text-[clamp(3.75rem,12.6vw,12.8rem)] leading-[0.78] tracking-normal md:leading-[0.76]">
+            Outdoor Living,
+            <span className="block pl-[0.1em] italic text-sand md:pl-[0.22em]">Reimagined.</span>
+          </h1>
+          <div className="mt-8 grid max-w-4xl gap-6 border-l border-warm/35 pl-5 md:grid-cols-[1fr_auto] md:items-end md:gap-12">
+            <p className="max-w-2xl text-lg leading-8 text-warm/84 md:text-xl">A calm, crafted landscape studio shaping pools, gardens, courtyards, and outdoor rooms with the precision of architecture and the patience of nature.</p>
+            <a href="#consultation" className="cta-button hero-cta shrink-0">
+              Begin a Garden
               <ChevronRight className="h-4 w-4" />
             </a>
           </div>
         </motion.div>
 
-        <motion.aside initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease, delay: 0.45 }} className="mt-10 self-end border-y border-warm/20 py-6 lg:col-span-4 lg:col-start-9 lg:mb-14">
+        <motion.aside initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease, delay: 0.42 }} className="mt-10 self-end border-y border-warm/20 py-6 lg:col-span-4 lg:col-start-9 lg:mb-12 xl:mb-40">
+          <p className="mb-5 max-w-sm font-serif text-2xl leading-tight text-sand">Selected for private residences where the garden must feel inevitable.</p>
           <div className="grid grid-cols-3 gap-5">
             {[
-              ['18+', 'years crafting gardens'],
-              ['42', 'premium residences'],
-              ['01', 'studio-led build team'],
+              ['18+', 'years of craft'],
+              ['42', 'premium sites'],
+              ['01', 'studio-led team'],
             ].map(([number, label]) => (
               <div key={label}>
-                <div className="font-serif text-4xl text-sand md:text-5xl">{number}</div>
-                <p className="mt-2 text-[11px] uppercase leading-5 tracking-[0.2em] text-warm/65">{label}</p>
+                <div className="font-serif text-4xl text-warm md:text-5xl">{number}</div>
+                <p className="mt-2 text-[11px] uppercase leading-5 tracking-[0.2em] text-warm/62">{label}</p>
               </div>
             ))}
           </div>
