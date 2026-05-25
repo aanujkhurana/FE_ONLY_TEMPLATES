@@ -21,7 +21,25 @@ const reveal = {
   transition: { duration: 0.9, ease },
 };
 
+const heroTextGroup = {
+  initial: {},
+  animate: {
+    transition: {
+      delayChildren: 0.18,
+      staggerChildren: 0.12,
+    },
+  },
+};
 
+const heroTextItem = {
+  initial: { opacity: 0, y: 28, filter: 'blur(5px)' },
+  animate: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 1, ease },
+  },
+};
 
 const images = {
   hero: 'https://images.unsplash.com/photo-1757439402277-1a88c7abc89d?q=80&w=1740&auto=format&fit=crop',
@@ -78,7 +96,7 @@ const process = [
 
 export default function App() {
   const { scrollYProgress } = useScroll();
-  const heroY = useTransform(scrollYProgress, [0, 0.35], ['0%', '12%']);
+  const heroY = useTransform(scrollYProgress, [0, 0.45], ['-5%', '16%']);
   const textureY = useTransform(scrollYProgress, [0.45, 1], ['-8%', '8%']);
 
   return (
@@ -141,9 +159,16 @@ function Navigation() {
 function Hero({ heroY }) {
   return (
     <section id="top" className="relative min-h-[100svh] overflow-hidden bg-forest text-warm">
-      <motion.img src={images.hero} alt="Architectural home opening into a calm landscaped garden at dusk" className="absolute inset-0 h-[114%] w-full object-cover object-[58%_center]" style={{ y: heroY }} />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,23,19,0.94)_0%,rgba(26,35,30,0.76)_36%,rgba(26,35,30,0.18)_70%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_46%,rgba(230,215,189,0.16),transparent_34%)]" />
+      <div className="absolute -top-[10%] inset-x-0 h-[126%] -scale-x-100 overflow-hidden">
+        <motion.img
+          src={images.hero}
+          alt="Architectural home opening into a calm landscaped garden at dusk"
+          className="h-full w-full object-cover object-[48%_center]"
+          style={{ y: heroY }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,23,19,0.96)_0%,rgba(26,35,30,0.82)_34%,rgba(26,35,30,0.28)_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_44%,rgba(230,215,189,0.18),transparent_34%)]" />
       <div className="hero-grain absolute inset-0 opacity-[0.18]" />
       <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-forest via-forest/60 to-transparent" />
 
@@ -151,48 +176,26 @@ function Hero({ heroY }) {
         Garden architecture / water / stone / shade
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 22 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease, delay: 0.7 }}
-        className="absolute bottom-8 right-10 z-10 hidden w-[430px] border-t border-warm/20 pt-5 text-warm xl:block"
-      >
-        <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-warm/55">Material language</p>
-        <div className="grid grid-cols-4 gap-3">
-          {[
-            ['Stone', 'bg-stone'],
-            ['Moss', 'bg-moss'],
-            ['Clay', 'bg-clay'],
-            ['Forest', 'bg-forest border border-warm/25'],
-          ].map(([name, color]) => (
-            <div key={name} className="group">
-              <div className={`h-2.5 w-full ${color}`} />
-              <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-warm/60 transition group-hover:text-warm">{name}</p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
       <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-[1500px] grid-cols-1 px-5 pb-8 pt-28 md:px-10 lg:grid-cols-12 lg:items-end lg:gap-10">
-        <motion.div initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.12 }} className="self-center lg:col-span-8 lg:pb-24">
-          <div className="mb-6 flex max-w-3xl items-center gap-4 md:mb-8">
+        <motion.div variants={heroTextGroup} initial="initial" animate="animate" className="self-center lg:col-span-8 lg:pb-24">
+          <motion.div variants={heroTextItem} className="mb-6 flex max-w-3xl items-center gap-4 md:mb-8">
             <span className="h-px w-14 bg-clay" />
-            <p className="text-[11px] font-bold uppercase leading-5 tracking-[0.26em] text-moss md:text-[12px] md:tracking-[0.34em]">Residential landscape architecture</p>
-          </div>
-          <h1 className="max-w-6xl font-serif text-[clamp(3.75rem,12.6vw,12.8rem)] leading-[0.78] tracking-normal md:leading-[0.76]">
-            Outdoor Living,
-            <span className="block pl-[0.1em] italic text-sand md:pl-[0.22em]">Reimagined.</span>
+            <p className="text-[11px] font-bold uppercase leading-5 tracking-[0.26em] text-sand md:text-[12px] md:tracking-[0.34em]">Residential landscape architecture</p>
+          </motion.div>
+          <h1 className="max-w-6xl font-serif text-[clamp(3.75rem,12.6vw,12.8rem)] leading-[0.86] tracking-normal md:leading-[0.82]">
+            <span className="block">
+              <motion.span variants={heroTextItem} className="block pb-2 text-stone">Outdoor Living,</motion.span>
+            </span>
+            <span className="block pl-[0.1em] md:pl-[0.22em]">
+              <motion.span variants={heroTextItem} className="block pb-3 italic text-[#d9b98d]">Reimagined.</motion.span>
+            </span>
           </h1>
-          <div className="mt-8 grid max-w-4xl gap-6 border-l border-warm/35 pl-5 md:grid-cols-[1fr_auto] md:items-end md:gap-12">
-            <p className="max-w-2xl text-lg leading-8 text-warm/84 md:text-xl">A calm, crafted landscape studio shaping pools, gardens, courtyards, and outdoor rooms with the precision of architecture and the patience of nature.</p>
-            <a href="#consultation" className="cta-button hero-cta shrink-0">
-              Begin a Garden
-              <ChevronRight className="h-4 w-4" />
-            </a>
-          </div>
+          <motion.div variants={heroTextItem} className="mt-6 max-w-2xl border-l border-sand/45 pl-5 md:mt-8">
+            <p className="max-w-2xl text-lg leading-8 text-stone/88 md:text-xl">A calm, crafted landscape studio shaping pools, gardens, courtyards, and outdoor rooms with the precision of architecture and the patience of nature.</p>
+          </motion.div>
         </motion.div>
 
-        <motion.aside initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease, delay: 0.42 }} className="mt-10 self-end border-y border-warm/20 py-6 lg:col-span-4 lg:col-start-9 lg:mb-12 xl:mb-40">
+        <motion.aside initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease, delay: 0.42 }} className="mt-10 self-end border-y border-warm/20 py-6 lg:absolute lg:right-10 lg:top-32 lg:mt-0 lg:w-[min(34vw,430px)] lg:border-t lg:border-b lg:bg-forest/28 lg:px-6 lg:backdrop-blur-[1px]">
           <p className="mb-5 max-w-sm font-serif text-2xl leading-tight text-sand">Selected for private residences where the garden must feel inevitable.</p>
           <div className="grid grid-cols-3 gap-5">
             {[
@@ -206,6 +209,10 @@ function Hero({ heroY }) {
               </div>
             ))}
           </div>
+          <a href="#consultation" className="cta-button hero-cta mt-7 w-full">
+            Begin a Garden
+            <ChevronRight className="h-4 w-4" />
+          </a>
         </motion.aside>
       </div>
     </section>
