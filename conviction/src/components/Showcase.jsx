@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ScrollReveal from './ui/ScrollReveal'
 
@@ -32,71 +32,34 @@ const projects = [
     features: ['Service booking system', 'Customer review wall', 'Emergency CTA', 'Pricing transparency'],
   },
   {
-    id: 'pressure',
-    title: 'Aussie Pressure Kings',
-    tag: 'Pressure Washing',
-    description: 'Authority-driven website that turns curb appeal into booked jobs instantly with cinematic service showcases.',
-    gradient: 'from-amber-500/10 to-orange-600/10',
-    accent: '#f59e0b',
-    features: ['Instant quote calculator', 'Service area map', 'Project showcase', 'Seasonal promotions'],
+    id: 'landscaping',
+    title: 'AG Landscaping',
+    tag: 'Landscaping',
+    description: 'A clean, modern website that showcases premium landscaping services with stunning project galleries and seamless booking.',
+    gradient: 'from-emerald-500/10 to-green-600/10',
+    accent: '#10b981',
+    url: 'https://aglandscaping.vercel.app',
+    images: {
+      src: '/images/agLandscaping-project.webp',
+      srcSet: '/images/agLandscaping-project-sm.webp 600w, /images/agLandscaping-project-md.webp 1000w, /images/agLandscaping-project.webp 1600w',
+    },
+    features: ['Project portfolio gallery', 'Instant quote estimator', 'Service area coverage', 'Seasonal maintenance packages'],
+  },
+  {
+    id: 'roofing',
+    title: 'Iron Roofing',
+    tag: 'Roofing',
+    description: 'A tough, trust-driven website built to convert homeowners into leads with clear pricing, service breakdowns, and rapid quoting.',
+    gradient: 'from-red-500/10 to-slate-600/10',
+    accent: '#ef4444',
+    url: 'https://ironroofing.vercel.app',
+    images: {
+      src: '/images/ironRoofing-project.webp',
+      srcSet: '/images/ironRoofing-project-sm.webp 600w, /images/ironRoofing-project-md.webp 1000w, /images/ironRoofing-project.webp 1600w',
+    },
+    features: ['Free inspection booking', 'Roofing material guide', 'Emergency repair CTA', 'Financing options display'],
   },
 ]
-
-function PressureDashboard({ accent }) {
-  return (
-    <div className="p-5 sm:p-6 space-y-4 bg-[#0a0a0b]">
-      <div className="flex items-center gap-4 pb-2 border-b border-white/[0.04]">
-        <span className="text-xs font-medium text-ivory/80">Aussie Pressure Kings</span>
-        <div className="flex items-center gap-3 ml-auto">
-          {['Services', 'Gallery', 'Get Quote'].map((item) => (
-            <span key={item} className={`text-[10px] tracking-wide ${item === 'Get Quote' ? 'font-medium' : 'text-ivory-dark/40'}`} style={{ color: item === 'Get Quote' ? accent : undefined }}>
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-3">
-        <span className="text-[11px] font-medium text-ivory/70 block mb-3">Instant Quote Calculator</span>
-        <div className="flex gap-1.5 mb-3">
-          {['Driveway', 'Patio', 'Roof'].map((item) => (
-            <span key={item} className="text-[10px] px-2.5 py-1 rounded-full border border-white/[0.06] bg-white/[0.03] text-ivory-dark/50">{item}</span>
-          ))}
-        </div>
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-[10px] text-ivory-dark/40">Area:</span>
-          <div className="flex-1 h-1.5 rounded-full bg-white/[0.04] overflow-hidden">
-            <div className="h-full rounded-full" style={{ width: '72%', backgroundColor: accent, opacity: 0.5 }} />
-          </div>
-          <span className="text-[10px] text-ivory/60">180m&sup2;</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-lg font-semibold text-ivory/90">$299</span>
-          <span className="text-[11px] font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: `${accent}20`, color: accent }}>Book Now &rarr;</span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-xl border border-white/[0.04] overflow-hidden">
-          <div className="h-16 bg-gradient-to-br from-white/[0.06] to-white/[0.02]" />
-          <div className="p-2">
-            <span className="text-[9px] text-ivory-dark/40 uppercase tracking-wide">Before</span>
-          </div>
-        </div>
-        <div className="rounded-xl border border-white/[0.04] overflow-hidden">
-          <div className="h-16 bg-gradient-to-br" style={{ background: `linear-gradient(135deg, ${accent}25, ${accent}10)` }} />
-          <div className="p-2">
-            <span className="text-[9px] text-ivory-dark/40 uppercase tracking-wide">After</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded-xl p-3 text-center border border-white/[0.06]" style={{ background: `linear-gradient(135deg, ${accent}15, transparent)` }}>
-        <span className="text-xs font-medium" style={{ color: accent }}>&#x1F338; Spring Special &mdash; 15% OFF all services</span>
-      </div>
-    </div>
-  )
-}
 
 function Mockup3D({ project }) {
   const ref = useRef(null)
@@ -157,23 +120,19 @@ function Mockup3D({ project }) {
           </div>
         </div>
 
-        {project.images ? (
-          <div className="relative">
-            <img
-              src={project.images.src}
-              srcSet={project.images.srcSet}
-              sizes="(max-width: 640px) 600px, (max-width: 1024px) 1000px, 1600px"
-              alt={`${project.title} website preview`}
-              className="w-full h-auto block select-none pointer-events-none"
-              draggable={false}
-              loading="lazy"
-              decoding="async"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0d] via-transparent to-transparent opacity-20 pointer-events-none" />
-          </div>
-        ) : (
-          <PressureDashboard accent={project.accent} />
-        )}
+        <div className="relative">
+          <img
+            src={project.images.src}
+            srcSet={project.images.srcSet}
+            sizes="(max-width: 640px) 600px, (max-width: 1024px) 1000px, 1600px"
+            alt={`${project.title} website preview`}
+            className="w-full h-auto block select-none pointer-events-none"
+            draggable={false}
+            fetchpriority="high"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0d] via-transparent to-transparent opacity-20 pointer-events-none" />
+        </div>
       </div>
     </div>
   )
@@ -181,23 +140,12 @@ function Mockup3D({ project }) {
 
 export default function Showcase() {
   const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
   const project = projects[active]
-
-  useEffect(() => {
-    if (paused) return
-    const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % projects.length)
-    }, 4500)
-    return () => clearInterval(interval)
-  }, [paused])
 
   return (
     <section
       id="work"
       className="relative py-32 overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       <div className="absolute inset-0 section-gradient" />
 
@@ -216,7 +164,7 @@ export default function Showcase() {
             {projects.map((p, i) => (
               <button
                 key={p.id}
-                onClick={() => { setActive(i); setPaused(true); setTimeout(() => setPaused(false), 6000) }}
+                onClick={() => setActive(i)}
                 className={`px-6 py-3 rounded-full text-sm tracking-wide transition-all duration-500 ${
                   i === active
                     ? 'bg-white/[0.08] text-ivory border border-white/[0.1] shadow-[0_0_30px_rgba(255,255,255,0.03)]'

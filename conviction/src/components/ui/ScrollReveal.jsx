@@ -13,12 +13,12 @@ export default function ScrollReveal({ children, className = '', delay = 0, dire
 
   return (
     <motion.div
-      initial={{ opacity: 0, ...getInitial() }}
+      initial={{ opacity: 1, ...getInitial() }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
       className={className}
-      style={{ willChange: 'transform, opacity' }}
+      style={{ willChange: 'transform' }}
     >
       {children}
     </motion.div>
