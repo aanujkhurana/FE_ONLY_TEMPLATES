@@ -1,16 +1,13 @@
-* {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure the body takes up the full screen seamlessly */
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'DM Sans', sans-serif;
   overflow-x: hidden;
+  font-family: 'DM Sans', sans-serif;
   background: #0B1A2E;
   cursor: none;
 }
@@ -18,11 +15,6 @@ body {
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-18px); }
-}
-
-@keyframes rotateslow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 @keyframes fadeup {
@@ -39,21 +31,10 @@ body {
   animation: fadeup 0.8s ease forwards;
 }
 
-.anim-delay-1 {
-  animation-delay: 0.2s;
-}
-
-.anim-delay-2 {
-  animation-delay: 0.4s;
-}
-
-.anim-delay-3 {
-  animation-delay: 0.6s;
-}
-
-.anim-delay-4 {
-  animation-delay: 0.8s;
-}
+.anim-delay-1 { animation-delay: 0.2s; }
+.anim-delay-2 { animation-delay: 0.4s; }
+.anim-delay-3 { animation-delay: 0.6s; }
+.anim-delay-4 { animation-delay: 0.8s; }
 
 .reveal {
   opacity: 0;
@@ -67,7 +48,5 @@ body {
 }
 
 @media (max-width: 768px) {
-  body {
-    cursor: auto;
-  }
+  body { cursor: auto; }
 }

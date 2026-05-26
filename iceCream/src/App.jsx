@@ -1,6 +1,6 @@
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
+import Hero from './components/hero';
 import Philosophy from './components/Philosophy';
 import Flavors from './components/Flavors';
 import Spotlight from './components/Spotlight';
