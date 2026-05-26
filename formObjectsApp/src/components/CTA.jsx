@@ -8,7 +8,7 @@ export default function CTA() {
     <section
       id="cta"
       style={{
-        background: '#C2501A',
+        background: '#2D1B2E',
         padding: '136px 52px',
         textAlign: 'center',
         position: 'relative',
@@ -21,7 +21,7 @@ export default function CTA() {
           style={{
             fontSize: 'clamp(100px, 18vw, 230px)',
             lineHeight: 0.9,
-            color: '#F4EFE5',
+            color: '#E8B84B',
             letterSpacing: -3,
             margin: '0 0 36px',
           }}
@@ -32,7 +32,7 @@ export default function CTA() {
       <div {...bodyReveal}>
         <p
           style={{
-            color: 'rgba(244,239,229,.65)',
+            color: '#C4B5D4',
             fontSize: 14,
             margin: '0 0 44px',
             fontWeight: 300,
@@ -44,9 +44,9 @@ export default function CTA() {
         <button
           className="pill"
           style={{
-            background: '#F4EFE5',
-            color: '#111110',
-            border: '1px solid #F4EFE5',
+            background: '#F5F0E8',
+            color: '#0F1923',
+            border: '1px solid #F5F0E8',
             padding: '18px 56px',
             fontSize: 12,
             letterSpacing: 2.5,

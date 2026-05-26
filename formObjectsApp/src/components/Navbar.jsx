@@ -12,7 +12,7 @@ export default function Navbar() {
         zIndex: 2,
       }}
     >
-      <span className="disp" style={{ fontSize: 22, color: '#F4EFE5', letterSpacing: 6 }}>
+      <span className="disp" style={{ fontSize: 22, color: '#F5F0E8', letterSpacing: 6 }}>
         FORM
       </span>
       <div style={{ display: 'flex', gap: 44 }}>
@@ -21,7 +21,7 @@ export default function Navbar() {
             key={link.label}
             href={link.href}
             style={{
-              color: '#8A857E',
+              color: '#B8A89A',
               fontSize: 11,
               letterSpacing: 2,
               textTransform: 'uppercase',
@@ -34,7 +34,7 @@ export default function Navbar() {
       <a
         href="#cta"
         className="mono"
-        style={{ fontSize: 11, color: '#C2501A', letterSpacing: 1 }}
+        style={{ fontSize: 11, color: '#D84B2A', letterSpacing: 1 }}
       >
         ↗ Order
       </a>

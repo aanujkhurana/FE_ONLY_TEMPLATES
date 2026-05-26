@@ -41,30 +41,30 @@
    Hover / interaction
    ---------------- */
 nav a:hover {
-  color: #f4efe5 !important;
+  color: #F5F0E8 !important;
 }
 
 .pill:hover {
-  background: #f4efe5 !important;
-  color: #111110 !important;
+  background: #F5F0E8 !important;
+  color: #0F1923 !important;
 }
 
 .pill-inv:hover {
-  background: #111110 !important;
-  color: #f4efe5 !important;
+  background: #F5F0E8 !important;
+  color: #0F1923 !important;
 }
 
 .pill-ora:hover {
-  background: #f4efe5 !important;
-  color: #c2501a !important;
+  background: #F5F0E8 !important;
+  color: #D84B2A !important;
 }
 
 .card-hover:hover {
-  background: #2e2e2c !important;
+  background: #1E3836 !important;
 }
 
 footer a:hover {
-  color: #f4efe5 !important;
+  color: #F5F0E8 !important;
 }
 
 /* ----------------

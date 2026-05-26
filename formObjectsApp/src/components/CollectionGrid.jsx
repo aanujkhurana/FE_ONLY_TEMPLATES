@@ -6,19 +6,19 @@ function CollectionCard({ item }) {
     <div
       className="card-hover"
       style={{
-        background: '#262624',
+        background: '#152E2D',
         padding: '28px 22px',
         cursor: 'pointer',
         transition: 'background 0.2s',
       }}
     >
-      <p className="mono" style={{ fontSize: 10, color: '#C2501A', margin: '0 0 12px' }}>
+      <p className="mono" style={{ fontSize: 10, color: '#E8B84B', margin: '0 0 12px' }}>
         {item.obj}
       </p>
-      <p className="disp" style={{ fontSize: 18, color: '#F4EFE5', margin: '0 0 8px', letterSpacing: 1 }}>
+      <p className="disp" style={{ fontSize: 18, color: '#F5F0E8', margin: '0 0 8px', letterSpacing: 1 }}>
         {item.name}
       </p>
-      <p className="mono" style={{ fontSize: 9, color: '#8A857E', margin: 0, letterSpacing: 1 }}>
+      <p className="mono" style={{ fontSize: 9, color: '#B8C4B8', margin: 0, letterSpacing: 1 }}>
         {item.price}
       </p>
     </div>
@@ -30,7 +30,7 @@ export default function CollectionGrid() {
   const gridReveal = useReveal('d1');
 
   return (
-    <section style={{ background: '#1E1E1C', padding: '100px 52px' }}>
+    <section style={{ background: '#1A3C3A', padding: '100px 52px' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 60, alignItems: 'center' }}>
         <div {...contentReveal}>
           <p
@@ -39,7 +39,7 @@ export default function CollectionGrid() {
               fontSize: 10,
               letterSpacing: 3,
               textTransform: 'uppercase',
-              color: '#8A857E',
+              color: '#B8C4B8',
               margin: '0 0 20px',
             }}
           >
@@ -50,17 +50,17 @@ export default function CollectionGrid() {
             style={{
               fontSize: 'clamp(52px, 9vw, 108px)',
               lineHeight: 0.9,
-              color: '#F4EFE5',
+              color: '#F5F0E8',
               letterSpacing: -1,
               margin: '0 0 32px',
             }}
           >
             TWELVE<br />OBJECTS.<br />
-            <span style={{ color: '#C2501A' }}>ONE</span> VISION.
+            <span style={{ color: '#D84B2A' }}>ONE</span> VISION.
           </h2>
           <p
             style={{
-              color: '#8A857E',
+              color: '#B8C4B8',
               fontSize: 14,
               lineHeight: 1.9,
               fontWeight: 300,
@@ -74,9 +74,9 @@ export default function CollectionGrid() {
           <button
             className="pill-ora"
             style={{
-              background: '#C2501A',
-              color: '#F4EFE5',
-              border: '1px solid #C2501A',
+              background: '#D84B2A',
+              color: '#F5F0E8',
+              border: '1px solid #D84B2A',
               padding: '15px 44px',
               fontSize: 11,
               letterSpacing: 2.5,

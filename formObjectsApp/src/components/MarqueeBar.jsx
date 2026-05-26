@@ -5,7 +5,7 @@ export default function MarqueeBar() {
   return (
     <div
       style={{
-        background: '#C2501A',
+        background: '#D84B2A',
         padding: '18px 0',
         overflow: 'hidden',
         whiteSpace: 'nowrap',
@@ -16,7 +16,7 @@ export default function MarqueeBar() {
         style={{
           display: 'inline-block',
           fontSize: 17,
-          color: '#F4EFE5',
+          color: '#F5F0E8',
           letterSpacing: 5,
           animation: 'mq 26s linear infinite',
         }}

@@ -7,7 +7,7 @@ export default function Statement() {
   return (
     <section
       style={{
-        background: '#C2501A',
+        background: '#2D1B2E',
         padding: '96px 52px 80px',
         overflow: 'hidden',
         position: 'relative',
@@ -19,7 +19,7 @@ export default function Statement() {
           style={{
             fontSize: 'clamp(60px, 13vw, 160px)',
             lineHeight: 0.9,
-            color: '#F4EFE5',
+            color: '#E8B84B',
             letterSpacing: -2,
           }}
         >
@@ -31,13 +31,13 @@ export default function Statement() {
           {...bodyReveal}
           style={{
             maxWidth: 380,
-            borderLeft: '2px solid rgba(244,239,229,.25)',
+            borderLeft: '2px solid rgba(232,184,75,.25)',
             paddingLeft: 28,
           }}
         >
           <p
             style={{
-              color: 'rgba(244,239,229,.72)',
+              color: '#C4B5D4',
               fontSize: 15,
               lineHeight: 1.9,
               fontWeight: 300,

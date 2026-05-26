@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section
       style={{
-        background: '#111110',
+        background: '#0F1923',
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
@@ -29,15 +29,15 @@ export default function Hero() {
         }}
       >
         <svg width="100%" height="100%" viewBox="0 0 380 800" preserveAspectRatio="xMidYMid slice">
-          <rect x="15" y="15" width="350" height="770" stroke="white" strokeWidth=".4" fill="none" />
-          <rect x="51" y="95" width="278" height="610" stroke="white" strokeWidth=".4" fill="none" />
-          <rect x="87" y="175" width="206" height="450" stroke="white" strokeWidth=".4" fill="none" />
-          <rect x="123" y="255" width="134" height="290" stroke="white" strokeWidth=".4" fill="none" />
-          <rect x="159" y="335" width="62" height="130" stroke="white" strokeWidth=".4" fill="none" />
-          <line x1="190" y1="0" x2="190" y2="800" stroke="white" strokeWidth=".4" />
-          <line x1="0" y1="400" x2="380" y2="400" stroke="white" strokeWidth=".4" />
-          <line x1="0" y1="200" x2="380" y2="200" stroke="white" strokeWidth=".3" opacity=".5" />
-          <line x1="0" y1="600" x2="380" y2="600" stroke="white" strokeWidth=".3" opacity=".5" />
+          <rect x="15" y="15" width="350" height="770" stroke="#F5F0E8" strokeWidth=".4" fill="none" />
+          <rect x="51" y="95" width="278" height="610" stroke="#F5F0E8" strokeWidth=".4" fill="none" />
+          <rect x="87" y="175" width="206" height="450" stroke="#F5F0E8" strokeWidth=".4" fill="none" />
+          <rect x="123" y="255" width="134" height="290" stroke="#F5F0E8" strokeWidth=".4" fill="none" />
+          <rect x="159" y="335" width="62" height="130" stroke="#F5F0E8" strokeWidth=".4" fill="none" />
+          <line x1="190" y1="0" x2="190" y2="800" stroke="#F5F0E8" strokeWidth=".4" />
+          <line x1="0" y1="400" x2="380" y2="400" stroke="#F5F0E8" strokeWidth=".4" />
+          <line x1="0" y1="200" x2="380" y2="200" stroke="#F5F0E8" strokeWidth=".3" opacity=".5" />
+          <line x1="0" y1="600" x2="380" y2="600" stroke="#F5F0E8" strokeWidth=".3" opacity=".5" />
         </svg>
       </div>
 
@@ -58,12 +58,12 @@ export default function Hero() {
             style={{
               fontSize: 'clamp(88px, 15vw, 196px)',
               lineHeight: 0.9,
-              color: '#F4EFE5',
+              color: '#F5F0E8',
               letterSpacing: -3,
             }}
           >
             OBJECTS<br />
-            <span style={{ color: '#C2501A' }}>BUILT</span>
+            <span style={{ color: '#D84B2A' }}>BUILT</span>
             <br />
             TO LAST.
           </h1>
@@ -73,7 +73,7 @@ export default function Hero() {
           <div {...subtitleReveal}>
             <p
               style={{
-                color: '#8A857E',
+                color: '#B8A89A',
                 fontSize: 14,
                 lineHeight: 1.85,
                 margin: '0 0 36px',
@@ -86,9 +86,9 @@ export default function Hero() {
             <button
               className="pill"
               style={{
-                background: '#F4EFE5',
-                color: '#111110',
-                border: '1px solid #F4EFE5',
+                background: '#F5F0E8',
+                  color: '#0F1923',
+                  border: '1px solid #F5F0E8',
                 padding: '15px 44px',
                 fontSize: 11,
                 letterSpacing: 2.5,
@@ -108,7 +108,7 @@ export default function Hero() {
                 fontSize: 10,
                 letterSpacing: 3,
                 textTransform: 'uppercase',
-                color: '#8A857E',
+                color: '#B8A89A',
                 margin: '0 0 8px',
               }}
             >
@@ -116,7 +116,7 @@ export default function Hero() {
             </p>
             <p
               className="disp"
-              style={{ fontSize: 34, color: '#F4EFE5', letterSpacing: 2, margin: '0 0 4px' }}
+              style={{ fontSize: 34, color: '#F5F0E8', letterSpacing: 2, margin: '0 0 4px' }}
             >
               12 Objects
             </p>
@@ -126,7 +126,7 @@ export default function Hero() {
                 fontSize: 10,
                 letterSpacing: 2,
                 textTransform: 'uppercase',
-                color: '#C2501A',
+                color: '#D84B2A',
                 margin: 0,
               }}
             >
@@ -135,7 +135,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <div style={{ height: 1, background: '#222220', margin: '0 52px' }} />
+      <div style={{ height: 1, background: 'rgba(245,240,232,.12)', margin: '0 52px' }} />
     </section>
   );
 }

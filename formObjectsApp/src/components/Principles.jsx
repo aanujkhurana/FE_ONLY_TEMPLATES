@@ -9,13 +9,13 @@ function PrincipleCard({ principle, delayClass }) {
   return (
     <div
       {...reveal}
-      style={{ background: '#1E1E1C', padding: '48px 40px 44px' }}
+      style={{ background: '#15281E', padding: '48px 40px 44px' }}
     >
       <p
         className="mono"
         style={{
           fontSize: 10,
-          color: '#C2501A',
+          color: '#E8B84B',
           margin: '0 0 36px',
           letterSpacing: 1,
         }}
@@ -26,7 +26,7 @@ function PrincipleCard({ principle, delayClass }) {
         className="disp"
         style={{
           fontSize: 38,
-          color: '#F4EFE5',
+          color: '#F5F0E8',
           margin: '0 0 22px',
           lineHeight: 0.95,
           letterSpacing: 0.5,
@@ -37,7 +37,7 @@ function PrincipleCard({ principle, delayClass }) {
       </h3>
       <p
         style={{
-          color: '#8A857E',
+          color: '#9AAF95',
           fontSize: 13,
           lineHeight: 1.85,
           fontWeight: 300,
@@ -54,13 +54,13 @@ export default function Principles() {
   const headingReveal = useReveal();
 
   return (
-    <section style={{ background: '#111110', padding: '100px 52px' }}>
+    <section style={{ background: '#1A2E22', padding: '100px 52px' }}>
       <div
         {...headingReveal}
         style={{ marginBottom: 60, display: 'flex', alignItems: 'center', gap: 20 }}
       >
-        <div style={{ width: 32, height: 1, background: '#C2501A' }} />
-        <span className="mono" style={{ fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', color: '#8A857E' }}>
+        <div style={{ width: 32, height: 1, background: '#E8B84B' }} />
+        <span className="mono" style={{ fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', color: '#9AAF95' }}>
           The Doctrine
         </span>
       </div>
