@@ -1,0 +1,80 @@
+/* ----------------
+   Font utilities
+   ---------------- */
+.mono {
+  font-family: 'DM Mono', monospace;
+}
+
+.disp {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+}
+
+/* ----------------
+   Reveal animations
+   ---------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.vis {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal.d1 {
+  transition-delay: 0.12s;
+}
+
+.reveal.d2 {
+  transition-delay: 0.22s;
+}
+
+.reveal.d3 {
+  transition-delay: 0.34s;
+}
+
+/* ----------------
+   Hover / interaction
+   ---------------- */
+nav a:hover {
+  color: #f4efe5 !important;
+}
+
+.pill:hover {
+  background: #f4efe5 !important;
+  color: #111110 !important;
+}
+
+.pill-inv:hover {
+  background: #111110 !important;
+  color: #f4efe5 !important;
+}
+
+.pill-ora:hover {
+  background: #f4efe5 !important;
+  color: #c2501a !important;
+}
+
+.card-hover:hover {
+  background: #2e2e2c !important;
+}
+
+footer a:hover {
+  color: #f4efe5 !important;
+}
+
+/* ----------------
+   Marquee keyframes
+   ---------------- */
+@keyframes mq {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

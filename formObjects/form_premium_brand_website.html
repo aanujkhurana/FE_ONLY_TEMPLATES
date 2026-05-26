@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#111110;overflow-x:hidden;}
+a{text-decoration:none;transition:color .2s;}
+button{border-radius:0;cursor:pointer;}
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+[data-reveal].vis{opacity:1;transform:none;}
+[data-reveal].d1{transition-delay:.12s;}
+[data-reveal].d2{transition-delay:.22s;}
+[data-reveal].d3{transition-delay:.34s;}
+.mono{font-family:'DM Mono',monospace;}
+.disp{font-family:'Bebas Neue',Impact,sans-serif;}
+nav a:hover{color:#F4EFE5!important;}
+.pill:hover{background:#F4EFE5!important;color:#111110!important;}
+.pill-inv:hover{background:#111110!important;color:#F4EFE5!important;}
+.pill-ora:hover{background:#F4EFE5!important;color:#C2501A!important;}
+.card-hover:hover{background:#2E2E2C!important;}
+footer a:hover{color:#F4EFE5!important;}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section style="background:#111110;min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:0;top:0;width:42%;height:100%;opacity:.038;pointer-events:none;">
+    <svg width="100%" height="100%" viewBox="0 0 380 800" preserveAspectRatio="xMidYMid slice">
+      <rect x="15" y="15" width="350" height="770" stroke="white" stroke-width=".4" fill="none"/>
+      <rect x="51" y="95" width="278" height="610" stroke="white" stroke-width=".4" fill="none"/>
+      <rect x="87" y="175" width="206" height="450" stroke="white" stroke-width=".4" fill="none"/>
+      <rect x="123" y="255" width="134" height="290" stroke="white" stroke-width=".4" fill="none"/>
+      <rect x="159" y="335" width="62" height="130" stroke="white" stroke-width=".4" fill="none"/>
+      <line x1="190" y1="0" x2="190" y2="800" stroke="white" stroke-width=".4"/>
+      <line x1="0" y1="400" x2="380" y2="400" stroke="white" stroke-width=".4"/>
+      <line x1="0" y1="200" x2="380" y2="200" stroke="white" stroke-width=".3" opacity=".5"/>
+      <line x1="0" y1="600" x2="380" y2="600" stroke="white" stroke-width=".3" opacity=".5"/>
+    </svg>
+  </div>
+
+  <nav style="display:flex;justify-content:space-between;align-items:center;padding:30px 52px;position:relative;z-index:2;">
+    <span class="disp" style="font-size:22px;color:#F4EFE5;letter-spacing:6px;">FORM</span>
+    <div style="display:flex;gap:44px;">
+      <a href="#" style="color:#8A857E;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Objects</a>
+      <a href="#" style="color:#8A857E;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Materials</a>
+      <a href="#" style="color:#8A857E;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Studio</a>
+      <a href="#" style="color:#8A857E;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Store</a>
+    </div>
+    <a href="#cta" class="mono" style="font-size:11px;color:#C2501A;letter-spacing:1px;">↗ Order</a>
+  </nav>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 80px;">
+    <div data-reveal style="margin-bottom:44px;">
+      <h1 class="disp" style="font-size:clamp(88px,15vw,196px);line-height:.9;color:#F4EFE5;letter-spacing:-3px;">
+        OBJECTS<br>
+        <span style="color:#C2501A;">BUILT</span><br>
+        TO LAST.
+      </h1>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;">
+      <div data-reveal class="d1">
+        <p style="color:#8A857E;font-size:14px;line-height:1.85;margin:0 0 36px;font-weight:300;max-width:256px;">Precision-engineered forms.<br>No compromise. No trend-chasing.</p>
+        <button class="pill" style="background:#F4EFE5;color:#111110;border:1px solid #F4EFE5;padding:15px 44px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .28s ease;">Discover Collection</button>
+      </div>
+      <div data-reveal class="d2" style="text-align:right;">
+        <p class="mono" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A857E;margin:0 0 8px;">Collection 2025</p>
+        <p class="disp" style="font-size:34px;color:#F4EFE5;letter-spacing:2px;margin:0 0 4px;">12 Objects</p>
+        <p class="mono" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C2501A;margin:0;">Limited Production</p>
+      </div>
+    </div>
+  </div>
+  <div style="height:1px;background:#222220;margin:0 52px;"></div>
+</section>
+
+<!-- STATEMENT -->
+<section style="background:#C2501A;padding:96px 52px 80px;overflow:hidden;position:relative;">
+  <div data-reveal>
+    <h2 class="disp" style="font-size:clamp(60px,13vw,160px);line-height:.9;color:#F4EFE5;letter-spacing:-2px;">
+      FORM<br>IS<br>EVERYTHING.
+    </h2>
+  </div>
+  <div style="display:flex;justify-content:flex-end;margin-top:56px;">
+    <div data-reveal class="d1" style="max-width:380px;border-left:2px solid rgba(244,239,229,.25);padding-left:28px;">
+      <p style="color:rgba(244,239,229,.72);font-size:15px;line-height:1.9;font-weight:300;margin:0;">
+        We believe the objects surrounding you define your experience of life.
+        Every curve, weight, and surface is deliberate. Every millimetre accounted for.
+        This is not design — this is conviction.
+      </p>
+    </div>
+  </div>
+  <div class="disp" style="position:absolute;right:-40px;bottom:-80px;font-size:440px;color:rgba(0,0,0,.09);line-height:1;pointer-events:none;user-select:none;">F</div>
+</section>
+
+<!-- PRODUCT -->
+<section style="background:#F4EFE5;padding:120px 52px;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;">
+
+    <div data-reveal>
+      <div style="background:#DDD6CA;padding:52px 40px 40px;position:relative;">
+        <svg viewBox="0 0 360 236" fill="none" style="width:100%;display:block;">
+          <rect x="8" y="8" width="344" height="220" rx="5" fill="#1A1A18"/>
+          <rect x="12" y="12" width="336" height="212" rx="4" fill="#111110"/>
+          <rect x="8" y="8" width="344" height="3" rx="2" fill="rgba(255,255,255,0.05)"/>
+          <rect x="8" y="8" width="3" height="220" rx="2" fill="rgba(255,255,255,0.03)"/>
+          <rect x="18" y="18" width="204" height="200" rx="3" fill="#161614"/>
+          <!-- grille dots row 0 -->
+          <circle cx="34" cy="44" r="1.8" fill="#252523"/><circle cx="55" cy="44" r="1.8" fill="#252523"/><circle cx="76" cy="44" r="1.8" fill="#252523"/><circle cx="97" cy="44" r="1.8" fill="#252523"/><circle cx="118" cy="44" r="1.8" fill="#252523"/><circle cx="139" cy="44" r="1.8" fill="#252523"/><circle cx="160" cy="44" r="1.8" fill="#252523"/><circle cx="181" cy="44" r="1.8" fill="#252523"/>
+          <circle cx="34" cy="65" r="1.8" fill="#252523"/><circle cx="55" cy="65" r="1.8" fill="#252523"/><circle cx="76" cy="65" r="1.8" fill="#252523"/><circle cx="97" cy="65" r="1.8" fill="#252523"/><circle cx="118" cy="65" r="1.8" fill="#252523"/><circle cx="139" cy="65" r="1.8" fill="#252523"/><circle cx="160" cy="65" r="1.8" fill="#252523"/><circle cx="181" cy="65" r="1.8" fill="#252523"/>
+          <circle cx="34" cy="86" r="1.8" fill="#252523"/><circle cx="55" cy="86" r="1.8" fill="#252523"/><circle cx="76" cy="86" r="1.8" fill="#252523"/><circle cx="97" cy="86" r="1.8" fill="#252523"/><circle cx="118" cy="86" r="1.8" fill="#252523"/><circle cx="139" cy="86" r="1.8" fill="#252523"/><circle cx="160" cy="86" r="1.8" fill="#252523"/><circle cx="181" cy="86" r="1.8" fill="#252523"/>
+          <circle cx="34" cy="107" r="1.8" fill="#252523"/><circle cx="55" cy="107" r="1.8" fill="#252523"/><circle cx="76" cy="107" r="1.8" fill="#252523"/><circle cx="97" cy="107" r="1.8" fill="#252523"/><circle cx="118" cy="107" r="1.8" fill="#252523"/><circle cx="139" cy="107" r="1.8" fill="#252523"/><circle cx="160" cy="107" r="1.8" fill="#252523"/><circle cx="181" cy="107" r="1.8" fill="#252523"/>
+          <circle cx="34" cy="128" r="1.8" fill="#252523"/><circle cx="55" cy="128" r="1.8" fill="#252523"/><circle cx="76" cy="128" r="1.8" fill="#252523"/><circle cx="97" cy="128" r="1.8" fill="#252523"/><circle cx="118" cy="128" r="1.8" fill="#252523"/><circle cx="139" cy="128" r="1.8" fill="#252523"/><circle cx="160" cy="128" r="1.8" fill="#252523"/><circle cx="181" cy="128" r="1.8" fill="#252523"/>
+          <circle cx="34" cy="149" r="1.8" fill="#252523"/><circle cx="55" cy="149" r="1.8" fill="#252523"/><circle cx="76" cy="149" r="1.8" fill="#252523"/><circle cx="97" cy="149" r="1.8" fill="#252523"/><circle cx="118" cy="149" r="1.8" fill="#252523"/><circle cx="139" cy="149" r="1.8" fill="#252523"/><circle cx="160" cy="149" r="1.8" fill="#252523"/><circle cx="181" cy="149" r="1.8" fill="#252523"/>
+          <circle cx="34" cy="170" r="1.8" fill="#252523"/><circle cx="55" cy="170" r="1.8" fill="#252523"/><circle cx="76" cy="170" r="1.8" fill="#252523"/><circle cx="97" cy="170" r="1.8" fill="#252523"/><circle cx="118" cy="170" r="1.8" fill="#252523"/><circle cx="139" cy="170" r="1.8" fill="#252523"/><circle cx="160" cy="170" r="1.8" fill="#252523"/><circle cx="181" cy="170" r="1.8" fill="#252523"/>
+          <circle cx="34" cy="191" r="1.8" fill="#252523"/><circle cx="55" cy="191" r="1.8" fill="#252523"/><circle cx="76" cy="191" r="1.8" fill="#252523"/><circle cx="97" cy="191" r="1.8" fill="#252523"/><circle cx="118" cy="191" r="1.8" fill="#252523"/><circle cx="139" cy="191" r="1.8" fill="#252523"/><circle cx="160" cy="191" r="1.8" fill="#252523"/><circle cx="181" cy="191" r="1.8" fill="#252523"/>
+          <!-- Driver -->
+          <circle cx="108" cy="114" r="70" fill="#1C1C1A" stroke="#232320" stroke-width="1.5"/>
+          <circle cx="108" cy="114" r="54" fill="#161614" stroke="#1E1E1C" stroke-width="1"/>
+          <line x1="108" y1="81" x2="108" y2="63" stroke="#1C1C1A" stroke-width="1"/>
+          <line x1="108" y1="147" x2="108" y2="165" stroke="#1C1C1A" stroke-width="1"/>
+          <line x1="75" y1="114" x2="57" y2="114" stroke="#1C1C1A" stroke-width="1"/>
+          <line x1="141" y1="114" x2="159" y2="114" stroke="#1C1C1A" stroke-width="1"/>
+          <line x1="85" y1="91" x2="71" y2="77" stroke="#1C1C1A" stroke-width="1"/>
+          <line x1="131" y1="137" x2="145" y2="151" stroke="#1C1C1A" stroke-width="1"/>
+          <line x1="131" y1="91" x2="145" y2="77" stroke="#1C1C1A" stroke-width="1"/>
+          <line x1="85" y1="137" x2="71" y2="151" stroke="#1C1C1A" stroke-width="1"/>
+          <circle cx="108" cy="114" r="28" fill="#1C1C1A"/>
+          <circle cx="108" cy="114" r="16" fill="#202020"/>
+          <circle cx="108" cy="114" r="6" fill="#C2501A"/>
+          <!-- Control panel -->
+          <rect x="230" y="18" width="114" height="200" rx="3" fill="#161614"/>
+          <!-- Main knob -->
+          <circle cx="287" cy="88" r="36" fill="#202020"/>
+          <circle cx="287" cy="88" r="29" stroke="#2C2C2A" stroke-width="1" fill="#1A1A18"/>
+          <circle cx="287" cy="88" r="20" fill="#1E1E1C"/>
+          <line x1="287" y1="60" x2="287" y2="72" stroke="#C2501A" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="287" cy="88" r="5" fill="#C2501A"/>
+          <!-- tick marks -->
+          <line x1="262" y1="108" x2="259" y2="113" stroke="#333330" stroke-width="1"/>
+          <line x1="272" y1="116" x2="270" y2="122" stroke="#333330" stroke-width="1"/>
+          <line x1="287" y1="120" x2="287" y2="126" stroke="#333330" stroke-width="1"/>
+          <line x1="302" y1="116" x2="304" y2="122" stroke="#333330" stroke-width="1"/>
+          <line x1="312" y1="108" x2="315" y2="113" stroke="#333330" stroke-width="1"/>
+          <!-- sub-knobs -->
+          <circle cx="254" cy="150" r="14" fill="#1E1E1C"/>
+          <circle cx="254" cy="150" r="5" fill="#282826"/>
+          <circle cx="320" cy="150" r="14" fill="#1E1E1C"/>
+          <circle cx="320" cy="150" r="5" fill="#282826"/>
+          <text x="254" y="170" text-anchor="middle" fill="#333330" font-size="6" font-family="monospace" letter-spacing=".5">LF</text>
+          <text x="320" y="170" text-anchor="middle" fill="#333330" font-size="6" font-family="monospace" letter-spacing=".5">HF</text>
+          <!-- LEDs -->
+          <circle cx="252" cy="194" r="4" fill="#C2501A"/>
+          <circle cx="268" cy="194" r="4" fill="#1E1E1C"/>
+          <circle cx="284" cy="194" r="4" fill="#1E1E1C"/>
+          <circle cx="300" cy="194" r="4" fill="#1E1E1C"/>
+          <!-- connector -->
+          <rect x="248" y="208" width="78" height="6" rx="1.5" fill="#0E0E0D"/>
+          <!-- label -->
+          <text x="108" y="216" text-anchor="middle" fill="#2E2C2A" font-size="8" font-family="monospace" letter-spacing="5">FORM — 001</text>
+          <rect x="8" y="8" width="344" height="3" rx="2" fill="rgba(255,255,255,0.04)"/>
+        </svg>
+        <p class="mono" style="position:absolute;top:18px;left:18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A857E;margin:0;">OBJ. 001</p>
+        <p class="mono" style="position:absolute;top:18px;right:18px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A857E;margin:0;">2025</p>
+      </div>
+    </div>
+
+    <div>
+      <div data-reveal class="d1">
+        <p class="mono" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C2501A;margin:0 0 20px;">Object No. 001</p>
+        <h2 class="disp" style="font-size:clamp(52px,8vw,88px);line-height:.9;color:#111110;letter-spacing:-.5px;margin:0 0 28px;">THE<br>MONITOR</h2>
+      </div>
+      <div data-reveal class="d2">
+        <p style="color:#706860;font-size:14px;line-height:1.9;font-weight:300;margin:0 0 40px;">
+          Machined from a single billet of aircraft-grade 6061-T6 aluminium. Designed to outlast every screen, desk, and studio it inhabits.
+        </p>
+        <div style="border-top:1px solid #C4BDB0;">
+          <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #C4BDB0;">
+            <span class="mono" style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8A857E;">Material</span>
+            <span style="font-size:13px;color:#111110;">Al 6061-T6</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #C4BDB0;">
+            <span class="mono" style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8A857E;">Dimensions</span>
+            <span style="font-size:13px;color:#111110;">180 × 120 × 40 mm</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #C4BDB0;">
+            <span class="mono" style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8A857E;">Weight</span>
+            <span style="font-size:13px;color:#111110;">640 g</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #C4BDB0;">
+            <span class="mono" style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8A857E;">Finish</span>
+            <span style="font-size:13px;color:#111110;">Bead-blast matte</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #C4BDB0;">
+            <span class="mono" style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8A857E;">Warranty</span>
+            <span style="font-size:13px;color:#111110;">Lifetime</span>
+          </div>
+        </div>
+        <div style="margin-top:36px;">
+          <button class="pill-inv" style="background:#111110;color:#F4EFE5;border:1px solid #111110;padding:15px 44px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .28s ease;">View Object — $480</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section style="background:#111110;padding:100px 52px;">
+  <div data-reveal style="margin-bottom:60px;display:flex;align-items:center;gap:20px;">
+    <div style="width:32px;height:1px;background:#C2501A;"></div>
+    <span class="mono" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A857E;">The Doctrine</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+    <div data-reveal class="d1" style="background:#1E1E1C;padding:48px 40px 44px;">
+      <p class="mono" style="font-size:10px;color:#C2501A;margin:0 0 36px;letter-spacing:1px;">01</p>
+      <h3 class="disp" style="font-size:38px;color:#F4EFE5;margin:0 0 22px;line-height:.95;letter-spacing:.5px;">NOTHING<br>WASTED</h3>
+      <p style="color:#8A857E;font-size:13px;line-height:1.85;font-weight:300;margin:0;">Every millimetre serves a purpose. We remove until removal becomes destruction.</p>
+    </div>
+    <div data-reveal class="d2" style="background:#1E1E1C;padding:48px 40px 44px;">
+      <p class="mono" style="font-size:10px;color:#C2501A;margin:0 0 36px;letter-spacing:1px;">02</p>
+      <h3 class="disp" style="font-size:38px;color:#F4EFE5;margin:0 0 22px;line-height:.95;letter-spacing:.5px;">BUILT<br>TO LAST</h3>
+      <p style="color:#8A857E;font-size:13px;line-height:1.85;font-weight:300;margin:0;">Engineered for decades, not product cycles. Our objects outlast the trends that copy them.</p>
+    </div>
+    <div data-reveal class="d3" style="background:#1E1E1C;padding:48px 40px 44px;">
+      <p class="mono" style="font-size:10px;color:#C2501A;margin:0 0 36px;letter-spacing:1px;">03</p>
+      <h3 class="disp" style="font-size:38px;color:#F4EFE5;margin:0 0 22px;line-height:.95;letter-spacing:.5px;">MATERIAL<br>TRUTH</h3>
+      <p style="color:#8A857E;font-size:13px;line-height:1.85;font-weight:300;margin:0;">Aluminium is aluminium. We never disguise what something is made of. Authenticity only.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT -->
+<section style="background:#DDD6CA;padding:120px 52px;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;">
+    <div>
+      <div data-reveal>
+        <h2 class="disp" style="font-size:clamp(60px,10vw,118px);line-height:.9;color:#111110;letter-spacing:-1px;margin:0 0 40px;">
+          CRAFT<br>ABOVE<br>ALL.
+        </h2>
+      </div>
+      <div data-reveal class="d1">
+        <div style="width:100%;height:1px;background:rgba(17,17,16,.25);margin-bottom:36px;"></div>
+        <p style="color:#6A6460;font-size:14px;line-height:1.95;font-weight:300;margin:0;">
+          Our objects are made in a single facility in northern Portugal — a building of concrete and glass, where fifty craftspeople work alongside five-axis CNC machines. One does not replace the other. Both are essential.
+        </p>
+      </div>
+    </div>
+    <div style="padding-top:60px;">
+      <div data-reveal class="d2">
+        <p style="color:#6A6460;font-size:14px;line-height:1.95;font-weight:300;margin:0 0 44px;">
+          Each surface is treated a minimum of seven times. Each component measured to tolerances of ±0.02mm. Not because customers notice — because we do.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+          <div style="background:#F4EFE5;padding:28px 22px;">
+            <p class="disp" style="font-size:44px;color:#111110;line-height:1;margin:0 0 6px;letter-spacing:-.5px;">±0.02mm</p>
+            <p class="mono" style="font-size:9px;color:#8A857E;letter-spacing:2px;text-transform:uppercase;margin:0;">Tolerance</p>
+          </div>
+          <div style="background:#F4EFE5;padding:28px 22px;">
+            <p class="disp" style="font-size:44px;color:#111110;line-height:1;margin:0 0 6px;letter-spacing:-.5px;">7×</p>
+            <p class="mono" style="font-size:9px;color:#8A857E;letter-spacing:2px;text-transform:uppercase;margin:0;">Treatments</p>
+          </div>
+          <div style="background:#F4EFE5;padding:28px 22px;">
+            <p class="disp" style="font-size:44px;color:#111110;line-height:1;margin:0 0 6px;letter-spacing:-.5px;">50</p>
+            <p class="mono" style="font-size:9px;color:#8A857E;letter-spacing:2px;text-transform:uppercase;margin:0;">Craftspeople</p>
+          </div>
+          <div style="background:#F4EFE5;padding:28px 22px;">
+            <p class="disp" style="font-size:44px;color:#111110;line-height:1;margin:0 0 6px;letter-spacing:-.5px;">30yr</p>
+            <p class="mono" style="font-size:9px;color:#8A857E;letter-spacing:2px;text-transform:uppercase;margin:0;">Lifespan</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div style="background:#C2501A;padding:18px 0;overflow:hidden;white-space:nowrap;">
+  <span class="disp" style="display:inline-block;font-size:17px;color:#F4EFE5;letter-spacing:5px;animation:mq 26s linear infinite;">
+    FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;FORM — OBJECTS WITHOUT COMPROMISE — &nbsp;&nbsp;
+  </span>
+</div>
+
+<!-- COLLECTION GRID -->
+<section style="background:#1E1E1C;padding:100px 52px;">
+  <div style="display:grid;grid-template-columns:3fr 2fr;gap:60px;align-items:center;">
+    <div data-reveal>
+      <p class="mono" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A857E;margin:0 0 20px;">The Collection</p>
+      <h2 class="disp" style="font-size:clamp(52px,9vw,108px);line-height:.9;color:#F4EFE5;letter-spacing:-1px;margin:0 0 32px;">
+        TWELVE<br>OBJECTS.<br><span style="color:#C2501A;">ONE</span> VISION.
+      </h2>
+      <p style="color:#8A857E;font-size:14px;line-height:1.9;font-weight:300;max-width:380px;margin:0 0 44px;">
+        From desk monitors to precision timekeeping instruments — every object in the 2025 collection shares a single material language. Aluminium, leather, glass. Nothing else.
+      </p>
+      <button class="pill-ora" style="background:#C2501A;color:#F4EFE5;border:1px solid #C2501A;padding:15px 44px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .28s ease;">Explore Collection</button>
+    </div>
+    <div data-reveal class="d1">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+        <div class="card-hover" style="background:#262624;padding:28px 22px;cursor:pointer;transition:background .2s;">
+          <p class="mono" style="font-size:10px;color:#C2501A;margin:0 0 12px;">Obj. 001</p>
+          <p class="disp" style="font-size:18px;color:#F4EFE5;margin:0 0 8px;letter-spacing:1px;">The Monitor</p>
+          <p class="mono" style="font-size:9px;color:#8A857E;margin:0;letter-spacing:1px;">$480</p>
+        </div>
+        <div class="card-hover" style="background:#262624;padding:28px 22px;cursor:pointer;transition:background .2s;">
+          <p class="mono" style="font-size:10px;color:#C2501A;margin:0 0 12px;">Obj. 002</p>
+          <p class="disp" style="font-size:18px;color:#F4EFE5;margin:0 0 8px;letter-spacing:1px;">The Stand</p>
+          <p class="mono" style="font-size:9px;color:#8A857E;margin:0;letter-spacing:1px;">$240</p>
+        </div>
+        <div class="card-hover" style="background:#262624;padding:28px 22px;cursor:pointer;transition:background .2s;">
+          <p class="mono" style="font-size:10px;color:#C2501A;margin:0 0 12px;">Obj. 003</p>
+          <p class="disp" style="font-size:18px;color:#F4EFE5;margin:0 0 8px;letter-spacing:1px;">The Timer</p>
+          <p class="mono" style="font-size:9px;color:#8A857E;margin:0;letter-spacing:1px;">$680</p>
+        </div>
+        <div class="card-hover" style="background:#262624;padding:28px 22px;cursor:pointer;transition:background .2s;">
+          <p class="mono" style="font-size:10px;color:#C2501A;margin:0 0 12px;">Obj. 004</p>
+          <p class="disp" style="font-size:18px;color:#F4EFE5;margin:0 0 8px;letter-spacing:1px;">The Desk</p>
+          <p class="mono" style="font-size:9px;color:#8A857E;margin:0;letter-spacing:1px;">$2,400</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section style="background:#111110;padding:120px 52px;">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+    <div data-reveal>
+      <div style="width:2px;height:48px;background:#C2501A;margin:0 auto 40px;"></div>
+      <p class="disp" style="font-size:clamp(28px,5vw,52px);color:#F4EFE5;line-height:1.2;margin:0 0 40px;letter-spacing:.5px;">
+        "THE ONLY PRODUCT I OWN THAT I WILL NEVER REPLACE."
+      </p>
+    </div>
+    <div data-reveal class="d1">
+      <p class="mono" style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8A857E;margin:0;">Marcus R. — Berlin, 2024</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta" style="background:#C2501A;padding:136px 52px;text-align:center;position:relative;overflow:hidden;">
+  <div data-reveal>
+    <h2 class="disp" style="font-size:clamp(100px,18vw,230px);line-height:.9;color:#F4EFE5;letter-spacing:-3px;margin:0 0 36px;">
+      GET<br>ONE.
+    </h2>
+  </div>
+  <div data-reveal class="d1">
+    <p style="color:rgba(244,239,229,.65);font-size:14px;margin:0 0 44px;font-weight:300;letter-spacing:1px;">
+      Limited to 500 units globally. Ships 6–8 weeks from order.
+    </p>
+    <button class="pill" style="background:#F4EFE5;color:#111110;border:1px solid #F4EFE5;padding:18px 56px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .28s ease;">Order Now — $480</button>
+  </div>
+  <div class="disp" style="position:absolute;left:-50px;bottom:-100px;font-size:500px;color:rgba(0,0,0,.08);line-height:1;pointer-events:none;user-select:none;">F</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#161614;padding:64px 52px 40px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:48px;">
+    <div>
+      <p class="disp" style="font-size:20px;color:#F4EFE5;letter-spacing:6px;margin:0 0 14px;">FORM</p>
+      <p style="color:#8A857E;font-size:13px;font-weight:300;margin:0;max-width:180px;line-height:1.75;">Objects without compromise.<br>Since 2020.</p>
+    </div>
+    <div style="display:flex;gap:60px;">
+      <div>
+        <p class="mono" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C2501A;margin:0 0 18px;">Studio</p>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">About</a></div>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Process</a></div>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Materials</a></div>
+        <div><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Facility</a></div>
+      </div>
+      <div>
+        <p class="mono" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C2501A;margin:0 0 18px;">Objects</p>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">The Monitor</a></div>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">The Stand</a></div>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">The Timer</a></div>
+        <div><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Archive</a></div>
+      </div>
+      <div>
+        <p class="mono" style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C2501A;margin:0 0 18px;">Contact</p>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Press</a></div>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Stockists</a></div>
+        <div style="margin-bottom:10px;"><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Trade</a></div>
+        <div><a href="#" style="color:#8A857E;font-size:13px;font-weight:300;">Support</a></div>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #2A2A28;padding-top:24px;display:flex;justify-content:space-between;align-items:center;">
+    <p class="mono" style="font-size:9px;color:#8A857E;letter-spacing:1px;margin:0;">© 2025 FORM Studio. All rights reserved.</p>
+    <p class="mono" style="font-size:9px;color:#8A857E;letter-spacing:1px;margin:0;">Made with purpose.</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(
+  entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }),
+  { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
+);
+setTimeout(() => {
+  document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+}, 200);
+</script>
+</body>
+</html>
