@@ -1,0 +1,79 @@
+.experience {
+  min-height: 100vh;
+  background: #E8D5C4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 8rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-giant {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(10rem, 22vw, 18rem);
+  font-weight: 900;
+  color: rgba(120, 60, 20, 0.07);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: -0.03em;
+}
+
+.exp-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: rgba(100, 50, 20, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 900;
+  color: #3D1A00;
+  line-height: 1.05;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-title em {
+  font-style: italic;
+  color: #C4501A;
+}
+
+.exp-flavors-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.exp-flavor-pill {
+  padding: 0.9rem 2rem;
+  border: 1px solid rgba(61, 26, 0, 0.2);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: #3D1A00;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+.exp-flavor-pill:hover,
+.exp-flavor-pill.active {
+  background: #3D1A00;
+  color: #E8D5C4;
+  border-color: #3D1A00;
+}

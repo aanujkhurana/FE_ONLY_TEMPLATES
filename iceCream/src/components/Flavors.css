@@ -1,0 +1,103 @@
+.flavors {
+  background: #1C3A2A;
+  padding: 8rem 6rem;
+  position: relative;
+}
+
+.flavors-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 6rem;
+}
+
+.flavors-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 900;
+  color: #C8E87A;
+  line-height: 1;
+}
+
+.flavors-title span {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(200, 232, 122, 0.5);
+}
+
+.flavors-view-all {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #C8E87A;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200, 232, 122, 0.3);
+  padding-bottom: 2px;
+}
+
+.flavors-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2px;
+}
+
+.flavor-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+
+.flavor-card.large {
+  aspect-ratio: auto;
+}
+
+.flavor-card-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s ease;
+}
+
+.flavor-card:hover .flavor-card-bg {
+  transform: scale(1.04);
+}
+
+.flavor-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+}
+
+.flavor-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.flavor-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.3rem;
+}
+
+.flavor-price {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .flavors {
+    padding: 6rem 2rem;
+  }
+
+  .flavors-grid {
+    grid-template-columns: 1fr;
+  }
+}

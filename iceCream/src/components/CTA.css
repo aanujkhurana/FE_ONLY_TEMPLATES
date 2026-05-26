@@ -1,0 +1,82 @@
+.cta-section {
+  min-height: 80vh;
+  background: #1A1A1A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-bg-ring {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cta-bg-ring:nth-child(2) {
+  width: 900px;
+  height: 900px;
+  border-color: rgba(255, 255, 255, 0.025);
+}
+
+.cta-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 0.95;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-title em {
+  font-style: italic;
+  color: #E8C547;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 1.2rem 3.5rem;
+  background: #E8C547;
+  color: #1A1A1A;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.cta-btn:hover {
+  background: #fff;
+}
+
+.cta-note {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.2);
+  margin-top: 1.5rem;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0.1em;
+}

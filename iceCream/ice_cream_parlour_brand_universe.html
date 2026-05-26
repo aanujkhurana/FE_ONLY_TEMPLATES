@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIVRE — Artisanal Ice Cream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; overflow-x: hidden; background: #0B1A2E; cursor: none; }
+
+  .cursor { position: fixed; width: 12px; height: 12px; border-radius: 50%; pointer-events: none; z-index: 9999; mix-blend-mode: difference; background: #fff; transition: transform 0.15s ease, width 0.2s, height 0.2s; transform: translate(-50%,-50%); }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.6); pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: transform 0.35s ease, width 0.3s, height 0.3s, border-color 0.3s; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; mix-blend-mode: normal; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; letter-spacing: 0.25em; color: #F5E6C8; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.75rem; letter-spacing: 0.2em; color: rgba(245,230,200,0.6); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: #F5E6C8; }
+
+  /* HERO */
+  .hero { min-height: 100vh; background: #0B1A2E; display: grid; grid-template-columns: 1fr 1fr; align-items: center; position: relative; overflow: hidden; }
+  .hero-bg-circle { position: absolute; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(212,88,80,0.18) 0%, transparent 70%); right: -200px; top: -100px; pointer-events: none; }
+  .hero-left { padding: 10rem 4rem 6rem 6rem; z-index: 2; }
+  .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.4em; color: #D45850; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: #D45850; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 8vw, 7rem); font-weight: 900; line-height: 0.9; color: #F5E6C8; margin-bottom: 2.5rem; }
+  .hero-title em { font-style: italic; color: #D45850; display: block; }
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: rgba(245,230,200,0.5); max-width: 380px; margin-bottom: 3.5rem; font-weight: 300; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 1.5rem; background: #D45850; color: #0B1A2E; padding: 1.1rem 2.5rem; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; text-decoration: none; transition: all 0.3s; }
+  .hero-cta:hover { background: #F5E6C8; }
+  .hero-cta-arrow { font-size: 1.2rem; }
+  .hero-right { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; }
+  
+  /* SVG SCOOP - HERO */
+  .hero-scoop-wrap { position: relative; z-index: 2; }
+  .hero-scroll { position: absolute; bottom: 3rem; left: 6rem; font-size: 0.65rem; letter-spacing: 0.3em; color: rgba(245,230,200,0.35); text-transform: uppercase; writing-mode: vertical-rl; }
+
+  /* PHILOSOPHY */
+  .philosophy { min-height: 100vh; background: #E8C547; display: flex; flex-direction: column; justify-content: center; padding: 8rem 6rem; position: relative; overflow: hidden; }
+  .phil-num { font-family: 'Playfair Display', serif; font-size: 20rem; font-weight: 900; color: rgba(0,0,0,0.07); position: absolute; top: -3rem; right: -2rem; line-height: 1; pointer-events: none; }
+  .phil-label { font-size: 0.65rem; letter-spacing: 0.4em; color: rgba(15,15,15,0.5); text-transform: uppercase; margin-bottom: 3rem; }
+  .phil-statement { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 700; color: #1A1008; line-height: 1.05; max-width: 900px; }
+  .phil-statement em { font-style: italic; color: #7B3A2E; }
+  .phil-sub { margin-top: 4rem; display: flex; gap: 6rem; }
+  .phil-sub-item { max-width: 280px; }
+  .phil-sub-item h4 { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: #7B3A2E; margin-bottom: 0.75rem; }
+  .phil-sub-item p { font-size: 0.9rem; color: rgba(26,16,8,0.65); line-height: 1.7; font-weight: 300; }
+
+  /* FLAVORS */
+  .flavors { background: #1C3A2A; padding: 8rem 6rem; position: relative; }
+  .flavors-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6rem; }
+  .flavors-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 900; color: #C8E87A; line-height: 1.0; }
+  .flavors-title span { display: block; font-style: italic; font-weight: 400; color: rgba(200,232,122,0.5); }
+  .flavors-view-all { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: #C8E87A; text-decoration: none; border-bottom: 1px solid rgba(200,232,122,0.3); padding-bottom: 2px; }
+  .flavors-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2px; }
+  .flavor-card { position: relative; overflow: hidden; aspect-ratio: 3/4; }
+  .flavor-card.large { aspect-ratio: auto; }
+  .flavor-card-bg { position: absolute; inset: 0; transition: transform 0.6s ease; }
+  .flavor-card:hover .flavor-card-bg { transform: scale(1.04); }
+  .flavor-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%); }
+  .flavor-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #fff; }
+  .flavor-tag { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 0.3rem; }
+  .flavor-price { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; }
+
+  /* SPOTLIGHT */
+  .spotlight { min-height: 100vh; background: #F26B3A; display: grid; grid-template-columns: 1fr 1fr; align-items: center; overflow: hidden; position: relative; }
+  .spotlight-left { padding: 8rem 5rem 8rem 6rem; }
+  .spotlight-eyebrow { font-size: 0.65rem; letter-spacing: 0.4em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 2rem; }
+  .spotlight-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 900; color: #1A0A00; line-height: 0.95; margin-bottom: 2rem; }
+  .spotlight-title em { font-style: italic; color: #fff; }
+  .spotlight-body { font-size: 0.95rem; line-height: 1.9; color: rgba(26,10,0,0.7); max-width: 400px; font-weight: 300; margin-bottom: 3rem; }
+  .spotlight-details { display: flex; gap: 3rem; }
+  .spotlight-detail h5 { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(26,10,0,0.45); margin-bottom: 0.4rem; }
+  .spotlight-detail p { font-size: 1rem; font-weight: 500; color: #1A0A00; }
+  .spotlight-right { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .spotlight-bg-text { position: absolute; font-family: 'Playfair Display', serif; font-size: 18rem; font-weight: 900; color: rgba(255,255,255,0.07); letter-spacing: -0.05em; white-space: nowrap; user-select: none; }
+
+  /* TEXTURE */
+  .texture { background: #2A0A3E; padding: 10rem 6rem; }
+  .texture-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8rem; align-items: center; }
+  .texture-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 900; color: #F0C8FF; line-height: 1.1; margin-bottom: 2rem; }
+  .texture-left p { font-size: 0.9rem; line-height: 1.9; color: rgba(240,200,255,0.5); font-weight: 300; margin-bottom: 3rem; }
+  .texture-stat { display: flex; gap: 4rem; }
+  .texture-stat-item h3 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: #B94FFF; }
+  .texture-stat-item p { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,200,255,0.4); margin-top: 0.25rem; }
+  .texture-right { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .texture-swatch { aspect-ratio: 1; border-radius: 4px; position: relative; overflow: hidden; }
+  .texture-swatch-label { position: absolute; bottom: 0.75rem; left: 0.75rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+  /* SEASONAL */
+  .seasonal { min-height: 100vh; background: #00416A; padding: 8rem 6rem; position: relative; overflow: hidden; }
+  .seasonal-bg-line { position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: rgba(255,255,255,0.06); }
+  .seasonal-eyebrow { font-size: 0.65rem; letter-spacing: 0.4em; color: rgba(253,180,93,0.7); text-transform: uppercase; margin-bottom: 1rem; }
+  .seasonal-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5.5vw, 5rem); font-weight: 900; color: #FDB45D; line-height: 1.0; margin-bottom: 6rem; }
+  .seasonal-title span { display: block; color: rgba(253,180,93,0.4); font-style: italic; font-weight: 400; }
+  .seasonal-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+  .seasonal-item { border-top: 1px solid rgba(253,180,93,0.2); padding-top: 2rem; }
+  .seasonal-item-num { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: rgba(253,180,93,0.3); margin-bottom: 1.5rem; }
+  .seasonal-item h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #FDB45D; margin-bottom: 0.75rem; line-height: 1.2; }
+  .seasonal-item p { font-size: 0.85rem; line-height: 1.8; color: rgba(253,180,93,0.5); font-weight: 300; margin-bottom: 1.5rem; }
+  .seasonal-item-tag { display: inline-block; padding: 0.4rem 1rem; border: 1px solid rgba(253,180,93,0.25); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(253,180,93,0.5); }
+
+  /* EXPERIENCE */
+  .experience { min-height: 100vh; background: #E8D5C4; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 8rem 4rem; position: relative; overflow: hidden; }
+  .exp-giant { position: absolute; font-family: 'Playfair Display', serif; font-size: clamp(10rem, 22vw, 18rem); font-weight: 900; color: rgba(120,60,20,0.07); pointer-events: none; user-select: none; white-space: nowrap; letter-spacing: -0.03em; }
+  .exp-eyebrow { font-size: 0.65rem; letter-spacing: 0.4em; color: rgba(100,50,20,0.4); text-transform: uppercase; margin-bottom: 2rem; position: relative; z-index: 2; }
+  .exp-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900; color: #3D1A00; line-height: 1.05; max-width: 800px; margin: 0 auto 3rem; position: relative; z-index: 2; }
+  .exp-title em { font-style: italic; color: #C4501A; }
+  .exp-flavors-row { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; position: relative; z-index: 2; }
+  .exp-flavor-pill { padding: 0.9rem 2rem; border: 1px solid rgba(61,26,0,0.2); font-size: 0.8rem; letter-spacing: 0.1em; color: #3D1A00; cursor: pointer; transition: all 0.3s; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; }
+  .exp-flavor-pill:hover, .exp-flavor-pill.active { background: #3D1A00; color: #E8D5C4; border-color: #3D1A00; }
+
+  /* SOCIAL PROOF */
+  .social { background: #FF3366; padding: 8rem 6rem; }
+  .social-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem; }
+  .social-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; color: #1A000A; line-height: 1.05; }
+  .social-title span { display: block; font-style: italic; font-weight: 400; color: rgba(26,0,10,0.4); }
+  .social-count { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; color: rgba(26,0,10,0.12); line-height: 1; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .review-card { background: rgba(255,255,255,0.12); padding: 2.5rem; }
+  .review-stars { color: #1A000A; font-size: 0.85rem; margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+  .review-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.7; color: #1A000A; font-style: italic; margin-bottom: 2rem; }
+  .review-author { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(26,0,10,0.5); }
+
+  /* CTA */
+  .cta-section { min-height: 80vh; background: #1A1A1A; display: flex; align-items: center; justify-content: center; text-align: center; padding: 8rem 4rem; position: relative; overflow: hidden; }
+  .cta-bg-ring { position: absolute; width: 600px; height: 600px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.04); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .cta-bg-ring:nth-child(2) { width: 900px; height: 900px; border-color: rgba(255,255,255,0.025); }
+  .cta-eyebrow { font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 2rem; position: relative; z-index: 2; }
+  .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 900; color: #fff; line-height: 0.95; margin-bottom: 3rem; position: relative; z-index: 2; }
+  .cta-title em { font-style: italic; color: #E8C547; }
+  .cta-btn { display: inline-block; padding: 1.2rem 3.5rem; background: #E8C547; color: #1A1A1A; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; text-decoration: none; font-weight: 500; position: relative; z-index: 2; transition: all 0.3s; }
+  .cta-btn:hover { background: #fff; }
+  .cta-note { font-size: 0.75rem; color: rgba(255,255,255,0.2); margin-top: 1.5rem; position: relative; z-index: 2; letter-spacing: 0.1em; }
+
+  /* FOOTER */
+  footer { background: #0A0A0A; padding: 5rem 6rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; }
+  .footer-brand h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: #F5E6C8; letter-spacing: 0.2em; margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.85rem; color: rgba(245,230,200,0.3); line-height: 1.7; max-width: 260px; font-weight: 300; }
+  .footer-col h4 { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(245,230,200,0.3); margin-bottom: 1.5rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.75rem; }
+  .footer-col ul li a { font-size: 0.85rem; color: rgba(245,230,200,0.5); text-decoration: none; transition: color 0.3s; }
+  .footer-col ul li a:hover { color: #F5E6C8; }
+  .footer-bottom { background: #0A0A0A; padding: 1.5rem 6rem; border-top: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; }
+  .footer-bottom p { font-size: 0.7rem; letter-spacing: 0.15em; color: rgba(245,230,200,0.15); text-transform: uppercase; }
+
+  /* ANIMATIONS */
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+  @keyframes rotateslow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  @keyframes fadeup { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  .anim-float { animation: float 5s ease-in-out infinite; }
+  .anim-fadeup { opacity: 0; animation: fadeup 0.8s ease forwards; }
+  .anim-delay-1 { animation-delay: 0.2s; }
+  .anim-delay-2 { animation-delay: 0.4s; }
+  .anim-delay-3 { animation-delay: 0.6s; }
+  .anim-delay-4 { animation-delay: 0.8s; }
+
+  /* SECTION REVEAL */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.5rem 2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 8rem 2rem 3rem; }
+    .hero-right { height: 50vh; }
+    .philosophy { padding: 6rem 2rem; }
+    .phil-sub { flex-direction: column; gap: 2rem; }
+    .flavors { padding: 6rem 2rem; }
+    .flavors-grid { grid-template-columns: 1fr; }
+    .spotlight { grid-template-columns: 1fr; }
+    .spotlight-left { padding: 6rem 2rem 3rem; }
+    .spotlight-right { height: 50vh; }
+    .texture { padding: 6rem 2rem; }
+    .texture-inner { grid-template-columns: 1fr; gap: 4rem; }
+    .seasonal { padding: 6rem 2rem; }
+    .seasonal-items { grid-template-columns: 1fr; }
+    .social { padding: 6rem 2rem; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 2rem; }
+    .footer-bottom { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; }
+    .phil-num { font-size: 12rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+  <div class="nav-logo">GIVRÉ</div>
+  <ul class="nav-links">
+    <li><a href="#flavors">Flavors</a></li>
+    <li><a href="#seasonal">Seasonal</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#order">Order</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow anim-fadeup">Artisanal Ice Cream</div>
+    <h1 class="hero-title anim-fadeup anim-delay-1">
+      MELT<br>INTO<br><em>COLOR.</em>
+    </h1>
+    <p class="hero-sub anim-fadeup anim-delay-2">Each scoop is a deliberate act of flavor, form, and obsession. Not dessert — a sensory event.</p>
+    <a href="#flavors" class="hero-cta anim-fadeup anim-delay-3">Explore Flavors <span class="hero-cta-arrow">→</span></a>
+  </div>
+  <div class="hero-right">
+    <!-- Giant Scoop SVG -->
+    <div class="hero-scoop-wrap anim-float">
+      <svg width="380" height="500" viewBox="0 0 380 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cone -->
+        <path d="M130 300 L190 490 L250 300 Z" fill="#C4813A" opacity="0.9"/>
+        <path d="M130 300 L190 490 L250 300 Z" fill="url(#coneGrad)" opacity="0.5"/>
+        <!-- Cone waffle lines -->
+        <path d="M135 315 L188 478" stroke="#A06828" stroke-width="1.5" opacity="0.6"/>
+        <path d="M148 310 L190 470" stroke="#A06828" stroke-width="1.5" opacity="0.6"/>
+        <path d="M162 306 L191 462" stroke="#A06828" stroke-width="1.5" opacity="0.5"/>
+        <path d="M178 303 L192 455" stroke="#A06828" stroke-width="1.5" opacity="0.5"/>
+        <path d="M195 303 L192 447" stroke="#A06828" stroke-width="1.5" opacity="0.5"/>
+        <path d="M210 306 L193 440" stroke="#A06828" stroke-width="1.5" opacity="0.5"/>
+        <path d="M225 310 L194 432" stroke="#A06828" stroke-width="1.5" opacity="0.6"/>
+        <path d="M238 315 L195 426" stroke="#A06828" stroke-width="1.5" opacity="0.6"/>
+        <!-- Cross waffle -->
+        <path d="M133 320 L247 320" stroke="#A06828" stroke-width="1" opacity="0.4"/>
+        <path d="M140 340 L240 340" stroke="#A06828" stroke-width="1" opacity="0.4"/>
+        <path d="M148 360 L232 360" stroke="#A06828" stroke-width="1" opacity="0.4"/>
+        <path d="M158 380 L222 380" stroke="#A06828" stroke-width="1" opacity="0.4"/>
+        <path d="M167 400 L213 400" stroke="#A06828" stroke-width="1" opacity="0.35"/>
+        <!-- Bottom scoop - Pistachio -->
+        <ellipse cx="190" cy="295" rx="80" ry="65" fill="#7BAF52"/>
+        <ellipse cx="190" cy="295" rx="80" ry="65" fill="url(#pistGrad)"/>
+        <ellipse cx="190" cy="285" rx="70" ry="52" fill="#8DC462" opacity="0.6"/>
+        <ellipse cx="165" cy="272" rx="25" ry="15" fill="#A8D97A" opacity="0.5"/>
+        <!-- Middle scoop - Strawberry -->
+        <ellipse cx="190" cy="220" rx="75" ry="68" fill="#E85070"/>
+        <ellipse cx="190" cy="220" rx="75" ry="68" fill="url(#strawGrad)"/>
+        <ellipse cx="172" cy="204" rx="30" ry="20" fill="#F07090" opacity="0.55"/>
+        <ellipse cx="155" cy="198" rx="12" ry="8" fill="#F8A0B0" opacity="0.4"/>
+        <!-- Top scoop - Vanilla -->
+        <ellipse cx="190" cy="150" rx="70" ry="68" fill="#F5E0A0"/>
+        <ellipse cx="190" cy="150" rx="70" ry="68" fill="url(#vanGrad)"/>
+        <ellipse cx="168" cy="133" rx="28" ry="18" fill="#FFF0C0" opacity="0.6"/>
+        <ellipse cx="155" cy="127" rx="12" ry="7" fill="#FFFAE0" opacity="0.5"/>
+        <!-- Drips -->
+        <path d="M248 200 Q262 215 258 235 Q255 248 252 255" stroke="#E85070" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.85"/>
+        <circle cx="252" cy="257" r="9" fill="#E85070" opacity="0.85"/>
+        <path d="M132 240 Q118 252 122 270 Q125 283 128 290" stroke="#E85070" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.7"/>
+        <path d="M255 155 Q268 162 270 178 Q272 190 268 200" stroke="#F5E0A0" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.75"/>
+        <circle cx="267" cy="202" r="7" fill="#F5E0A0" opacity="0.75"/>
+        <!-- Chocolate flake on top -->
+        <ellipse cx="210" cy="100" rx="8" ry="22" fill="#6B3A1F" transform="rotate(25 210 100)" opacity="0.9"/>
+        <!-- Shine highlights -->
+        <ellipse cx="168" cy="133" rx="22" ry="12" fill="white" opacity="0.18" transform="rotate(-20 168 133)"/>
+        <ellipse cx="172" cy="205" rx="20" ry="11" fill="white" opacity="0.15" transform="rotate(-15 172 205)"/>
+        <ellipse cx="165" cy="272" rx="18" ry="10" fill="white" opacity="0.18" transform="rotate(-10 165 272)"/>
+        <defs>
+          <radialGradient id="pistGrad" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#A8D980" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#3A6E20" stop-opacity="0.4"/>
+          </radialGradient>
+          <radialGradient id="strawGrad" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#F080A0" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#A02040" stop-opacity="0.4"/>
+          </radialGradient>
+          <radialGradient id="vanGrad" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#FFFCE0" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#C8A840" stop-opacity="0.3"/>
+          </radialGradient>
+          <linearGradient id="coneGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#F0A050"/>
+            <stop offset="100%" stop-color="#703800"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="about">
+  <div class="phil-num">02</div>
+  <div class="phil-label reveal">Our Philosophy</div>
+  <div class="phil-statement reveal">
+    We don't make<br>ice cream.<br>We <em>design</em><br>desire.
+  </div>
+  <div class="phil-sub reveal">
+    <div class="phil-sub-item">
+      <h4>The Craft</h4>
+      <p>Every flavor begins as a visual idea. Color, texture, and form come first. Then taste follows — never the other way.</p>
+    </div>
+    <div class="phil-sub-item">
+      <h4>The Obsession</h4>
+      <p>Locally sourced, seasonally driven, hand-churned in small batches. Every scoop carries intention and care.</p>
+    </div>
+    <div class="phil-sub-item">
+      <h4>The Experience</h4>
+      <p>From the moment you see it to the final taste, every detail is designed to be unforgettable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FLAVORS -->
+<section class="flavors" id="flavors">
+  <div class="flavors-header reveal">
+    <h2 class="flavors-title">Signature<br><span>Flavors</span></h2>
+    <a href="#order" class="flavors-view-all">View All Flavors</a>
+  </div>
+  <div class="flavors-grid reveal">
+    <!-- Card 1 - Large -->
+    <div class="flavor-card large" style="background:#C4501A; min-height:520px; display:flex;align-items:flex-end;padding:3rem;">
+      <svg width="200" height="280" viewBox="0 0 200 280" style="position:absolute;top:2rem;right:2rem;opacity:0.85" fill="none">
+        <ellipse cx="100" cy="80" rx="70" ry="70" fill="#F0703A"/>
+        <ellipse cx="100" cy="80" rx="70" ry="70" fill="url(#bloodGrad)"/>
+        <ellipse cx="78" cy="62" rx="25" ry="14" fill="white" opacity="0.18"/>
+        <ellipse cx="70" cy="58" rx="10" ry="6" fill="white" opacity="0.15"/>
+        <!-- drip -->
+        <path d="M155 110 Q165 125 162 145 Q160 158 158 165" stroke="#F0703A" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.8"/>
+        <circle cx="157" cy="167" r="8" fill="#F0703A" opacity="0.8"/>
+        <path d="M42 105 Q32 118 35 136" stroke="#D04820" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.6"/>
+        <!-- cone -->
+        <path d="M54 145 L100 270 L146 145 Z" fill="#B07030" opacity="0.9"/>
+        <path d="M58 158 L99 258" stroke="#8A5220" stroke-width="1" opacity="0.6"/>
+        <path d="M71 152 L100 250" stroke="#8A5220" stroke-width="1" opacity="0.5"/>
+        <path d="M86 149 L100 242" stroke="#8A5220" stroke-width="1" opacity="0.5"/>
+        <path d="M101 149 L101 234" stroke="#8A5220" stroke-width="1" opacity="0.5"/>
+        <path d="M116 152 L102 227" stroke="#8A5220" stroke-width="1" opacity="0.5"/>
+        <path d="M130 156 L103 219" stroke="#8A5220" stroke-width="1" opacity="0.6"/>
+        <path d="M57 165 L143 165" stroke="#8A5220" stroke-width="0.8" opacity="0.4"/>
+        <path d="M62 182 L138 182" stroke="#8A5220" stroke-width="0.8" opacity="0.35"/>
+        <path d="M68 200 L132 200" stroke="#8A5220" stroke-width="0.8" opacity="0.3"/>
+        <defs>
+          <radialGradient id="bloodGrad" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#FF9060" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#8B2000" stop-opacity="0.5"/>
+          </radialGradient>
+        </defs>
+      </svg>
+      <div>
+        <div class="flavor-name" style="font-size:2rem;color:#FFF0E8;">Blood Orange Saffron</div>
+        <div class="flavor-tag">Citrus · Floral · Warm</div>
+        <div class="flavor-price" style="margin-top:0.75rem;font-size:0.9rem;color:rgba(255,240,232,0.5);">$9 / scoop</div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="flavor-card" style="background:#2A1A4E;">
+      <svg width="160" height="180" viewBox="0 0 160 180" style="margin:2rem auto;display:block" fill="none">
+        <ellipse cx="80" cy="80" rx="60" ry="58" fill="#7B52CC"/>
+        <ellipse cx="80" cy="80" rx="60" ry="58" fill="url(#lavGrad)"/>
+        <ellipse cx="62" cy="64" rx="22" ry="12" fill="white" opacity="0.2"/>
+        <path d="M126 100 Q136 112 134 128" stroke="#7B52CC" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.8"/>
+        <circle cx="133" cy="130" r="7" fill="#7B52CC" opacity="0.8"/>
+        <path d="M33 130 L80 175 L127 130 Z" fill="#A07840" opacity="0.9"/>
+        <defs>
+          <radialGradient id="lavGrad" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#C0A0FF" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#3A1080" stop-opacity="0.4"/>
+          </radialGradient>
+        </defs>
+      </svg>
+      <div class="flavor-card-content">
+        <div class="flavor-name">Lavender Honey</div>
+        <div class="flavor-tag">Floral · Sweet · Delicate</div>
+        <div class="flavor-price">$8 / scoop</div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="flavor-card" style="background:#0E4A3A;">
+      <svg width="160" height="180" viewBox="0 0 160 180" style="margin:2rem auto;display:block" fill="none">
+        <ellipse cx="80" cy="80" rx="60" ry="58" fill="#2E9966"/>
+        <ellipse cx="80" cy="80" rx="60" ry="58" fill="url(#matchaGrad)"/>
+        <ellipse cx="62" cy="64" rx="22" ry="12" fill="white" opacity="0.2"/>
+        <path d="M32 112 Q22 124 25 140" stroke="#2E9966" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.75"/>
+        <path d="M33 130 L80 175 L127 130 Z" fill="#A07040" opacity="0.9"/>
+        <defs>
+          <radialGradient id="matchaGrad" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#80E0B0" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#0A3020" stop-opacity="0.5"/>
+          </radialGradient>
+        </defs>
+      </svg>
+      <div class="flavor-card-content">
+        <div class="flavor-name">Matcha Forest</div>
+        <div class="flavor-tag">Earthy · Bitter · Pure</div>
+        <div class="flavor-price">$8 / scoop</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT -->
+<section class="spotlight">
+  <div class="spotlight-left reveal">
+    <div class="spotlight-eyebrow">Product Spotlight</div>
+    <h2 class="spotlight-title">THE<br><em>SCOOP</em><br>THAT<br>STARTED<br>IT ALL.</h2>
+    <p class="spotlight-body">Our original Tahitian Vanilla Bean — hand-scraped pods folded into a 72-hour aged base. Still our most iconic. Still irreplaceable.</p>
+    <div class="spotlight-details">
+      <div class="spotlight-detail">
+        <h5>Origin</h5>
+        <p>Tahiti, French Polynesia</p>
+      </div>
+      <div class="spotlight-detail">
+        <h5>Process</h5>
+        <p>72-hour cold churn</p>
+      </div>
+      <div class="spotlight-detail">
+        <h5>Available</h5>
+        <p>Year-round</p>
+      </div>
+    </div>
+  </div>
+  <div class="spotlight-right">
+    <div class="spotlight-bg-text">SCOOP</div>
+    <div class="anim-float" style="z-index:2;position:relative;">
+      <svg width="300" height="380" viewBox="0 0 300 380" fill="none">
+        <!-- Big vanilla scoop -->
+        <ellipse cx="150" cy="150" rx="105" ry="102" fill="#F5E0A0"/>
+        <ellipse cx="150" cy="150" rx="105" ry="102" fill="url(#vanMain)"/>
+        <ellipse cx="118" cy="120" rx="40" ry="24" fill="white" opacity="0.22"/>
+        <ellipse cx="105" cy="114" rx="16" ry="9" fill="white" opacity="0.18"/>
+        <!-- vanilla bean specks -->
+        <ellipse cx="140" cy="145" rx="1.5" ry="5" fill="#8B6020" opacity="0.7" transform="rotate(20 140 145)"/>
+        <ellipse cx="160" cy="155" rx="1.5" ry="6" fill="#8B6020" opacity="0.6" transform="rotate(-15 160 155)"/>
+        <ellipse cx="148" cy="170" rx="1" ry="4" fill="#8B6020" opacity="0.5" transform="rotate(35 148 170)"/>
+        <ellipse cx="175" cy="138" rx="1" ry="4" fill="#8B6020" opacity="0.5" transform="rotate(-25 175 138)"/>
+        <!-- drips -->
+        <path d="M238 180 Q258 198 255 224 Q252 240 248 252" stroke="#F5E0A0" stroke-width="18" stroke-linecap="round" fill="none" opacity="0.8"/>
+        <circle cx="247" cy="254" r="13" fill="#F5E0A0" opacity="0.8"/>
+        <path d="M68 200 Q52 216 55 236" stroke="#EDD090" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.7"/>
+        <circle cx="54" cy="238" r="10" fill="#EDD090" opacity="0.7"/>
+        <!-- cone -->
+        <path d="M75 245 L150 375 L225 245 Z" fill="#C88A3A" opacity="0.95"/>
+        <path d="M80 260 L148 362" stroke="#A06820" stroke-width="1.5" opacity="0.5"/>
+        <path d="M96 253 L149 354" stroke="#A06820" stroke-width="1.5" opacity="0.45"/>
+        <path d="M114 249 L150 346" stroke="#A06820" stroke-width="1.5" opacity="0.4"/>
+        <path d="M133 247 L151 338" stroke="#A06820" stroke-width="1.5" opacity="0.4"/>
+        <path d="M152 247 L152 330" stroke="#A06820" stroke-width="1.5" opacity="0.4"/>
+        <path d="M170 249 L153 323" stroke="#A06820" stroke-width="1.5" opacity="0.4"/>
+        <path d="M187 253 L154 315" stroke="#A06820" stroke-width="1.5" opacity="0.45"/>
+        <path d="M203 260 L155 307" stroke="#A06820" stroke-width="1.5" opacity="0.5"/>
+        <path d="M83 270 L217 270" stroke="#A06820" stroke-width="1" opacity="0.35"/>
+        <path d="M90 290 L210 290" stroke="#A06820" stroke-width="1" opacity="0.3"/>
+        <path d="M98 310 L202 310" stroke="#A06820" stroke-width="1" opacity="0.28"/>
+        <path d="M108 330 L192 330" stroke="#A06820" stroke-width="1" opacity="0.25"/>
+        <!-- chocolate flake -->
+        <ellipse cx="170" cy="60" rx="7" ry="24" fill="#4A2010" transform="rotate(18 170 60)" opacity="0.9"/>
+        <ellipse cx="135" cy="52" rx="5" ry="18" fill="#3A1808" transform="rotate(-12 135 52)" opacity="0.8"/>
+        <defs>
+          <radialGradient id="vanMain" cx="35%" cy="32%">
+            <stop offset="0%" stop-color="#FFFAE8" stop-opacity="0.7"/>
+            <stop offset="60%" stop-color="#E8C840" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#9A7010" stop-opacity="0.3"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- TEXTURE / CRAFTSMANSHIP -->
+<section class="texture">
+  <div class="texture-inner">
+    <div class="texture-left reveal">
+      <h2>Crafted with obsession.<br>Served with ceremony.</h2>
+      <p>We source single-origin dairy from one farm. We use hand-harvested botanicals from three continents. Every batch is small enough to taste personally before it reaches you.</p>
+      <div class="texture-stat">
+        <div class="texture-stat-item">
+          <h3>18</h3>
+          <p>Signature flavors</p>
+        </div>
+        <div class="texture-stat-item">
+          <h3>72h</h3>
+          <p>Minimum churn time</p>
+        </div>
+        <div class="texture-stat-item">
+          <h3>3</h3>
+          <p>Ingredient sources</p>
+        </div>
+      </div>
+    </div>
+    <div class="texture-right reveal">
+      <div class="texture-swatch" style="background:#7B52CC;">
+        <div class="texture-swatch-label">Lavender</div>
+      </div>
+      <div class="texture-swatch" style="background:#E85070;">
+        <div class="texture-swatch-label">Strawberry</div>
+      </div>
+      <div class="texture-swatch" style="background:#F5E0A0;"><div class="texture-swatch-label" style="color:rgba(0,0,0,0.4);">Vanilla</div></div>
+      <div class="texture-swatch" style="background:#2E9966;">
+        <div class="texture-swatch-label">Matcha</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEASONAL -->
+<section class="seasonal" id="seasonal">
+  <div class="seasonal-bg-line"></div>
+  <div class="reveal">
+    <div class="seasonal-eyebrow">Limited Edition</div>
+    <h2 class="seasonal-title">The Summer<br><span>Collection 2026</span></h2>
+  </div>
+  <div class="seasonal-items reveal">
+    <div class="seasonal-item">
+      <div class="seasonal-item-num">01 —</div>
+      <h3>Yuzu &amp; Shiso Sorbet</h3>
+      <p>A translucent pale gold sorbet of Japanese yuzu citrus with bruised shiso leaf. Tart, floral, impossibly clean.</p>
+      <div class="seasonal-item-tag">June Only</div>
+    </div>
+    <div class="seasonal-item">
+      <div class="seasonal-item-num">02 —</div>
+      <h3>Peach Verbena Cream</h3>
+      <p>White peach purée from a single Provençal orchard, folded with lemon verbena into a cloud-light cream.</p>
+      <div class="seasonal-item-tag">July &amp; August</div>
+    </div>
+    <div class="seasonal-item">
+      <div class="seasonal-item-num">03 —</div>
+      <h3>Dark Rum Raisin</h3>
+      <p>Hand-plumped Muscat raisins in 12-year rum, swirled through a velvet molasses base. A grown-up summer indulgence.</p>
+      <div class="seasonal-item-tag">August Only</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / FLAVOR PICKER -->
+<section class="experience">
+  <div class="exp-giant">TASTE</div>
+  <div class="exp-eyebrow reveal">The Givré Experience</div>
+  <h2 class="exp-title reveal">
+    <em>Color</em> you<br>can taste.
+  </h2>
+  <div class="exp-flavors-row reveal" id="flavorPicker">
+    <div class="exp-flavor-pill active" onclick="pickFlavor(this,'#E85070')">Strawberry</div>
+    <div class="exp-flavor-pill" onclick="pickFlavor(this,'#7B52CC')">Lavender Honey</div>
+    <div class="exp-flavor-pill" onclick="pickFlavor(this,'#F5A020')">Salted Caramel</div>
+    <div class="exp-flavor-pill" onclick="pickFlavor(this,'#2E9966')">Matcha Forest</div>
+    <div class="exp-flavor-pill" onclick="pickFlavor(this,'#C4501A')">Blood Orange</div>
+    <div class="exp-flavor-pill" onclick="pickFlavor(this,'#0066AA')">Blueberry Earl Grey</div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social">
+  <div class="social-header reveal">
+    <h2 class="social-title">What they<br><span>said.</span></h2>
+    <div class="social-count">4.9</div>
+  </div>
+  <div class="reviews-grid reveal">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"This isn't ice cream. This is art you eat. The Blood Orange Saffron changed how I think about dessert entirely."</p>
+      <div class="review-author">— Simone A., Melbourne</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I came for one scoop. I stayed for two hours. The space, the scents, the ceremony — it's unlike any place I've ever been."</p>
+      <div class="review-author">— Marcus T., Sydney</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The Lavender Honey looks like a jewel. It tastes even better. Givré has completely ruined all other ice cream for me."</p>
+      <div class="review-author">— Yuki N., Brisbane</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="order">
+  <div class="cta-bg-ring"></div>
+  <div class="cta-bg-ring"></div>
+  <div style="position:relative;z-index:2;text-align:center;">
+    <div class="cta-eyebrow reveal">Visit us · Order online · Gift cards</div>
+    <h2 class="cta-title reveal">FLAVOR,<br><em>ELEVATED.</em></h2>
+    <a href="#" class="cta-btn reveal">Order Now</a>
+    <p class="cta-note reveal">Open daily 11am – 10pm · 42 Fortitude Valley, Brisbane</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <h2>GIVRÉ</h2>
+    <p>Artisanal ice cream for people who believe flavor deserves more than a cone and a napkin.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Explore</h4>
+    <ul>
+      <li><a href="#">Signature Flavors</a></li>
+      <li><a href="#">Seasonal Collection</a></li>
+      <li><a href="#">The Parlour</a></li>
+      <li><a href="#">Private Events</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Brand</h4>
+    <ul>
+      <li><a href="#">Our Story</a></li>
+      <li><a href="#">Sourcing</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">Wholesale</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Connect</h4>
+    <ul>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="#">Gift Cards</a></li>
+      <li><a href="#">Newsletter</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 Givré. All rights reserved.</p>
+  <p>Brisbane, Australia</p>
+</div>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+function animRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); }
+animRing();
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => obs.observe(el));
+
+// Flavor picker
+function pickFlavor(el, color) {
+  document.querySelectorAll('.exp-flavor-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  const section = document.querySelector('.experience');
+  section.style.background = color;
+  section.style.transition = 'background 0.6s ease';
+  const giant = section.querySelector('.exp-giant');
+  giant.style.color = 'rgba(0,0,0,0.07)';
+  const title = section.querySelector('.exp-title');
+  title.style.color = color === '#F5A020' || color === '#E8D5C4' ? '#3D1A00' : (isBright(color) ? '#1A0A00' : '#FFF8F0');
+  const em = title.querySelector('em');
+  if(em) em.style.color = color === '#F5A020' ? '#7A3000' : 'rgba(255,255,255,0.55)';
+}
+function isBright(hex) {
+  const r = parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  return (r*299+g*587+b*114)/1000 > 128;
+}
+
+// init active pill bg
+pickFlavor(document.querySelector('.exp-flavor-pill.active'), '#E85070');
+</script>
+</body>
+</html>
