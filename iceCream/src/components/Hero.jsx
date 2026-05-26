@@ -281,13 +281,20 @@ export default function HeroCinematic() {
         
         {/* Scroll Indicator */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-12 left-12 hidden md:block text-[9px] tracking-[0.4em] text-[#F5E6C8]/40 uppercase"
-          style={{ writingMode: 'vertical-rl' }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-[#F5E6C8]/40"
         >
-          Scroll
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <svg width="24" height="36" viewBox="0 0 24 36" fill="none" stroke="currentColor" strokeWidth="1.5" className="opacity-60">
+              <rect x="2" y="2" width="20" height="32" rx="10" />
+              <circle cx="12" cy="11" r="2.5" fill="currentColor" stroke="none" />
+            </svg>
+          </motion.div>
         </motion.div>
       </section>
     </>
