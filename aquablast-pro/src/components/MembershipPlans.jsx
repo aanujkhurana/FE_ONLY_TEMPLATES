@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const PLANS = [
@@ -76,16 +75,12 @@ export default function MembershipPlans() {
 
         {/* Plans grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-          {PLANS.map((plan, idx) => {
+          {PLANS.map((plan) => {
             const isPremium = !!plan.premium;
 
             return (
-              <motion.div
+              <div
                 key={plan.name}
-                initial={{ y: 40 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.12 }}
                 className="relative flex flex-col"
               >
                 {isPremium && (
@@ -203,7 +198,7 @@ export default function MembershipPlans() {
                     </a>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

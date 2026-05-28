@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const SUBURBS = [
@@ -41,32 +40,13 @@ export default function ServiceAreas() {
           transition={{ duration: 0.9, delay: 0.1 }}
           className="flex flex-wrap justify-center md:justify-end gap-3 max-w-xl"
         >
-          {SUBURBS.map((suburb, i) => (
-            <motion.span
+          {SUBURBS.map((suburb) => (
+            <span
               key={suburb}
-              initial={{ scale: 0.9 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06, duration: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-              className="group cursor-default px-4 py-2 rounded-xl text-xs font-medium tracking-wider text-slate-300 transition-all duration-300"
-              style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(200,169,110,0.3)';
-                e.currentTarget.style.boxShadow = '0 0 16px rgba(200,169,110,0.1)';
-                e.currentTarget.style.background = 'rgba(200,169,110,0.06)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
-              }}
+              className="inline-flex group cursor-default px-4 py-2 rounded-xl text-xs font-medium tracking-wider text-slate-300 transition-all duration-300 hover:scale-105 bg-white/[0.03] border border-white/[0.07] hover:border-[#c8a96e]/30 hover:bg-[#c8a96e]/[0.06] hover:shadow-[0_0_16px_rgba(200,169,110,0.1)]"
             >
               {suburb}
-            </motion.span>
+            </span>
           ))}
         </motion.div>
       </div>

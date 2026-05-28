@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import ProgressiveImage from "./ProgressiveImage";
 
 /* ── Ripple ring component ────────────────────────────────────────────────── */
@@ -32,44 +31,35 @@ function StatBadge({ value, label }) {
   );
 }
 
-export default function HeroSection({ backgroundY, onHeroLoad }) {
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
+const METRICS = [
+  { label: "ORP Saturation", value: "740mV", status: "Optimal", color: "#34d399" },
+  { label: "pH Equilibrium", value: "7.42", status: "Standard", color: "#e2e8f0" },
+  { label: "LSI Saturation Index", value: "+0.02", status: "Ideal", color: "#00d4f0" },
+  { label: "Free Chlorine", value: "3.1ppm", status: "Perfect", color: "#c8a96e" },
+];
 
-  // Parallax: image moves slower than scroll (cinematic depth)
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-
+export default function HeroSection({ isMobile }) {
   return (
     <section
-      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* ════════════════════════════════════════════════════════════
           LAYER 1 — HERO IMAGE (parallax, full-bleed, aerial pool)
           ════════════════════════════════════════════════════════════ */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{ y: imgY }}
-      >
+      <div className="absolute inset-0 z-0 hero-img-parallax">
         <ProgressiveImage
           src="/hero2-md.webp"
           srcSet="/hero2-sm.webp 600w, /hero2-md.webp 1000w, /hero2.webp 1600w"
+          avifSrcSet="/hero2-sm.avif 600w, /hero2-md.avif 1000w, /hero2.avif 1600w"
           sizes="100vw"
           alt="Crystal clear luxury pool aerial view — Aura Aquatics"
           className="w-full h-full object-cover object-center opacity-25"
           placeholder="#0a2e4c"
           fetchPriority="high"
           eager
-          onLoad={onHeroLoad}
         />
-      </motion.div>
-      <motion.div
-        style={{ y: backgroundY }}
-        className="absolute inset-0 opacity-20 bg-[radial-gradient(#061a2c_1px,transparent_1px)] [background-size:32px_32px] -z-10"
-      />
+      </div>
+      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#061a2c_1px,transparent_1px)] [background-size:32px_32px] -z-10" />
 
       {/* ════════════════════════════════════════════════════════════
           LAYER 2 — DARK GRADIENT OVERLAYS (cinematic colour control)
@@ -103,7 +93,7 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
 
       {/* Subtle noise grain for cinematic texture */}
       <div
-        className="absolute inset-0 z-10 pointer-events-none opacity-15"
+        className="absolute inset-0 z-10 pointer-events-none opacity-15 hidden sm:block"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E")`,
           mixBlendMode: "overlay",
@@ -120,9 +110,15 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
         style={{ transform: "translate(-30%, 30%)" }}
       >
         <div className="relative" style={{ width: 0, height: 0 }}>
-          <RippleRing size={300} delay={0} />
-          <RippleRing size={500} delay={1.3} />
-          <RippleRing size={700} delay={2.6} />
+          {isMobile ? (
+            <RippleRing size={280} delay={0} />
+          ) : (
+            <>
+              <RippleRing size={300} delay={0} />
+              <RippleRing size={500} delay={1.3} />
+              <RippleRing size={700} delay={2.6} />
+            </>
+          )}
         </div>
       </div>
 
@@ -137,7 +133,7 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#c8a96e]/30 bg-[#c8a96e]/[0.08] backdrop-blur-md"
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#c8a96e]/30 bg-[#c8a96e]/[0.08] backdrop-blur-none sm:backdrop-blur-md"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#c8a96e] animate-pulse" />
             <span className="text-[10px] font-semibold tracking-[0.28em] uppercase text-[#c8a96e] font-mono">
@@ -230,17 +226,7 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
             {/* Secondary — warm stone border */}
             <a
               href="mailto:concierge@auraaquatics.com.au"
-              className="inline-flex items-center gap-2.5 w-full sm:w-auto px-9 py-4 rounded-xl font-semibold text-[11px] tracking-[0.22em] uppercase text-slate-200 transition-all duration-300 hover:text-white glass-card-mid"
-              style={{ border: "1px solid rgba(200,169,110,0.25)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(200,169,110,0.5)";
-                e.currentTarget.style.boxShadow =
-                  "0 0 20px rgba(200,169,110,0.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(200,169,110,0.25)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
+              className="inline-flex items-center gap-2.5 w-full sm:w-auto px-9 py-4 rounded-xl font-semibold text-[11px] tracking-[0.22em] uppercase text-slate-200 transition-all duration-300 hover:text-white glass-card-mid border border-[#c8a96e]/25 hover:border-[#c8a96e]/50 hover:shadow-[0_0_20px_rgba(200,169,110,0.1)]"
             >
               Instant Consultation
             </a>
@@ -269,14 +255,14 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
             className="relative w-full max-w-[360px]"
           >
             {/* Glow halo */}
-            <div className="absolute -inset-6 rounded-[36px] bg-[#00d4f0]/8 filter blur-[40px]" />
+            <div className="absolute -inset-6 rounded-[36px] bg-[#00d4f0]/8 blur-[24px] sm:blur-[40px]" />
 
             {/* Card shell */}
             <div
               className="relative rounded-[28px] overflow-hidden border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.05)]"
               style={{
                 background: "rgba(4, 15, 28, 0.82)",
-                backdropFilter: "blur(16px)",
+                backdropFilter: isMobile ? "none" : "blur(16px)",
               }}
             >
               {/* Scan line */}
@@ -287,6 +273,7 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
                 <ProgressiveImage
                   src="/afterImage2-md.webp"
                   srcSet="/afterImage2-sm.webp 600w, /afterImage2-md.webp 1000w, /afterImage2.webp 1600w"
+                  avifSrcSet="/afterImage2-sm.avif 600w, /afterImage2-md.avif 1000w, /afterImage2.avif 1600w"
                   sizes="(max-width: 1024px) 50vw, 360px"
                   alt="Live pool status"
                   className="w-full h-full scale-110"
@@ -296,7 +283,7 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
                 {/* Dark glass overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#040f1c]/30 to-[#040f1c]" />
                 {/* Status chip */}
-                <div className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 border border-[#34d399]/30 backdrop-blur-sm">
+                <div className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 border border-[#34d399]/30 backdrop-blur-none sm:backdrop-blur-sm">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse" />
                   <span className="text-[9px] font-mono tracking-[0.25em] text-[#34d399] uppercase">
                     Live Monitoring
@@ -313,32 +300,7 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
               {/* Card body */}
               <div className="p-5 space-y-3">
                 {/* Metrics */}
-                {[
-                  {
-                    label: "ORP Saturation",
-                    value: "740mV",
-                    status: "Optimal",
-                    color: "#34d399",
-                  },
-                  {
-                    label: "pH Equilibrium",
-                    value: "7.42",
-                    status: "Standard",
-                    color: "#e2e8f0",
-                  },
-                  {
-                    label: "LSI Saturation Index",
-                    value: "+0.02",
-                    status: "Ideal",
-                    color: "#00d4f0",
-                  },
-                  {
-                    label: "Free Chlorine",
-                    value: "3.1ppm",
-                    status: "Perfect",
-                    color: "#c8a96e",
-                  },
-                ].map((m) => (
+                {METRICS.map((m) => (
                   <div
                     key={m.label}
                     className="flex justify-between items-center py-2.5 border-b border-white/[0.05]"
@@ -386,7 +348,7 @@ export default function HeroSection({ backgroundY, onHeroLoad }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 hidden sm:flex flex-col items-center gap-2"
       >
         <span className="text-[9px] uppercase tracking-[0.35em] text-slate-500 font-mono">
           Scroll

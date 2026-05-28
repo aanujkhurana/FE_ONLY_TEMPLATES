@@ -1,5 +1,3 @@
-/* ─── GOOGLE FONTS ───────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&family=Syncopate:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -20,6 +18,13 @@
     margin: 0;
     min-height: 100svh;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img,
+  picture {
+    display: block;
   }
 
   ::selection {
@@ -55,6 +60,7 @@
     border: 1px solid rgba(0, 212, 240, 0.35);
     animation: waterRipple 5s ease-out infinite;
     pointer-events: none;
+    will-change: transform, opacity;
   }
 
   /* ── Floating bubbles (CSS-only, compositor-friendly: transform + opacity) ── */
@@ -69,6 +75,7 @@
     border-radius: 50%;
     pointer-events: none;
     animation: bubbleRise linear infinite;
+    will-change: transform, opacity;
   }
 
   @keyframes bubbleRise {
@@ -225,8 +232,22 @@
 
   /* Hero image parallax wrapper */
   .hero-img-parallax {
-    will-change: transform;
     transform-origin: center center;
+  }
+
+  /* Progressive section rendering */
+  .section-shell {
+    contain: layout paint;
+  }
+
+  .service-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .service-card:hover {
+      transform: translate3d(0, -8px, 0) scale(1.015);
+    }
   }
 
   /* Noise texture overlay */
@@ -263,8 +284,8 @@
   }
 }
 
-/* ─── REDUCED MOTION (OS setting + mobile perf) ─────────────────────────── */
-@media (prefers-reduced-motion: reduce), (max-width: 768px) {
+/* ─── REDUCED MOTION (OS setting) ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
   *,
@@ -273,5 +294,64 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+/* ─── MOBILE PERFORMANCE TUNING ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  html { scroll-behavior: auto; }
+
+  .bubble:nth-child(n+5) {
+    display: none;
+  }
+
+  .bubble {
+    animation-duration: 20s !important;
+  }
+
+  .water-ripple-ring {
+    animation-duration: 6.5s;
+    border-color: rgba(0, 212, 240, 0.26);
+  }
+
+  .caustic-overlay {
+    animation: none;
+    opacity: 0.05 !important;
+  }
+
+  .scan-line {
+    animation: none;
+    opacity: 0.2;
+  }
+
+  .sparkle-aqua,
+  .sparkle-stone,
+  .animate-text-shine,
+  .shimmer-sweep {
+    animation-duration: 7s !important;
+  }
+
+  .glass-card,
+  .glass-card-mid,
+  .glass-card-bright,
+  [class*="backdrop-blur"] {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero-img-parallax {
+    transform: none;
+  }
+
+  .text-shadow-aqua,
+  .text-shadow-stone {
+    text-shadow: 0 2px 18px rgba(0,0,0,0.45);
+  }
+
+  .service-card:hover {
+    transform: none;
+  }
+
+  [class*="blur-"] {
+    --tw-blur: blur(32px) !important;
   }
 }

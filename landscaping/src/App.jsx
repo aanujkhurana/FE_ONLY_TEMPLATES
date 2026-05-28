@@ -196,7 +196,7 @@ function Hero({ heroY }) {
         </motion.div>
 
         <motion.aside initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease, delay: 0.42 }} className="mt-10 self-end border-y border-warm/20 py-6 lg:absolute lg:right-10 lg:top-32 lg:mt-0 lg:w-[min(34vw,430px)] lg:border-t lg:border-b lg:bg-forest/28 lg:px-6 lg:backdrop-blur-[1px]">
-          <p className="mb-5 max-w-sm font-serif text-2xl leading-tight text-sand">Selected for private residences where the garden must feel inevitable.</p>
+          <p className="mb-5 max-w-sm font-serif text-2xl leading-tight text-stone">Selected for private residences where the garden must feel inevitable.</p>
           <div className="grid grid-cols-3 gap-5">
             {[
               ['18+', 'years of craft'],

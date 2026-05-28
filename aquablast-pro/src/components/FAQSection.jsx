@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const FAQS = [
@@ -85,7 +85,11 @@ const FAQS = [
   },
 ];
 
-export default function FAQSection({ activeFaq, setActiveFaq }) {
+export default function FAQSection() {
+  const [activeFaq, setActiveFaq] = useState(null);
+  const toggleFaq = useCallback((idx) => {
+    setActiveFaq((prev) => (prev === idx ? null : idx));
+  }, []);
   return (
     <section className="py-32 px-6 relative overflow-hidden">
 
@@ -126,12 +130,8 @@ export default function FAQSection({ activeFaq, setActiveFaq }) {
             const accent = idx % 2 === 0 ? '#00d4f0' : '#c8a96e';
 
             return (
-              <motion.div
+              <div
                 key={idx}
-                initial={{ y: 20 }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.04 }}
                 className="rounded-2xl overflow-hidden transition-all duration-300"
                 style={{
                   background: isOpen ? 'rgba(255,255,255,0.035)' : 'rgba(255,255,255,0.02)',
@@ -140,7 +140,7 @@ export default function FAQSection({ activeFaq, setActiveFaq }) {
                 }}
               >
                 <button
-                  onClick={() => setActiveFaq(isOpen ? null : idx)}
+                  onClick={() => toggleFaq(idx)}
                   className="w-full text-left py-5 px-6 flex justify-between items-center gap-4 group"
                 >
                   <span className="font-medium text-sm sm:text-base text-slate-200 group-hover:text-white transition-colors leading-snug">
@@ -182,7 +182,7 @@ export default function FAQSection({ activeFaq, setActiveFaq }) {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             );
           })}
         </div>

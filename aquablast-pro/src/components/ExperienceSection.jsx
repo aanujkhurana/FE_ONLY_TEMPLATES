@@ -68,13 +68,9 @@ export default function ExperienceSection() {
 
             {/* Feature list */}
             <div className="space-y-5">
-              {FEATURES.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ x: -20 }}
-                  whileInView={{ x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: i * 0.12 }}
+              {FEATURES.map((item) => (
+                <div
+                  key={item.title}
                   className="flex gap-4 p-4 rounded-xl group hover:bg-white/[0.03] transition-colors"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#c8a96e]/10 border border-[#c8a96e]/20 flex items-center justify-center shrink-0 mt-0.5 text-[#c8a96e] group-hover:bg-[#c8a96e]/15 transition-colors">
@@ -84,7 +80,7 @@ export default function ExperienceSection() {
                     <h4 className="font-semibold text-sm text-white tracking-wide">{item.title}</h4>
                     <p className="text-xs text-slate-400 mt-1 leading-relaxed">{item.desc}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -116,6 +112,7 @@ export default function ExperienceSection() {
               <ProgressiveImage
                 src="/hero-md.webp"
                 srcSet="/hero-sm.webp 600w, /hero-md.webp 1000w, /hero.webp 1600w"
+                avifSrcSet="/hero-sm.avif 600w, /hero-md.avif 1000w, /hero.avif 1600w"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 alt="Luxury pool lifestyle — Aura Aquatics Brisbane"
                 className="w-full h-full"

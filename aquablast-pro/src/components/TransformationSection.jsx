@@ -1,17 +1,59 @@
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import ProgressiveImage from './ProgressiveImage';
 
-export default function TransformationSection({ beforeAfterRef, handleSliderMove, sliderPosition }) {
+export default function TransformationSection() {
+  const beforeAfterRef = useRef(null);
+  const frameRef = useRef(null);
+  const pendingPointerX = useRef(null);
+  const touchActiveRef = useRef(false);
+  const [sliderPosition, setSliderPosition] = useState(50);
+
+  const flushSliderPosition = useCallback(() => {
+    frameRef.current = null;
+    if (!beforeAfterRef.current || pendingPointerX.current === null) return;
+
+    const rect = beforeAfterRef.current.getBoundingClientRect();
+    const x = pendingPointerX.current - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setSliderPosition((prev) => (Math.abs(prev - percentage) < 0.4 ? prev : percentage));
+  }, []);
+
+  const queueSliderMove = useCallback((clientX) => {
+    pendingPointerX.current = clientX;
+    if (frameRef.current !== null) return;
+    frameRef.current = window.requestAnimationFrame(flushSliderPosition);
+  }, [flushSliderPosition]);
+
+  const handlePointerDown = useCallback((event) => {
+    if (event.pointerType === 'touch') touchActiveRef.current = true;
+    queueSliderMove(event.clientX);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  }, [queueSliderMove]);
+
+  const handlePointerMove = useCallback((event) => {
+    if (event.pointerType === 'touch' && !touchActiveRef.current) return;
+    queueSliderMove(event.clientX);
+  }, [queueSliderMove]);
+
+  const handlePointerEnd = useCallback(() => {
+    touchActiveRef.current = false;
+  }, []);
+
+  useEffect(() => () => {
+    if (frameRef.current !== null) {
+      window.cancelAnimationFrame(frameRef.current);
+    }
+  }, []);
+
   return (
     <section id="transformation" className="py-32 px-6 relative overflow-hidden">
-
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#00d4f0]/[0.05] rounded-full filter blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[240px] sm:w-[800px] sm:h-[500px] bg-[#00d4f0]/[0.05] rounded-full blur-[70px] sm:blur-[120px]" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-
         {/* Section Header */}
         <motion.div
           initial={{ y: 30 }}
@@ -40,26 +82,28 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
           <div
             ref={beforeAfterRef}
             className="relative w-full max-w-5xl mx-auto aspect-[16/9] rounded-3xl overflow-hidden cursor-ew-resize select-none border border-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.7)]"
-            onMouseMove={(e) => handleSliderMove(e.clientX)}
-            onTouchMove={(e) => handleSliderMove(e.touches[0].clientX)}
+            style={{ touchAction: 'pan-y' }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerEnd}
+            onPointerLeave={handlePointerEnd}
+            onPointerCancel={handlePointerEnd}
           >
             {/* ─ BEFORE: neglected pool ─ */}
             <div className="absolute inset-0">
               <ProgressiveImage
                 src="/beforeImage-md.webp"
                 srcSet="/beforeImage-sm.webp 600w, /beforeImage-md.webp 1000w, /beforeImage.webp 1600w"
+                avifSrcSet="/beforeImage-sm.avif 600w, /beforeImage-md.avif 1000w, /beforeImage.avif 1600w"
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 alt="Before — Neglected green pool"
                 className="w-full h-full"
                 placeholder="#1a3a2a"
               />
-              {/* Green tint overlay to sell the "neglected" state */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/60 via-transparent to-black/60" />
-              {/* Label */}
-              <div className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-md">
+              <div className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-none sm:backdrop-blur-md">
                 <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400">Before</span>
               </div>
-              {/* Bottom label */}
               <div className="absolute bottom-8 left-8 space-y-1">
                 <p className="font-serif italic text-2xl text-emerald-600/80">Neglected Stagnation</p>
                 <p className="text-[10px] uppercase tracking-widest text-slate-500 font-mono">Typical Competitor Condition</p>
@@ -68,29 +112,30 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
 
             {/* ─ AFTER: crystal clear ─ */}
             <div
-              className="absolute inset-0 transition-[clip-path] duration-75"
-              style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
+              className="absolute inset-0"
+              style={{
+                clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)`,
+                willChange: 'clip-path',
+              }}
             >
               <ProgressiveImage
                 src="/afterImage-md.webp"
                 srcSet="/afterImage-sm.webp 600w, /afterImage-md.webp 1000w, /afterImage.webp 1600w"
+                avifSrcSet="/afterImage-sm.avif 600w, /afterImage-md.avif 1000w, /afterImage.avif 1600w"
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 alt="After — Crystal clear Aura pool"
                 className="w-full h-full"
                 placeholder="#0a3d6b"
               />
-              {/* Aqua shine overlay */}
               <div
                 className="absolute inset-0"
                 style={{
                   background: 'radial-gradient(ellipse at 40% 30%, rgba(0,212,240,0.12) 0%, transparent 70%)',
                 }}
               />
-              {/* Label */}
-              <div className="absolute top-5 left-5 px-3 py-1.5 rounded-full border border-[#00d4f0]/30 bg-[#00d4f0]/10 backdrop-blur-md">
+              <div className="absolute top-5 left-5 px-3 py-1.5 rounded-full border border-[#00d4f0]/30 bg-[#00d4f0]/10 backdrop-blur-none sm:backdrop-blur-md">
                 <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#00d4f0]">After — Aura Standard</span>
               </div>
-              {/* Bottom label */}
               <div className="absolute bottom-8 left-8 space-y-1">
                 <p className="font-display uppercase tracking-[0.2em] text-2xl font-bold text-white text-shadow-aqua">Aura Illumination</p>
                 <p className="text-[10px] uppercase tracking-[0.28em] text-[#00d4f0] font-mono">Pure · Balanced · Architectural Water</p>
@@ -102,13 +147,9 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
               className="absolute top-0 bottom-0 z-30 pointer-events-none"
               style={{ left: `${sliderPosition}%` }}
             >
-              {/* Vertical glowing line */}
               <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-white/80 shadow-[0_0_12px_rgba(0,212,240,0.8),0_0_30px_rgba(0,212,240,0.4)]" />
-
-              {/* Central handle knob */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
                 <div className="w-11 h-11 rounded-full border-2 border-white bg-[#020b14] flex items-center justify-center shadow-[0_0_20px_rgba(0,212,240,0.5)]">
-                  {/* Double chevron */}
                   <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 9l-3 3 3 3M16 9l3 3-3 3" />
                   </svg>
@@ -137,7 +178,6 @@ export default function TransformationSection({ beforeAfterRef, handleSliderMove
             </div>
           ))}
         </motion.div>
-
       </div>
     </section>
   );

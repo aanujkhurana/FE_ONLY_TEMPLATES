@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 /* ── Unique SVG icons per service ─────────────────────────────────────────── */
@@ -64,16 +63,6 @@ const SERVICES = [
   { id: 'elite',  title: 'The Infinite Care Program',        desc: 'Complete autonomous hands-off estate management. Weekly absolute perfection packages.',                                 price: 'On Request',          accent: 'stone' },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
-};
-
-const cardVariants = {
-  hidden:   { y: 40 },
-  visible:  { y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
-};
-
 export default function ServicesSection() {
   return (
     <section id="services" className="py-32 px-6 relative overflow-hidden">
@@ -114,42 +103,24 @@ export default function ServicesSection() {
         </motion.div>
 
         {/* Cards Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {SERVICES.map((srv) => {
             const isAqua = srv.accent === 'aqua';
             const accentColor = isAqua ? '#00d4f0' : '#c8a96e';
             const accentBg    = isAqua ? 'rgba(0,212,240,0.08)' : 'rgba(200,169,110,0.08)';
-            const accentGlow  = isAqua
-              ? 'rgba(0,212,240,0.12)'
-              : 'rgba(200,169,110,0.1)';
+            const hoverClass = isAqua
+              ? 'hover:border-[#00d4f0]/30 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_30px_rgba(0,212,240,0.12)]'
+              : 'hover:border-[#c8a96e]/30 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_30px_rgba(200,169,110,0.1)]';
 
             return (
-              <motion.div
+              <div
                 key={srv.id}
-                variants={cardVariants}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative rounded-2xl p-7 flex flex-col justify-between h-[300px] cursor-pointer transition-all duration-300"
+                className={`service-card group relative rounded-2xl p-7 flex flex-col justify-between h-[300px] cursor-pointer transition-all duration-300 hover:bg-white/[0.035] ${hoverClass}`}
                 style={{
                   background: 'rgba(255,255,255,0.02)',
                   border: '1px solid rgba(255,255,255,0.06)',
                   '--icon-hover-bg': accentBg,
                   '--icon-hover-color': accentColor,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.border = `1px solid ${accentColor}30`;
-                  e.currentTarget.style.boxShadow = `0 20px 60px rgba(0,0,0,0.4), 0 0 30px ${accentGlow}`;
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.035)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.border = '1px solid rgba(255,255,255,0.06)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
                 }}
               >
                 {/* Corner glow on hover */}
@@ -180,10 +151,10 @@ export default function ServicesSection() {
                     {srv.price}
                   </span>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
 
       {/* Stone divider bottom */}

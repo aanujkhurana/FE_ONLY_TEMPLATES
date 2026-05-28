@@ -3,33 +3,33 @@ import fs from "fs";
 import path from "path";
 
 const inputDir = "./src/images";
-const outputDir = "./public/web";
+const outputDir = "./public";
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-fs.readdirSync(inputDir).forEach(async (file) => {
+const jobs = fs.readdirSync(inputDir)
+  .filter((file) => /\.(png|jpe?g)$/i.test(file))
+  .flatMap((file) => {
   const inputPath = path.join(inputDir, file);
   const name = path.parse(file).name;
 
-  // 1. Large optimized version
-  await sharp(inputPath)
-    .resize(1600)
-    .webp({ quality: 75 })
-    .toFile(`${outputDir}/${name}.webp`);
+    return [
+      { suffix: "", width: 1600, webp: 75, avif: 56 },
+      { suffix: "-md", width: 1000, webp: 70, avif: 52 },
+      { suffix: "-sm", width: 600, webp: 65, avif: 48 },
+    ].flatMap(({ suffix, width, webp, avif }) => [
+      sharp(inputPath)
+        .resize({ width, withoutEnlargement: true })
+        .webp({ quality: webp })
+        .toFile(`${outputDir}/${name}${suffix}.webp`),
+      sharp(inputPath)
+        .resize({ width, withoutEnlargement: true })
+        .avif({ quality: avif, effort: 6 })
+        .toFile(`${outputDir}/${name}${suffix}.avif`),
+    ]);
+  });
 
-  // 2. Medium version
-  await sharp(inputPath)
-    .resize(1000)
-    .webp({ quality: 70 })
-    .toFile(`${outputDir}/${name}-md.webp`);
-
-  // 3. Small thumbnail
-  await sharp(inputPath)
-    .resize(600)
-    .webp({ quality: 65 })
-    .toFile(`${outputDir}/${name}-sm.webp`);
-
-  console.log(`Optimized: ${file}`);
-});
+await Promise.all(jobs);
+console.log(`Optimized ${jobs.length} image variants`);

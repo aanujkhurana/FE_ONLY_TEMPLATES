@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   Shield, Star, Leaf, Heart, Phone, MessageSquare, ChevronDown,
   CheckCircle, ArrowRight, MapPin, Clock, Zap, Droplets, Home,
-  Building2, Waves, Sun, Menu, X, Send, Award, Users, ThumbsUp
+  Building2, Waves, Sun, Menu, X, Send, Award, ThumbsUp
 } from "lucide-react";
 
 // ============================================================
