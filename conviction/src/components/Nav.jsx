@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { usePreview } from '../context/PreviewContext'
 
 const links = [
@@ -16,32 +15,52 @@ export default function Nav() {
   const { openForm, submitted } = usePreview()
 
   useEffect(() => {
+    let ticking = false
     const onScroll = () => {
-      setScrolled(window.scrollY > 50)
-      const sections = links.map((l) => l.href.slice(1))
-      for (const id of sections.reverse()) {
-        const el = document.getElementById(id)
-        if (el && el.getBoundingClientRect().top <= 200) {
-          setActiveSection(id)
-          return
-        }
-      }
-      setActiveSection('')
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setScrolled((prev) => {
+          const next = window.scrollY > 50
+          return prev === next ? prev : next
+        })
+        ticking = false
+      })
     }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+
+        if (visible) {
+          setActiveSection((prev) => (prev === visible.target.id ? prev : visible.target.id))
+        }
+      },
+      { rootMargin: '-35% 0px -55% 0px', threshold: [0, 0.2, 0.5, 0.8] },
+    )
+
+    links.forEach((link) => {
+      const el = document.getElementById(link.href.slice(1))
+      if (el) observer.observe(el)
+    })
+
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      observer.disconnect()
+    }
   }, [])
 
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
         scrolled
-          ? 'bg-[#080808]/80 backdrop-blur-2xl shadow-[0_1px_0_rgba(255,255,255,0.05)]'
+          ? 'bg-[#080808]/88 supports-[backdrop-filter]:bg-[#080808]/78 md:supports-[backdrop-filter]:backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.05)]'
           : 'bg-transparent'
-      }`}
+      } nav-enter`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5">
         <a
@@ -110,14 +129,9 @@ export default function Nav() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden bg-[#080808]/95 backdrop-blur-2xl border-t border-white/[0.06] overflow-hidden"
+      {open && (
+          <div
+            className="mobile-menu md:hidden bg-[#080808]/96 supports-[backdrop-filter]:backdrop-blur-md border-t border-white/[0.06] overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               {links.map((link) => (
@@ -146,9 +160,8 @@ export default function Nav() {
                 </button>
               )}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }

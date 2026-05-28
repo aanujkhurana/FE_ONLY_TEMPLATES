@@ -1,26 +1,37 @@
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 
 export default function ScrollReveal({ children, className = '', delay = 0, direction = 'up' }) {
-  const getInitial = () => {
-    switch (direction) {
-      case 'up': return { y: 50 }
-      case 'down': return { y: -50 }
-      case 'left': return { x: 50 }
-      case 'right': return { x: -50 }
-      default: return { y: 50 }
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return undefined
+
+    if (window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) {
+      node.classList.add('is-visible')
+      return undefined
     }
-  }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        node.classList.add('is-visible')
+        observer.disconnect()
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <motion.div
-      initial={{ opacity: 1, ...getInitial() }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
-      className={className}
-      style={{ willChange: 'transform' }}
+    <div
+      ref={ref}
+      className={`reveal reveal-${direction} ${className}`}
+      style={{ transitionDelay: `${delay}s` }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

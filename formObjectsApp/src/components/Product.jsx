@@ -32,13 +32,13 @@ function ProductSVG() {
       <line x1="85" y1="137" x2="71" y2="151" stroke="#D4B898" strokeWidth="1" />
       <circle cx="108" cy="114" r="28" fill="#D4B898" />
       <circle cx="108" cy="114" r="16" fill="#C9AD90" />
-      <circle cx="108" cy="114" r="6" fill="#D84B2A" />
+      <circle cx="108" cy="114" r="6" fill="#C1121F" />
       <rect x="230" y="18" width="114" height="200" rx="3" fill="#DCC4A8" />
       <circle cx="287" cy="88" r="36" fill="#C9AD90" />
       <circle cx="287" cy="88" r="29" stroke="#B89878" strokeWidth="1" fill="#D4B898" />
       <circle cx="287" cy="88" r="20" fill="#C9AD90" />
-      <line x1="287" y1="60" x2="287" y2="72" stroke="#D84B2A" strokeWidth="2.5" strokeLinecap="round" />
-      <circle cx="287" cy="88" r="5" fill="#D84B2A" />
+      <line x1="287" y1="60" x2="287" y2="72" stroke="#C1121F" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx="287" cy="88" r="5" fill="#C1121F" />
       <line x1="262" y1="108" x2="259" y2="113" stroke="#B89878" strokeWidth="1" />
       <line x1="272" y1="116" x2="270" y2="122" stroke="#B89878" strokeWidth="1" />
       <line x1="287" y1="120" x2="287" y2="126" stroke="#B89878" strokeWidth="1" />
@@ -54,7 +54,7 @@ function ProductSVG() {
       <text x="320" y="170" textAnchor="middle" fill="#7A5C4F" fontSize="6" fontFamily="monospace" letterSpacing=".5">
         HF
       </text>
-      <circle cx="252" cy="194" r="4" fill="#D84B2A" />
+      <circle cx="252" cy="194" r="4" fill="#C1121F" />
       <circle cx="268" cy="194" r="4" fill="#D4B898" />
       <circle cx="284" cy="194" r="4" fill="#D4B898" />
       <circle cx="300" cy="194" r="4" fill="#D4B898" />
@@ -137,7 +137,7 @@ export default function Product() {
                 fontSize: 10,
                 letterSpacing: 3,
                 textTransform: 'uppercase',
-                color: '#D84B2A',
+                color: '#C1121F',
                 margin: '0 0 20px',
               }}
             >

@@ -34,7 +34,7 @@ export default function Navbar() {
       <a
         href="#cta"
         className="mono"
-        style={{ fontSize: 11, color: '#D84B2A', letterSpacing: 1 }}
+        style={{ fontSize: 11, color: '#C1121F', letterSpacing: 1 }}
       >
         ↗ Order
       </a>

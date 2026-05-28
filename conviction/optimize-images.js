@@ -28,18 +28,30 @@ for (const file of files) {
       .resize(1600)
       .webp({ quality: 75 })
       .toFile(`${outputDir}/${name}.webp`);
+    await sharp(inputPath)
+      .resize(1600)
+      .avif({ quality: 56, effort: 6 })
+      .toFile(`${outputDir}/${name}.avif`);
 
     // 3. Medium version
     await sharp(inputPath)
       .resize(1000)
       .webp({ quality: 70 })
       .toFile(`${outputDir}/${name}-md.webp`);
+    await sharp(inputPath)
+      .resize(1000)
+      .avif({ quality: 52, effort: 6 })
+      .toFile(`${outputDir}/${name}-md.avif`);
 
     // 4. Small thumbnail
     await sharp(inputPath)
       .resize(600)
       .webp({ quality: 65 })
       .toFile(`${outputDir}/${name}-sm.webp`);
+    await sharp(inputPath)
+      .resize(600)
+      .avif({ quality: 48, effort: 6 })
+      .toFile(`${outputDir}/${name}-sm.avif`);
 
     console.log(`Optimized: ${file}`);
   } catch (error) {

@@ -1,5 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { memo, useState, useRef, useCallback } from 'react'
 import ScrollReveal from './ui/ScrollReveal'
 
 const projects = [
@@ -14,6 +13,7 @@ const projects = [
     images: {
       src: '/images/aquablast-project.webp',
       srcSet: '/images/aquablast-project-sm.webp 600w, /images/aquablast-project-md.webp 1000w, /images/aquablast-project.webp 1600w',
+      avifSrcSet: '/images/aquablast-project-sm.avif 600w, /images/aquablast-project-md.avif 1000w, /images/aquablast-project.avif 1600w',
     },
     features: ['Quote request system', 'Service area showcase', 'Before/after gallery', 'Mobile-optimised booking'],
   },
@@ -28,6 +28,7 @@ const projects = [
     images: {
       src: '/images/sportsgarage-project.webp',
       srcSet: '/images/sportsgarage-project-sm.webp 600w, /images/sportsgarage-project-md.webp 1000w, /images/sportsgarage-project.webp 1600w',
+      avifSrcSet: '/images/sportsgarage-project-sm.avif 600w, /images/sportsgarage-project-md.avif 1000w, /images/sportsgarage-project.avif 1600w',
     },
     features: ['Service booking system', 'Customer review wall', 'Emergency CTA', 'Pricing transparency'],
   },
@@ -42,6 +43,7 @@ const projects = [
     images: {
       src: '/images/agLandscaping-project.webp',
       srcSet: '/images/agLandscaping-project-sm.webp 600w, /images/agLandscaping-project-md.webp 1000w, /images/agLandscaping-project.webp 1600w',
+      avifSrcSet: '/images/agLandscaping-project-sm.avif 600w, /images/agLandscaping-project-md.avif 1000w, /images/agLandscaping-project.avif 1600w',
     },
     features: ['Project portfolio gallery', 'Instant quote estimator', 'Service area coverage', 'Seasonal maintenance packages'],
   },
@@ -56,18 +58,20 @@ const projects = [
     images: {
       src: '/images/ironRoofing-project.webp',
       srcSet: '/images/ironRoofing-project-sm.webp 600w, /images/ironRoofing-project-md.webp 1000w, /images/ironRoofing-project.webp 1600w',
+      avifSrcSet: '/images/ironRoofing-project-sm.avif 600w, /images/ironRoofing-project-md.avif 1000w, /images/ironRoofing-project.avif 1600w',
     },
     features: ['Free inspection booking', 'Roofing material guide', 'Emergency repair CTA', 'Financing options display'],
   },
 ]
 
-function Mockup3D({ project }) {
+const Mockup3D = memo(function Mockup3D({ project }) {
   const ref = useRef(null)
   const rafRef = useRef(null)
   const currentRotate = useRef({ x: 0, y: 0 })
 
   const handleMove = useCallback((e) => {
     if (!ref.current) return
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     if (rafRef.current) return
     rafRef.current = requestAnimationFrame(() => {
       rafRef.current = null
@@ -79,7 +83,7 @@ function Mockup3D({ project }) {
         y: (x - 0.5) * 14,
       }
       if (ref.current) {
-        ref.current.style.transform = `rotateX(${currentRotate.current.x}deg) rotateY(${currentRotate.current.y}deg)`
+        ref.current.style.transform = `translate3d(0, 0, 0) rotateX(${currentRotate.current.x}deg) rotateY(${currentRotate.current.y}deg)`
       }
     })
   }, [])
@@ -121,22 +125,25 @@ function Mockup3D({ project }) {
         </div>
 
         <div className="relative">
-          <img
-            src={project.images.src}
-            srcSet={project.images.srcSet}
-            sizes="(max-width: 640px) 600px, (max-width: 1024px) 1000px, 1600px"
-            alt={`${project.title} website preview`}
-            className="w-full h-auto block select-none pointer-events-none"
-            draggable={false}
-            fetchpriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source type="image/avif" srcSet={project.images.avifSrcSet} sizes="(max-width: 640px) 92vw, (max-width: 1024px) 86vw, 760px" />
+            <source type="image/webp" srcSet={project.images.srcSet} sizes="(max-width: 640px) 92vw, (max-width: 1024px) 86vw, 760px" />
+            <img
+              src={project.images.src}
+              alt={`${project.title} website preview`}
+              className="w-full h-auto block select-none pointer-events-none"
+              draggable={false}
+              loading="lazy"
+              fetchPriority="low"
+              decoding="async"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0d] via-transparent to-transparent opacity-20 pointer-events-none" />
         </div>
       </div>
     </div>
   )
-}
+})
 
 export default function Showcase() {
   const [active, setActive] = useState(0)
@@ -177,14 +184,9 @@ export default function Showcase() {
           </div>
         </ScrollReveal>
 
-        <AnimatePresence mode="wait">
-          <motion.div
+        <div
             key={active}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="grid lg:grid-cols-5 gap-10 items-center"
+            className="project-panel grid lg:grid-cols-5 gap-10 items-center"
           >
             <div className="lg:col-span-2 space-y-6">
               <div>
@@ -227,8 +229,7 @@ export default function Showcase() {
             <div className="lg:col-span-3">
               <Mockup3D project={project} />
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
       </div>
     </section>
   )

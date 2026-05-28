@@ -8,12 +8,14 @@ import CollectionGrid from './components/CollectionGrid';
 import Quote from './components/Quote';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
 
 import './App.css';
 
 export default function App() {
   return (
     <>
+      <CustomCursor />
       <Hero />
       <Statement />
       <Product />

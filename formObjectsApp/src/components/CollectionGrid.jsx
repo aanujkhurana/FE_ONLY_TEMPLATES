@@ -56,7 +56,7 @@ export default function CollectionGrid() {
             }}
           >
             TWELVE<br />OBJECTS.<br />
-            <span style={{ color: '#D84B2A' }}>ONE</span> VISION.
+            <span style={{ color: '#C1121F' }}>ONE</span> VISION.
           </h2>
           <p
             style={{
@@ -74,9 +74,9 @@ export default function CollectionGrid() {
           <button
             className="pill-ora"
             style={{
-              background: '#D84B2A',
+              background: '#C1121F',
               color: '#F5F0E8',
-              border: '1px solid #D84B2A',
+              border: '1px solid #C1121F',
               padding: '15px 44px',
               fontSize: 11,
               letterSpacing: 2.5,

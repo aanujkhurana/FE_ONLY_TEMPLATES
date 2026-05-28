@@ -5,7 +5,7 @@ export default function MarqueeBar() {
   return (
     <div
       style={{
-        background: '#D84B2A',
+        background: '#C1121F',
         padding: '18px 0',
         overflow: 'hidden',
         whiteSpace: 'nowrap',

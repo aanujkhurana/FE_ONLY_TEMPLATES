@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { PreviewProvider } from './context/PreviewContext'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -9,7 +10,8 @@ import Benefits from './components/Benefits'
 import Testimonials from './components/Testimonials'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
-import PreviewForm from './components/PreviewForm'
+
+const PreviewForm = lazy(() => import('./components/PreviewForm'))
 
 export default function App() {
   return (
@@ -25,7 +27,9 @@ export default function App() {
         <Testimonials />
         <CTA />
         <Footer />
-        <PreviewForm />
+        <Suspense fallback={null}>
+          <PreviewForm />
+        </Suspense>
       </div>
     </PreviewProvider>
   )

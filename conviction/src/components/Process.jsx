@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
 import ScrollReveal from './ui/ScrollReveal'
 
 const steps = [
@@ -26,21 +24,12 @@ const steps = [
 ]
 
 function StepLine() {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start center', 'end center'],
-  })
-
-  const height = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
-
   return (
-    <div ref={ref} className="absolute left-[19px] top-0 bottom-0 w-px hidden md:block">
+    <div className="absolute left-[19px] top-0 bottom-0 w-px hidden md:block">
       <div className="absolute inset-0 bg-white/[0.06]" />
-      <motion.div
-        className="absolute top-0 left-0 w-full rounded-full"
+      <div
+        className="absolute top-0 left-0 w-full h-full rounded-full opacity-80"
         style={{
-          height,
           background: 'linear-gradient(to bottom, #c9a84c, rgba(201,168,76,0.2))',
         }}
       />
@@ -70,27 +59,19 @@ export default function Process() {
             {steps.map((step, i) => (
               <ScrollReveal key={step.number} delay={i * 0.15}>
                 <div className="relative md:pl-16 group">
-                  <motion.div
+                  <div
                     className="hidden md:flex absolute left-0 top-0 w-10 h-10 rounded-full border border-white/[0.08] bg-[#080808] items-center justify-center text-sm text-ivory-dark/40 font-medium transition-all duration-500 group-hover:border-gold/40 group-hover:text-gold"
-                    whileHover={{ scale: 1.1 }}
                   >
                     {step.number}
-                  </motion.div>
+                  </div>
 
                   <div className="md:pl-8 border-l md:border-l-0 border-white/[0.04] pl-8 md:pl-0 relative">
-                    <motion.div
-                      className="absolute left-0 top-0 -translate-x-1/2 w-2 h-2 rounded-full bg-gold/60 hidden md:block"
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true }}
+                    <div
+                      className="absolute left-0 top-0 -translate-x-1/2 w-2 h-2 rounded-full bg-gold/60 hidden md:block process-dot"
                       style={{ left: '-28px' }}
                     />
-                    <motion.div
-                      className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full border border-gold/30 hidden md:block"
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 }}
+                    <div
+                      className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full border border-gold/30 hidden md:block process-ring"
                       style={{ left: '-28px' }}
                     />
                     <span className="text-[10px] tracking-[0.25em] uppercase text-gold/40 md:hidden">Step {step.number}</span>

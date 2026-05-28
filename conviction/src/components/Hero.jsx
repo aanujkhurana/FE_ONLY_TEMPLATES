@@ -1,23 +1,5 @@
-import { motion } from 'framer-motion'
 import { usePreview } from '../context/PreviewContext'
 import MagneticButton from './ui/MagneticButton'
-
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-  },
-}
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-  },
-}
 
 export default function Hero() {
   const { openForm, submitted } = usePreview()
@@ -28,28 +10,28 @@ export default function Hero() {
 
       <div className="absolute inset-0 z-0">
         <div
-          className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full opacity-40"
+          className="ambient-glow absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full opacity-40"
           style={{
             background: 'radial-gradient(circle at 30% 30%, rgba(201,168,76,0.35) 0%, rgba(201,168,76,0.05) 50%, transparent 70%)',
             filter: 'blur(100px)',
           }}
         />
         <div
-          className="absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-35"
+          className="ambient-glow absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full opacity-35"
           style={{
             background: 'radial-gradient(circle at 70% 30%, rgba(122,92,245,0.3) 0%, rgba(122,92,245,0.05) 50%, transparent 70%)',
             filter: 'blur(100px)',
           }}
         />
         <div
-          className="absolute -bottom-40 left-1/4 w-[650px] h-[650px] rounded-full opacity-25"
+          className="ambient-glow absolute -bottom-40 left-1/4 w-[650px] h-[650px] rounded-full opacity-25"
           style={{
             background: 'radial-gradient(circle at 50% 70%, rgba(45,212,191,0.2) 0%, rgba(45,212,191,0.05) 50%, transparent 70%)',
             filter: 'blur(100px)',
           }}
         />
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15"
+          className="ambient-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-15"
           style={{
             background: 'radial-gradient(circle at center, rgba(236,232,225,0.15) 0%, transparent 60%)',
             filter: 'blur(80px)',
@@ -93,33 +75,28 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 min-h-screen flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="flex-1 pt-16 lg:pt-0"
-        >
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/[0.15] bg-gold/[0.04] text-gold/70 text-[11px] tracking-[0.2em] uppercase mb-8 backdrop-blur-sm">
+        <div className="flex-1 pt-16 lg:pt-0">
+          <div className="hero-reveal inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/[0.15] bg-gold/[0.04] text-gold/70 text-[11px] tracking-[0.2em] uppercase mb-8 supports-[backdrop-filter]:md:backdrop-blur-sm">
             <span
               className="w-1.5 h-1.5 rounded-full bg-gold"
               style={{ animation: 'skeleton-pulse 2s ease-in-out infinite' }}
             />
             Premium Digital Presence
-          </motion.div>
+          </div>
 
-          <motion.h1 variants={fadeUp} className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-semibold leading-[0.82] tracking-[-0.07em]">
+          <h1 className="hero-reveal hero-reveal-2 text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-semibold leading-[0.82] tracking-[-0.07em]">
             <span className="text-ivory">We Make Local</span>
             <br />
             <span className="text-ivory">Businesses</span>
             <br />
             <span className="gradient-text">Look Premium.</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p variants={fadeUp} className="mt-6 text-base sm:text-lg text-ivory-dark/60 leading-relaxed max-w-lg">
+          <p className="hero-reveal hero-reveal-3 mt-6 text-base sm:text-lg text-ivory-dark/60 leading-relaxed max-w-lg">
             Cinematic high-converting websites designed to turn local traffic into phone calls, quotes, and customers.
-          </motion.p>
+          </p>
 
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-10">
+          <div className="hero-reveal hero-reveal-4 flex flex-wrap gap-4 mt-10">
             <MagneticButton>
               {submitted ? (
                 <span className="inline-flex items-center gap-2 px-8 py-4 bg-white/[0.04] text-gold/80 text-sm font-medium rounded-full border border-white/[0.06]">
@@ -145,9 +122,9 @@ export default function Hero() {
                 View Our Work
               </a>
             </MagneticButton>
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeUp} className="mt-14 flex items-center gap-4">
+          <div className="hero-reveal hero-reveal-5 mt-14 flex items-center gap-4">
             <div className="flex -space-x-3">
               <div className="w-9 h-9 rounded-xl border-2 border-[#080808] bg-white/10 flex items-center justify-center shadow-lg" style={{ zIndex: 4 }}>
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-white/70" fill="none" stroke="currentColor" strokeWidth={1.5}>
@@ -174,15 +151,10 @@ export default function Hero() {
             <div className="text-ivory-dark/40 text-sm leading-snug">
               <span className="text-ivory-dark/60 font-medium">Trusted</span> by service businesses across Australia
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 80, y: 30 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex-1 w-full max-w-lg lg:max-w-none"
-        >
+        <div className="hero-device flex-1 w-full max-w-lg lg:max-w-none">
           <div className="relative">
             <div
               className="absolute -inset-8 bg-gold/[0.04] blur-3xl rounded-3xl opacity-40"
@@ -234,7 +206,7 @@ export default function Hero() {
             </div>
 
             <div
-              className="absolute -top-4 -right-4 lg:-right-6 px-4 py-2 rounded-xl border border-white/[0.06] bg-[#0c0c0d]/90 backdrop-blur-xl shadow-lg"
+              className="absolute -top-4 -right-4 lg:-right-6 px-4 py-2 rounded-xl border border-white/[0.06] bg-[#0c0c0d]/92 supports-[backdrop-filter]:md:backdrop-blur-md shadow-lg"
               style={{ animation: 'float-2 7s ease-in-out infinite' }}
             >
               <div className="flex items-center gap-2">
@@ -244,7 +216,7 @@ export default function Hero() {
             </div>
 
             <div
-              className="absolute -bottom-3 -left-4 lg:-left-6 px-4 py-2 rounded-xl border border-white/[0.06] bg-[#0c0c0d]/90 backdrop-blur-xl shadow-lg"
+              className="absolute -bottom-3 -left-4 lg:-left-6 px-4 py-2 rounded-xl border border-white/[0.06] bg-[#0c0c0d]/92 supports-[backdrop-filter]:md:backdrop-blur-md shadow-lg"
               style={{ animation: 'float-1 8s ease-in-out infinite 1s' }}
             >
               <div className="flex items-center gap-2">
@@ -253,7 +225,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -6,6 +6,7 @@ export default function MagneticButton({ children, className = '' }) {
 
   const handleMouse = useCallback((e) => {
     if (!ref.current) return
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     if (rafRef.current) return
     rafRef.current = requestAnimationFrame(() => {
       rafRef.current = null
@@ -13,7 +14,7 @@ export default function MagneticButton({ children, className = '' }) {
       const x = (e.clientX - (rect.left + rect.width / 2)) * 0.3
       const y = (e.clientY - (rect.top + rect.height / 2)) * 0.3
       if (ref.current) {
-        ref.current.style.transform = `translate(${x}px, ${y}px)`
+        ref.current.style.transform = `translate3d(${x}px, ${y}px, 0)`
       }
     })
   }, [])
